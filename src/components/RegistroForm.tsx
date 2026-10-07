@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { CAPTCHA_SITE_KEY, Turnstile } from "@/components/Turnstile";
 
 // Mismo dominio donde vive la plataforma -- el endpoint público de registro
 // (/api/registro-publico) tiene CORS abierto solo para este origen.
@@ -21,6 +22,7 @@ export function RegistroForm() {
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [exito, setExito] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   async function enviar(e: FormEvent) {
     e.preventDefault();
@@ -37,6 +39,7 @@ export function RegistroForm() {
         telefono_admin: telefonoAdmin,
         email_admin: emailAdmin,
         sitio_web: sitioWeb,
+        turnstile_token: captchaToken,
       }),
     }).catch(() => null);
 
@@ -136,11 +139,15 @@ export function RegistroForm() {
         </div>
       </div>
 
+      <div className="mt-4">
+        <Turnstile onVerify={setCaptchaToken} />
+      </div>
+
       {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
 
       <button
         type="submit"
-        disabled={enviando}
+        disabled={enviando || (Boolean(CAPTCHA_SITE_KEY) && !captchaToken)}
         style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
         className="mt-6 w-full rounded-lg px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
       >
