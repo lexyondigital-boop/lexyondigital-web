@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+    restart: always
+    networks:
+      - n8n_default
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=n8n_default
+      - traefik.http.routers.lexyondigital-web.rule=Host(`lexyondigital.com.mx`) || Host(`www.lexyondigital.com.mx`)
+      - traefik.http.routers.lexyondigital-web.tls=true
+      - traefik.http.routers.lexyondigital-web.entrypoints=web,websecure
+      - traefik.http.routers.lexyondigital-web.tls.certresolver=mytlschallenge
+      - traefik.http.services.lexyondigital-web.loadbalancer.server.port=3000
+
+networks:
+  n8n_default:
+    external: true
