@@ -62,11 +62,18 @@ export function SiteHeader() {
 
           <a
             href="https://app.lexyondigital.com.mx"
-            className="hidden shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 md:inline-block"
-            style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
+            className="hidden shrink-0 text-sm font-medium text-[var(--color-texto-mute)] transition-colors hover:text-[var(--color-texto)] lg:inline-block"
           >
             Ir a la plataforma
           </a>
+
+          <Link
+            href="/registro"
+            className="hidden shrink-0 rounded-lg px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90 md:inline-block"
+            style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
+          >
+            Prueba gratis
+          </Link>
 
           <button
             type="button"
@@ -95,10 +102,17 @@ export function SiteHeader() {
               {e.label}
             </Link>
           ))}
-          <a
-            href="https://app.lexyondigital.com.mx"
+          <Link
+            href="/registro"
+            onClick={() => setMenuAbierto(false)}
             className="mt-2 rounded-lg px-4 py-2.5 text-center text-sm font-semibold"
             style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)" }}
+          >
+            Prueba gratis
+          </Link>
+          <a
+            href="https://app.lexyondigital.com.mx"
+            className="rounded-lg border border-[var(--color-borde)] px-4 py-2.5 text-center text-sm font-medium text-[var(--color-texto)]"
           >
             Ir a la plataforma
           </a>

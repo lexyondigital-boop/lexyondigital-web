@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 const BENEFICIOS = [
@@ -133,18 +134,18 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#servicios"
+            <Link
+              href="/registro"
               className="rounded-lg px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
               style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
             >
-              Conoce nuestros servicios
-            </a>
+              Prueba gratis 14 días
+            </Link>
             <a
-              href="https://app.lexyondigital.com.mx"
+              href="#servicios"
               className="rounded-lg border border-[var(--color-borde)] px-5 py-3 text-sm font-semibold text-[var(--color-texto)] transition-colors hover:border-[var(--color-borde-alto)]"
             >
-              Ir a la plataforma
+              Conoce nuestros servicios
             </a>
           </div>
 
