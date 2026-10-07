@@ -1,7 +1,11 @@
 services:
   app:
-    build:
-      context: .
+    # Imagen ya construida y subida por GitHub Actions a GHCR -- el panel
+    # de Hostinger solo sabe descargar una imagen lista, no compilarla
+    # (ver .github/workflows/main.yml). "latest" porque este proyecto
+    # vuelve a desplegarse en cada push a main; docker_compose_up vuelve a
+    # jalar la imagen antes de recrear el contenedor.
+    image: ghcr.io/lexyondigital-boop/lexyondigital-web:latest
     restart: always
     networks:
       - n8n_default
