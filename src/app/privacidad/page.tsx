@@ -11,7 +11,7 @@ export default function PrivacidadPage() {
     <LegalLayout titulo="Aviso de Privacidad" actualizado="11 de octubre de 2026">
       <h2>1. Identidad y domicilio del responsable</h2>
       <p>
-        <strong>CONSULTINGOL S.A.S. DE C.V.</strong>, RFC <strong>CON260325H62</strong>, con domicilio en
+        <strong>CONSULTINGOLD S.A.S. DE C.V.</strong>, RFC <strong>CON260325H62</strong>, con domicilio en
         Calle 127 número 624, Fraccionamiento Los Héroes, Mérida, Yucatán, C.P. 97306 (en adelante,
         &quot;LexyonDigital&quot;), es responsable del tratamiento de tus datos personales conforme a la Ley
         Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento.

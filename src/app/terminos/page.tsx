@@ -12,7 +12,7 @@ export default function TerminosPage() {
       <h2>1. Quiénes somos y a qué aplican estos términos</h2>
       <p>
         Estos Términos y Condiciones rigen el uso de la plataforma LexyonDigital, operada por{" "}
-        <strong>CONSULTINGOL S.A.S. DE C.V.</strong> (&quot;LexyonDigital&quot;, &quot;nosotros&quot;),
+        <strong>CONSULTINGOLD S.A.S. DE C.V.</strong> (&quot;LexyonDigital&quot;, &quot;nosotros&quot;),
         accesible en app.lexyondigital.com.mx. Al registrarte o usar la plataforma, aceptas estos términos.
         Si no estás de acuerdo, no debes usar el servicio.
       </p>
