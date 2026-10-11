@@ -9,21 +9,12 @@ export const metadata: Metadata = {
 export default function PrivacidadPage() {
   return (
     <LegalLayout titulo="Aviso de Privacidad" actualizado="11 de octubre de 2026">
-      <p>
-        <strong>
-          [Pendiente de confirmar con el equipo legal/administrativo de LexyonDigital: razón social exacta,
-          RFC y domicilio fiscal. Este aviso se publica con la identidad abajo marcada como provisional y debe
-          actualizarse antes de considerarse definitivo.]
-        </strong>
-      </p>
-
       <h2>1. Identidad y domicilio del responsable</h2>
       <p>
-        <strong>[Razón social de LexyonDigital — pendiente de confirmar]</strong> (en adelante,
-        &quot;LexyonDigital&quot;), con RFC <strong>[pendiente de confirmar]</strong> y domicilio en{" "}
-        <strong>[domicilio fiscal — pendiente de confirmar]</strong>, es responsable del tratamiento de tus
-        datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los
-        Particulares (LFPDPPP) y su Reglamento.
+        <strong>CONSULTINGOL S.A.S. DE C.V.</strong>, RFC <strong>CON260325H62</strong>, con domicilio en
+        Calle 127 número 624, Fraccionamiento Los Héroes, Mérida, Yucatán, C.P. 97306 (en adelante,
+        &quot;LexyonDigital&quot;), es responsable del tratamiento de tus datos personales conforme a la Ley
+        Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento.
       </p>
 
       <h2>2. Datos personales que recabamos</h2>
@@ -143,11 +134,10 @@ export default function PrivacidadPage() {
       </p>
       <p>
         Para ejercer cualquiera de estos derechos, contáctanos en{" "}
-        <strong>[correo dedicado a solicitudes ARCO — pendiente de confirmar, por ejemplo privacidad@lexyondigital.com.mx]</strong>{" "}
-        indicando tu nombre, el medio por el que tuviste contacto con nosotros (por ejemplo, el negocio cuyo
-        WhatsApp usaste) y el derecho que deseas ejercer. Si tu solicitud corresponde a datos tratados por
-        LexyonDigital por cuenta de un negocio cliente, podemos canalizarla a dicho negocio como responsable
-        primario de esos datos.
+        <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a> indicando tu nombre, el medio por
+        el que tuviste contacto con nosotros (por ejemplo, el negocio cuyo WhatsApp usaste) y el derecho que
+        deseas ejercer. Si tu solicitud corresponde a datos tratados por LexyonDigital por cuenta de un
+        negocio cliente, podemos canalizarla a dicho negocio como responsable primario de esos datos.
       </p>
 
       <h2>9. Uso de cookies</h2>
