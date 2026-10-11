@@ -3,9 +3,15 @@ services:
     # Imagen ya construida y subida por GitHub Actions a GHCR -- el panel
     # de Hostinger solo sabe descargar una imagen lista, no compilarla
     # (ver .github/workflows/main.yml). "latest" porque este proyecto
-    # vuelve a desplegarse en cada push a main; docker_compose_up vuelve a
-    # jalar la imagen antes de recrear el contenedor.
+    # vuelve a desplegarse en cada push a main.
+    #
+    # pull_policy: always es necesario porque "docker compose up -d" por sí
+    # solo NO vuelve a jalar una imagen si ya existe localmente una con ese
+    # tag -- se queda sirviendo el build viejo indefinidamente aunque
+    # "latest" en el registro ya cambió. Confirmado en vivo: varios
+    # despliegues seguidos quedaban en éxito sin que el sitio cambiara.
     image: ghcr.io/lexyondigital-boop/lexyondigital-web:latest
+    pull_policy: always
     restart: always
     networks:
       - n8n_default
