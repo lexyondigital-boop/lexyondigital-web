@@ -157,3 +157,59 @@ body {
 ::selection {
   background: color-mix(in srgb, var(--color-marca) 35%, transparent);
 }
+
+.legal-doc h2 {
+  margin-top: 2.25rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.legal-doc h2:first-child {
+  margin-top: 0;
+}
+
+.legal-doc h3 {
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.legal-doc p {
+  margin-top: 0.85rem;
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: var(--color-texto-mute);
+}
+
+.legal-doc ul,
+.legal-doc ol {
+  margin-top: 0.85rem;
+  padding-left: 1.25rem;
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: var(--color-texto-mute);
+}
+
+.legal-doc ul {
+  list-style-type: disc;
+}
+
+.legal-doc ol {
+  list-style-type: decimal;
+}
+
+.legal-doc li + li {
+  margin-top: 0.4rem;
+}
+
+.legal-doc strong {
+  color: var(--color-texto);
+  font-weight: 600;
+}
+
+.legal-doc a {
+  color: var(--color-marca);
+  text-decoration: underline;
+}

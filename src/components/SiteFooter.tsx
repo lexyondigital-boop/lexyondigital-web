@@ -12,8 +12,8 @@ const REDES = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-[var(--color-borde)] bg-[var(--color-bg-elevada)]">
-      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:px-8 sm:grid-cols-3">
-        <div>
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:px-8 sm:grid-cols-4">
+        <div className="sm:col-span-2">
           <Logo tamaño="sm" />
           <p className="mt-3 max-w-xs text-sm text-[var(--color-texto-mute)]">
             Marketing digital, respaldo legal y contable, y automatización con inteligencia artificial —
@@ -27,16 +27,8 @@ export function SiteFooter() {
             <li>info@lexyondigital.com</li>
             <li>+52 1 720 137 7472</li>
             <li>www.lexyondigital.com.mx</li>
-            <li>
-              <Link href="/privacidad" className="underline hover:text-[var(--color-texto)]">
-                Política de Privacidad
-              </Link>
-            </li>
           </ul>
-        </div>
-
-        <div>
-          <h3 className="text-sm font-semibold text-[var(--color-texto)]">Síguenos</h3>
+          <h3 className="mt-6 text-sm font-semibold text-[var(--color-texto)]">Síguenos</h3>
           <div className="mt-3 flex gap-2.5">
             {REDES.map((r) => (
               <a
@@ -52,6 +44,27 @@ export function SiteFooter() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold text-[var(--color-texto)]">Legal</h3>
+          <ul className="mt-3 space-y-2 text-sm text-[var(--color-texto-mute)]">
+            <li>
+              <Link href="/privacidad" className="underline hover:text-[var(--color-texto)]">
+                Aviso de Privacidad
+              </Link>
+            </li>
+            <li>
+              <Link href="/terminos" className="underline hover:text-[var(--color-texto)]">
+                Términos y Condiciones
+              </Link>
+            </li>
+            <li>
+              <Link href="/cookies" className="underline hover:text-[var(--color-texto)]">
+                Política de Cookies
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
 
