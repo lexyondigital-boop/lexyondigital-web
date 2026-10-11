@@ -9,20 +9,12 @@ export const metadata: Metadata = {
 export default function TerminosPage() {
   return (
     <LegalLayout titulo="Términos y Condiciones" actualizado="11 de octubre de 2026">
-      <p>
-        <strong>
-          [Pendiente de confirmar con el equipo legal/administrativo de LexyonDigital: razón social exacta y
-          jurisdicción para la sección 10. Estos términos se publican con la identidad abajo marcada como
-          provisional.]
-        </strong>
-      </p>
-
       <h2>1. Quiénes somos y a qué aplican estos términos</h2>
       <p>
         Estos Términos y Condiciones rigen el uso de la plataforma LexyonDigital, operada por{" "}
-        <strong>[Razón social de LexyonDigital — pendiente de confirmar]</strong> (&quot;LexyonDigital&quot;,
-        &quot;nosotros&quot;), accesible en app.lexyondigital.com.mx. Al registrarte o usar la plataforma,
-        aceptas estos términos. Si no estás de acuerdo, no debes usar el servicio.
+        <strong>CONSULTINGOL S.A.S. DE C.V.</strong> (&quot;LexyonDigital&quot;, &quot;nosotros&quot;),
+        accesible en app.lexyondigital.com.mx. Al registrarte o usar la plataforma, aceptas estos términos.
+        Si no estás de acuerdo, no debes usar el servicio.
       </p>
 
       <h2>2. Descripción del servicio</h2>
@@ -119,9 +111,8 @@ export default function TerminosPage() {
       <h2>10. Ley aplicable y jurisdicción</h2>
       <p>
         Estos términos se rigen por las leyes de los Estados Unidos Mexicanos. Para cualquier controversia,
-        las partes se someten a los tribunales competentes de{" "}
-        <strong>[ciudad/estado — pendiente de confirmar según el domicilio fiscal de LexyonDigital]</strong>,
-        renunciando a cualquier otro fuero que pudiera corresponderles.
+        las partes se someten a los tribunales competentes de la ciudad de Mérida, Yucatán, renunciando a
+        cualquier otro fuero que pudiera corresponderles.
       </p>
 
       <h2>11. Modificaciones a estos términos</h2>
