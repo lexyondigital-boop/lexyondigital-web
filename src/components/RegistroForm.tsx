@@ -23,6 +23,7 @@ export function RegistroForm() {
   const [error, setError] = useState<string | null>(null);
   const [exito, setExito] = useState(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
   async function enviar(e: FormEvent) {
     e.preventDefault();
@@ -139,6 +140,27 @@ export function RegistroForm() {
         </div>
       </div>
 
+      <label className="mt-4 flex items-start gap-2 text-sm text-[var(--color-texto-mute)]">
+        <input
+          type="checkbox"
+          checked={aceptaTerminos}
+          onChange={(e) => setAceptaTerminos(e.target.checked)}
+          required
+          className="mt-0.5"
+        />
+        <span>
+          Acepto los{" "}
+          <a href="/terminos" target="_blank" rel="noreferrer" className="underline hover:text-[var(--color-texto)]">
+            Términos y Condiciones
+          </a>{" "}
+          y el{" "}
+          <a href="/privacidad" target="_blank" rel="noreferrer" className="underline hover:text-[var(--color-texto)]">
+            Aviso de Privacidad
+          </a>
+          .
+        </span>
+      </label>
+
       <div className="mt-4">
         <Turnstile onVerify={setCaptchaToken} />
       </div>
@@ -147,7 +169,7 @@ export function RegistroForm() {
 
       <button
         type="submit"
-        disabled={enviando || (Boolean(CAPTCHA_SITE_KEY) && !captchaToken)}
+        disabled={enviando || !aceptaTerminos || (Boolean(CAPTCHA_SITE_KEY) && !captchaToken)}
         style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
         className="mt-6 w-full rounded-lg px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
       >
