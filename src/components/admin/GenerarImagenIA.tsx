@@ -2,6 +2,13 @@
 
 import { useActionState } from "react";
 import { generarImagenPost } from "@/lib/blog-actions";
+import { CALIDADES_IMAGEN, type CalidadImagen } from "@/lib/ia-opciones";
+
+const ETIQUETA_CALIDAD: Record<CalidadImagen, string> = {
+  low: "Baja -- ~$0.01-0.02 por imagen",
+  medium: "Media -- ~$0.06-0.08 por imagen",
+  high: "Alta -- ~$0.20-0.25 por imagen",
+};
 
 export function GenerarImagenIA({ postId, promptSugerido }: { postId: string; promptSugerido: string | null }) {
   const [state, formAction, pending] = useActionState(generarImagenPost.bind(null, postId), undefined);
@@ -9,7 +16,7 @@ export function GenerarImagenIA({ postId, promptSugerido }: { postId: string; pr
   return (
     <form
       action={formAction}
-      className="max-w-2xl space-y-2 rounded-2xl border border-dashed border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-4"
+      className="max-w-2xl space-y-3 rounded-2xl border border-dashed border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-4"
     >
       <label className="block">
         <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Generar portada con IA (OpenAI)</span>
@@ -27,6 +34,22 @@ export function GenerarImagenIA({ postId, promptSugerido }: { postId: string; pr
             Prompt sugerido por Claude -- revísalo y edítalo antes de generar.
           </span>
         )}
+      </label>
+
+      <label className="block">
+        <span className="mb-1.5 block text-xs font-medium text-[var(--color-texto)]">Calidad</span>
+        <select
+          name="calidad"
+          defaultValue="medium"
+          disabled={pending}
+          className="w-full rounded-lg border border-[var(--color-borde)] bg-[var(--color-bg-elevada)] px-2 py-1.5 text-xs text-[var(--color-texto)] disabled:opacity-60"
+        >
+          {CALIDADES_IMAGEN.map((c) => (
+            <option key={c} value={c}>
+              {ETIQUETA_CALIDAD[c]}
+            </option>
+          ))}
+        </select>
       </label>
 
       {state?.error && <p className="text-xs text-red-500">{state.error}</p>}

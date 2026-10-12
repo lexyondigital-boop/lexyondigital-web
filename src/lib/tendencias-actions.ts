@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { obtenerTendencia, etiquetaFuente } from "@/lib/tendencias";
+import { MODELOS_TEXTO, type ModeloTexto } from "@/lib/ia-opciones";
 
 type Resultado = { error: string } | undefined;
 
@@ -25,12 +26,15 @@ type TextoBlog = { titulo: string; resumen: string | null; contenido: string; im
 // JSON vía prompt + extracción manual -- mismo patrón que ya usa la
 // plataforma hermana en src/lib/tendencias.ts (recopilarTendenciasIA) para
 // no depender de output_config.format sin probar ese camino primero.
-async function escribirBlogConClaude(tendencia: {
-  termino: string;
-  fuente: string;
-  descripcion: string | null;
-  metrica: string | null;
-}): Promise<TextoBlog | { error: string }> {
+async function escribirBlogConClaude(
+  tendencia: {
+    termino: string;
+    fuente: string;
+    descripcion: string | null;
+    metrica: string | null;
+  },
+  modelo: ModeloTexto,
+): Promise<TextoBlog | { error: string }> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return { error: "ANTHROPIC_API_KEY no configurada en el servidor." };
 
@@ -47,7 +51,7 @@ async function escribirBlogConClaude(tendencia: {
 
   try {
     const mensaje = await client.beta.messages.create({
-      model: "claude-opus-5-5",
+      model: modelo,
       max_tokens: 4000,
       output_config: { effort: "low" },
       betas: ["server-side-fallback-2026-07-01"],
@@ -91,11 +95,19 @@ async function escribirBlogConClaude(tendencia: {
 // para revisar. La vista pública es la que ya existe en /blog -- este
 // flujo llena un borrador para revisar/editar/generar portada/publicar
 // desde /admin/blog/[id], igual que un post creado a mano.
-export async function generarBlogDesdeTendencia(tendenciaId: string, _prevState: Resultado): Promise<Resultado> {
+export async function generarBlogDesdeTendencia(
+  tendenciaId: string,
+  modeloEntrada: string,
+  _prevState: Resultado,
+): Promise<Resultado> {
   const tendencia = await obtenerTendencia(tendenciaId);
   if (!tendencia) return { error: "Esa tendencia ya no existe." };
 
-  const texto = await escribirBlogConClaude(tendencia);
+  const modelo: ModeloTexto = (MODELOS_TEXTO as readonly string[]).includes(modeloEntrada)
+    ? (modeloEntrada as ModeloTexto)
+    : "claude-sonnet-5-5";
+
+  const texto = await escribirBlogConClaude(tendencia, modelo);
   if ("error" in texto) return texto;
 
   const supabase = await createClient();
