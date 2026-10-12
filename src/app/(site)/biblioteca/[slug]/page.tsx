@@ -7,11 +7,14 @@ export const dynamic = "force-dynamic";
 
 async function obtenerTaller(slug: string) {
   const supabase = await createClient();
+  // Sin el filtro publicado=true explícito -- lo resuelve la RLS
+  // (talleres_select: publicado=true OR es_super_admin()), así un
+  // super_admin logueado puede previsualizar un borrador desde "Ver" en
+  // /admin, y un visitante anónimo sigue sin poder verlo.
   const { data: taller } = await supabase
     .from("talleres")
-    .select("id, titulo, descripcion, imagen_url")
+    .select("id, titulo, descripcion, imagen_url, publicado")
     .eq("slug", slug)
-    .eq("publicado", true)
     .maybeSingle();
 
   if (!taller) return null;
@@ -40,6 +43,11 @@ export default async function TallerPage({ params }: { params: Promise<{ slug: s
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      {!taller.publicado && (
+        <span className="mb-3 inline-block rounded-full bg-[var(--color-aviso)]/15 px-3 py-1 text-xs font-medium text-[var(--color-aviso)]">
+          Borrador — solo visible para administradores
+        </span>
+      )}
       <h1 className="text-3xl font-bold text-[var(--color-texto)] sm:text-4xl">{taller.titulo}</h1>
       <p className="mt-3 text-[var(--color-texto-mute)]">{taller.descripcion}</p>
 

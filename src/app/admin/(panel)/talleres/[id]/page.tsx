@@ -13,7 +13,7 @@ export default async function EditarTallerPage({ params }: { params: Promise<{ i
 
   const { data: taller } = await supabase
     .from("talleres")
-    .select("id, titulo, descripcion, publicado, orden, imagen_url")
+    .select("id, slug, titulo, descripcion, publicado, orden, imagen_url")
     .eq("id", id)
     .maybeSingle();
 
@@ -29,11 +29,21 @@ export default async function EditarTallerPage({ params }: { params: Promise<{ i
     <div className="max-w-3xl space-y-8">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-[var(--color-texto)]">Editar taller</h1>
-        <ConfirmDeleteButton
-          accion={eliminarTaller.bind(null, id)}
-          confirmar={`¿Eliminar el taller "${taller.titulo}" y todos sus módulos?`}
-          etiqueta="Eliminar taller"
-        />
+        <div className="flex items-center gap-4">
+          <a
+            href={`/biblioteca/${taller.slug}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-[var(--color-marca)] hover:underline"
+          >
+            Ver {!taller.publicado && "(borrador)"}
+          </a>
+          <ConfirmDeleteButton
+            accion={eliminarTaller.bind(null, id)}
+            confirmar={`¿Eliminar el taller "${taller.titulo}" y todos sus módulos?`}
+            etiqueta="Eliminar taller"
+          />
+        </div>
       </div>
 
       <TallerForm taller={taller} accion={actualizarTaller.bind(null, id)} />
