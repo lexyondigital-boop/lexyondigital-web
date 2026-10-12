@@ -2,6 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 
+// Deja margen bajo el límite de 10MB del body de la Server Action (ver
+// next.config.ts) -- multipart/form-data agrega overhead de boundaries y
+// metadata además del archivo en sí.
+const MAX_IMAGEN_BYTES = 8 * 1024 * 1024;
+
 type Post = {
   titulo: string;
   resumen: string | null;
@@ -22,17 +27,25 @@ export function PostForm({
 
   async function enviar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setEnviando(true);
     setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const archivo = formData.get("imagen") as File | null;
+    if (archivo && archivo.size > MAX_IMAGEN_BYTES) {
+      setError(`Esa imagen pesa ${(archivo.size / 1024 / 1024).toFixed(1)}MB; el máximo es 8MB.`);
+      return;
+    }
+
+    setEnviando(true);
     try {
-      const resultado = await accion(new FormData(e.currentTarget));
+      const resultado = await accion(formData);
       if (resultado?.error) {
         setEnviando(false);
         setError(resultado.error);
       }
-    } catch {
+    } catch (err) {
       setEnviando(false);
-      setError("No se pudo guardar. Si subiste una imagen, intenta con una más liviana (menos de 10MB).");
+      setError(err instanceof Error && err.message ? err.message : "No se pudo guardar. Intenta de nuevo.");
     }
   }
 
