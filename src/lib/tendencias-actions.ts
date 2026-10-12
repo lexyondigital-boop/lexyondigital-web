@@ -57,7 +57,7 @@ async function escribirBlogConClaude(
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
       system:
-        'Eres redactor del blog de LexyonDigital, una agencia mexicana de marketing digital e IA. Escribes posts cortos (400-600 palabras), directos y sin relleno, con un ángulo práctico para dueños de negocio -- nunca cátedra teórica. Respondes ÚNICAMENTE con JSON válido, sin markdown ni explicación adicional, con esta forma exacta: {"titulo": string, "resumen": string (máximo 200 caracteres, para la vista de lista), "contenido": string (texto plano, párrafos separados por doble salto de línea), "imagen_prompt": string (en inglés, describe una imagen de portada para este artículo -- estilo profesional y moderno, sin texto ni letras superpuestas en la imagen)}.',
+        'Eres redactor del blog de LexyonDigital, una agencia mexicana de marketing digital e IA. Escribes posts cortos (400-600 palabras), directos y sin relleno, con un ángulo práctico para dueños de negocio -- nunca cátedra teórica. Respondes ÚNICAMENTE con JSON válido, sin markdown ni explicación adicional, con esta forma exacta: {"titulo": string, "resumen": string (máximo 200 caracteres, para la vista de lista), "contenido": string (texto plano, párrafos separados por doble salto de línea), "imagen_prompt": string (EN ESPAÑOL, 1-2 frases que describan una imagen de portada para este artículo -- estilo profesional y moderno, sin texto ni letras superpuestas en la imagen; se traduce al inglés automáticamente antes de generarla, así que descríbela para que una persona la entienda, no para el generador de imágenes)}.',
       messages: [
         {
           role: "user",
