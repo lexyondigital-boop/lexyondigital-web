@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { PostForm } from "@/components/admin/PostForm";
+import { GenerarImagenIA } from "@/components/admin/GenerarImagenIA";
 import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
 import { actualizarPost, eliminarPost } from "@/lib/blog-actions";
 
@@ -12,7 +13,7 @@ export default async function EditarPostPage({ params }: { params: Promise<{ id:
 
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("id, slug, titulo, resumen, contenido, publicado, imagen_url")
+    .select("id, slug, titulo, resumen, contenido, publicado, imagen_url, imagen_prompt_sugerido")
     .eq("id", id)
     .maybeSingle();
 
@@ -38,6 +39,8 @@ export default async function EditarPostPage({ params }: { params: Promise<{ id:
           />
         </div>
       </div>
+
+      <GenerarImagenIA postId={id} promptSugerido={post.imagen_prompt_sugerido} />
 
       <PostForm post={post} accion={actualizarPost.bind(null, id)} />
     </div>
