@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 import { Logo } from "@/components/Logo";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
+// Calculadora Ads y Contacto se ocultan del menú por ahora (a pedido del
+// usuario) -- las rutas siguen existiendo, solo no están enlazadas aquí.
 const ENLACES = [
   { href: "/", label: "Inicio" },
   { href: "/biblioteca", label: "Biblioteca" },
   { href: "/blog", label: "Blog" },
   { href: "/tienda", label: "Tienda" },
-  { href: "/calculadora-ads", label: "Calculadora Ads" },
   { href: "/acerca-de", label: "Acerca de" },
-  { href: "/contacto", label: "Contacto" },
 ];
 
 export function SiteHeader() {
