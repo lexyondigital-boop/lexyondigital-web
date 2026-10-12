@@ -1,33 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { startTransition, useActionState } from "react";
+
+type Resultado = { error: string } | undefined;
 
 export function ConfirmDeleteButton({
   accion,
   confirmar,
   etiqueta = "Eliminar",
 }: {
-  accion: () => Promise<{ error: string } | undefined>;
+  accion: (prevState: Resultado) => Promise<Resultado>;
   confirmar: string;
   etiqueta?: string;
 }) {
-  const [cargando, setCargando] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [state, dispatch, pending] = useActionState(accion, undefined);
 
-  async function eliminar() {
+  function eliminar() {
     if (!window.confirm(confirmar)) return;
-    setCargando(true);
-    setError(null);
-    try {
-      const resultado = await accion();
-      if (resultado?.error) {
-        setCargando(false);
-        setError(resultado.error);
-      }
-    } catch {
-      setCargando(false);
-      setError("No se pudo eliminar. Intenta de nuevo.");
-    }
+    startTransition(() => dispatch());
   }
 
   return (
@@ -35,12 +25,14 @@ export function ConfirmDeleteButton({
       <button
         type="button"
         onClick={eliminar}
-        disabled={cargando}
-        className="text-sm font-medium text-red-500 hover:underline disabled:opacity-60"
+        disabled={pending}
+        aria-busy={pending}
+        className="flex items-center gap-1.5 text-sm font-medium text-red-500 hover:underline disabled:opacity-60"
       >
-        {cargando ? "Eliminando…" : etiqueta}
+        {pending && <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />}
+        {pending ? "Eliminando…" : etiqueta}
       </button>
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {state?.error && <p className="mt-1 text-xs text-red-500">{state.error}</p>}
     </div>
   );
 }
