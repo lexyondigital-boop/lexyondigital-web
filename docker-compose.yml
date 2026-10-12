@@ -23,6 +23,14 @@ services:
       - traefik.http.routers.lexyondigital-web.entrypoints=web,websecure
       - traefik.http.routers.lexyondigital-web.tls.certresolver=mytlschallenge
       - traefik.http.services.lexyondigital-web.loadbalancer.server.port=3000
+    # Server-only -- nunca van como build arg (eso las horneara en la imagen
+    # y en el caché de build). Solo las usan las Server Actions de
+    # /admin/tendencias en runtime. El valor real se configura en el panel
+    # de Hostinger de este proyecto (igual que ya está hecho para
+    # lexyondigital-saas), no aquí.
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
 
 networks:
   n8n_default:
