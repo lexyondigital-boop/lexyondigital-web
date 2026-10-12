@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { CALIDADES_IMAGEN, type CalidadImagen } from "@/lib/ia-opciones";
 
@@ -28,6 +29,41 @@ async function subirImagen(
   if (error) return { error: `No se pudo subir la imagen: ${error.message}` };
   const { data } = supabase.storage.from("biblioteca-media").getPublicUrl(ruta);
   return { url: data.publicUrl };
+}
+
+// La persona siempre escribe/edita el prompt en español -- OpenAI genera
+// mejor a partir de inglés, así que se traduce justo antes de llamarlo.
+// Lo que se guarda en blog_posts.imagen_prompt_sugerido sigue siendo el
+// texto en español que la persona vio y editó, no esta traducción.
+async function traducirPromptImagen(promptEs: string): Promise<string | { error: string }> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return { error: "ANTHROPIC_API_KEY no configurada en el servidor." };
+
+  const client = new Anthropic({ apiKey });
+
+  try {
+    const mensaje = await client.beta.messages.create({
+      model: "claude-haiku-5-5",
+      max_tokens: 300,
+      output_config: { effort: "low" },
+      betas: ["server-side-fallback-2026-07-01"],
+      fallbacks: "default",
+      system:
+        "Traduces descripciones de imagen del español al inglés para un generador de imágenes. Responde ÚNICAMENTE con la traducción en inglés, sin comillas ni explicación.",
+      messages: [{ role: "user", content: promptEs }],
+    });
+
+    const bloque = mensaje.content.find((b) => b.type === "text");
+    if (!bloque || bloque.type !== "text") return { error: "Claude no devolvió la traducción del prompt." };
+
+    const texto = bloque.text.trim();
+    if (!texto) return { error: "La traducción del prompt vino vacía." };
+
+    return texto;
+  } catch (err) {
+    if (err instanceof Anthropic.APIError) return { error: `Claude respondió: ${err.message}` };
+    return { error: err instanceof Error ? err.message : "Error desconocido al traducir el prompt." };
+  }
 }
 
 // Portada con OpenAI (gpt-image-1) -- mismo endpoint/forma que usa la
@@ -63,15 +99,18 @@ async function generarImagenConOpenAI(
 // el post. Acción separada del guardado del post: se puede disparar sola
 // desde /admin/blog/[id] sin perder cambios del formulario principal.
 export async function generarImagenPost(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
-  const prompt = String(formData.get("prompt") ?? "").trim();
-  if (!prompt) return { error: "Falta describir la imagen que quieres generar." };
+  const promptEs = String(formData.get("prompt") ?? "").trim();
+  if (!promptEs) return { error: "Falta describir la imagen que quieres generar." };
 
   const calidadEntrada = String(formData.get("calidad") ?? "");
   const calidad: CalidadImagen = (CALIDADES_IMAGEN as readonly string[]).includes(calidadEntrada)
     ? (calidadEntrada as CalidadImagen)
     : "medium";
 
-  const imagen = await generarImagenConOpenAI(prompt, calidad);
+  const promptEn = await traducirPromptImagen(promptEs);
+  if (typeof promptEn !== "string") return promptEn;
+
+  const imagen = await generarImagenConOpenAI(promptEn, calidad);
   if ("error" in imagen) return imagen;
 
   const supabase = await createClient();
@@ -85,11 +124,11 @@ export async function generarImagenPost(id: string, _prevState: Resultado, formD
 
   const { error } = await supabase
     .from("blog_posts")
-    .update({ imagen_url: data.publicUrl, imagen_prompt_sugerido: prompt })
+    .update({ imagen_url: data.publicUrl, imagen_prompt_sugerido: promptEs })
     .eq("id", id);
   if (error) return { error: error.message };
 
-  redirect(`/admin/blog/${id}`);
+  redirect(`/admin/blog/${id}?imagen=ok`);
 }
 
 // Firma (prevState, formData) a propósito -- sirve directo como action de
