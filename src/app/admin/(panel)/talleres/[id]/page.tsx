@@ -19,11 +19,19 @@ export default async function EditarTallerPage({ params }: { params: Promise<{ i
 
   if (!taller) notFound();
 
-  const { data: modulos } = await supabase
-    .from("taller_modulos")
-    .select("id, titulo, descripcion, youtube_url, orden")
+  const { data: modulosData } = await supabase
+    .from("modulos")
+    .select("id, titulo, orden, taller_modulos(id, titulo, descripcion, youtube_url, orden)")
     .eq("taller_id", id)
-    .order("orden", { ascending: true });
+    .order("orden", { ascending: true })
+    .order("orden", { referencedTable: "taller_modulos", ascending: true });
+
+  const modulos = (modulosData ?? []).map((m) => ({
+    id: m.id,
+    titulo: m.titulo,
+    orden: m.orden,
+    capitulos: m.taller_modulos,
+  }));
 
   return (
     <div className="max-w-3xl space-y-8">
@@ -49,10 +57,12 @@ export default async function EditarTallerPage({ params }: { params: Promise<{ i
       <TallerForm taller={taller} accion={actualizarTaller.bind(null, id)} />
 
       <div>
-        <h2 className="text-lg font-semibold text-[var(--color-texto)]">Módulos</h2>
-        <p className="mt-1 text-sm text-[var(--color-texto-mute)]">El orden determina en qué posición aparece cada video.</p>
+        <h2 className="text-lg font-semibold text-[var(--color-texto)]">Módulos y capítulos</h2>
+        <p className="mt-1 text-sm text-[var(--color-texto-mute)]">
+          Organiza el taller en módulos (ej. &quot;Módulo 1&quot;) y, dentro de cada uno, sus capítulos en video.
+        </p>
         <div className="mt-4">
-          <ModulosManager tallerId={id} modulos={modulos ?? []} />
+          <ModulosManager tallerId={id} modulos={modulos} />
         </div>
       </div>
     </div>

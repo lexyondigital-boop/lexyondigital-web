@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 
-type Modulo = {
+type Capitulo = {
   titulo: string;
   descripcion: string | null;
   youtube_url: string;
@@ -11,12 +11,12 @@ type Modulo = {
 
 type Resultado = { error: string } | undefined;
 
-export function ModuloForm({
-  modulo,
+export function CapituloForm({
+  capitulo,
   accion,
   alGuardar,
 }: {
-  modulo?: Modulo;
+  capitulo?: Capitulo;
   accion: (prevState: Resultado, formData: FormData) => Promise<Resultado>;
   alGuardar?: () => void;
 }) {
@@ -31,12 +31,12 @@ export function ModuloForm({
 
   return (
     <form action={formAction} className="space-y-2.5">
-      <input name="titulo" required disabled={pending} defaultValue={modulo?.titulo} placeholder="Título del módulo" className={inputClase} />
+      <input name="titulo" required disabled={pending} defaultValue={capitulo?.titulo} placeholder="Título del capítulo" className={inputClase} />
       <textarea
         name="descripcion"
         rows={2}
         disabled={pending}
-        defaultValue={modulo?.descripcion ?? ""}
+        defaultValue={capitulo?.descripcion ?? ""}
         placeholder="Descripción (opcional)"
         className={inputClase}
       />
@@ -44,14 +44,14 @@ export function ModuloForm({
         name="youtube_url"
         required
         disabled={pending}
-        defaultValue={modulo?.youtube_url}
+        defaultValue={capitulo?.youtube_url}
         placeholder="https://www.youtube.com/watch?v=..."
         className={inputClase}
       />
       <div className="flex items-end gap-2.5">
         <label className="w-24">
           <span className="mb-1 block text-xs text-[var(--color-texto-mute)]">Orden</span>
-          <input name="orden" type="number" disabled={pending} defaultValue={modulo?.orden ?? 0} className={inputClase} />
+          <input name="orden" type="number" disabled={pending} defaultValue={capitulo?.orden ?? 0} className={inputClase} />
         </label>
         <button
           type="submit"
@@ -61,7 +61,7 @@ export function ModuloForm({
           style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)" }}
         >
           {pending && <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" />}
-          {pending ? "Guardando…" : "Guardar módulo"}
+          {pending ? "Guardando…" : "Guardar capítulo"}
         </button>
       </div>
       {state?.error && <p className="text-xs text-red-500">{state.error}</p>}
