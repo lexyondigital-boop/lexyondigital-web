@@ -4,6 +4,14 @@ const nextConfig: NextConfig = {
   // Necesario para el build de Docker: genera server.js + solo las
   // dependencias que realmente se usan, en vez de copiar node_modules entero.
   output: "standalone",
+  images: {
+    remotePatterns: [
+      // Portadas de talleres/blog subidas al bucket biblioteca-media.
+      { protocol: "https", hostname: "rgradziyywjhvvsfzamm.supabase.co", pathname: "/storage/v1/object/public/**" },
+      // Miniatura automática de los módulos con video de YouTube.
+      { protocol: "https", hostname: "img.youtube.com" },
+    ],
+  },
   // Sin Content-Security-Policy a propósito: Turnstile carga su script desde
   // challenges.cloudflare.com y una CSP mal ajustada lo rompe en silencio.
   async headers() {

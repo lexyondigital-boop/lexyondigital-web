@@ -11,6 +11,12 @@ COPY . .
 # runtime -- por eso hace falta como build arg aquí (ver main.yml).
 ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
 ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
+# Mismo proyecto Supabase que app.lexyondigital.com.mx -- /admin de este
+# sitio reusa las cuentas super_admin que ya existen ahí.
+ARG NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY
 RUN npm run build
 
 FROM node:24-alpine AS runner

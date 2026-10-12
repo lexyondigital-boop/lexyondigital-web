@@ -9,6 +9,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 const ENLACES = [
   { href: "/", label: "Inicio" },
   { href: "/biblioteca", label: "Biblioteca" },
+  { href: "/blog", label: "Blog" },
   { href: "/tienda", label: "Tienda" },
   { href: "/calculadora-ads", label: "Calculadora Ads" },
   { href: "/acerca-de", label: "Acerca de" },

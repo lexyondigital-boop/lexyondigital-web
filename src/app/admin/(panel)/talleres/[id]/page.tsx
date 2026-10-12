@@ -1,0 +1,50 @@
+import { notFound } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { TallerForm } from "@/components/admin/TallerForm";
+import { ModulosManager } from "@/components/admin/ModulosManager";
+import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
+import { actualizarTaller, eliminarTaller } from "@/lib/talleres-actions";
+
+export const dynamic = "force-dynamic";
+
+export default async function EditarTallerPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const supabase = await createClient();
+
+  const { data: taller } = await supabase
+    .from("talleres")
+    .select("id, titulo, descripcion, publicado, orden, imagen_url")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (!taller) notFound();
+
+  const { data: modulos } = await supabase
+    .from("taller_modulos")
+    .select("id, titulo, descripcion, youtube_url, orden")
+    .eq("taller_id", id)
+    .order("orden", { ascending: true });
+
+  return (
+    <div className="max-w-3xl space-y-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-[var(--color-texto)]">Editar taller</h1>
+        <ConfirmDeleteButton
+          accion={eliminarTaller.bind(null, id)}
+          confirmar={`¿Eliminar el taller "${taller.titulo}" y todos sus módulos?`}
+          etiqueta="Eliminar taller"
+        />
+      </div>
+
+      <TallerForm taller={taller} accion={actualizarTaller.bind(null, id)} />
+
+      <div>
+        <h2 className="text-lg font-semibold text-[var(--color-texto)]">Módulos</h2>
+        <p className="mt-1 text-sm text-[var(--color-texto-mute)]">El orden determina en qué posición aparece cada video.</p>
+        <div className="mt-4">
+          <ModulosManager tallerId={id} modulos={modulos ?? []} />
+        </div>
+      </div>
+    </div>
+  );
+}
