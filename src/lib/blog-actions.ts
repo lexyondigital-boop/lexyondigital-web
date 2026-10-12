@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { CALIDADES_IMAGEN, type CalidadImagen } from "@/lib/ia-opciones";
 
 type Resultado = { error: string } | undefined;
 
@@ -31,15 +32,21 @@ async function subirImagen(
 
 // Portada con OpenAI (gpt-image-1) -- mismo endpoint/forma que usa la
 // plataforma hermana en src/lib/imagenes.ts (generarConOpenAI), sin el
-// sistema de créditos/proveedores que no aplica aquí.
-async function generarImagenConOpenAI(prompt: string): Promise<{ bytes: Buffer; mime: string } | { error: string }> {
+// sistema de créditos/proveedores que no aplica aquí. "quality" es el
+// dial de costo real de este flujo -- gpt-image-1 cobra por tokens de
+// imagen de salida, no por imagen plana, y la diferencia entre low y high
+// es de un orden de magnitud.
+async function generarImagenConOpenAI(
+  prompt: string,
+  calidad: CalidadImagen,
+): Promise<{ bytes: Buffer; mime: string } | { error: string }> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) return { error: "OPENAI_API_KEY no configurada en el servidor." };
 
   const res = await fetch("https://api.openai.com/v1/images/generations", {
     method: "POST",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "gpt-image-1", prompt, size: "1536x1024", n: 1 }),
+    body: JSON.stringify({ model: "gpt-image-1", prompt, size: "1536x1024", quality: calidad, n: 1 }),
   });
 
   const data = await res.json().catch(() => ({}));
@@ -59,7 +66,12 @@ export async function generarImagenPost(id: string, _prevState: Resultado, formD
   const prompt = String(formData.get("prompt") ?? "").trim();
   if (!prompt) return { error: "Falta describir la imagen que quieres generar." };
 
-  const imagen = await generarImagenConOpenAI(prompt);
+  const calidadEntrada = String(formData.get("calidad") ?? "");
+  const calidad: CalidadImagen = (CALIDADES_IMAGEN as readonly string[]).includes(calidadEntrada)
+    ? (calidadEntrada as CalidadImagen)
+    : "medium";
+
+  const imagen = await generarImagenConOpenAI(prompt, calidad);
   if ("error" in imagen) return imagen;
 
   const supabase = await createClient();
