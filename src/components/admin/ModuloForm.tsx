@@ -25,7 +25,14 @@ export function ModuloForm({
     e.preventDefault();
     setEnviando(true);
     setError(null);
-    const resultado = await accion(new FormData(e.currentTarget));
+    let resultado;
+    try {
+      resultado = await accion(new FormData(e.currentTarget));
+    } catch {
+      setEnviando(false);
+      setError("No se pudo guardar. Intenta de nuevo.");
+      return;
+    }
     if (resultado?.error) {
       setEnviando(false);
       setError(resultado.error);

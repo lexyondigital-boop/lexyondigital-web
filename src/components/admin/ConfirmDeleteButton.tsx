@@ -18,10 +18,15 @@ export function ConfirmDeleteButton({
     if (!window.confirm(confirmar)) return;
     setCargando(true);
     setError(null);
-    const resultado = await accion();
-    if (resultado?.error) {
+    try {
+      const resultado = await accion();
+      if (resultado?.error) {
+        setCargando(false);
+        setError(resultado.error);
+      }
+    } catch {
       setCargando(false);
-      setError(resultado.error);
+      setError("No se pudo eliminar. Intenta de nuevo.");
     }
   }
 
