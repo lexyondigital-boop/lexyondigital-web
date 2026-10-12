@@ -29,6 +29,57 @@ async function subirImagen(
   return { url: data.publicUrl };
 }
 
+// Portada con OpenAI (gpt-image-1) -- mismo endpoint/forma que usa la
+// plataforma hermana en src/lib/imagenes.ts (generarConOpenAI), sin el
+// sistema de créditos/proveedores que no aplica aquí.
+async function generarImagenConOpenAI(prompt: string): Promise<{ bytes: Buffer; mime: string } | { error: string }> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) return { error: "OPENAI_API_KEY no configurada en el servidor." };
+
+  const res = await fetch("https://api.openai.com/v1/images/generations", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ model: "gpt-image-1", prompt, size: "1536x1024", n: 1 }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) return { error: data?.error?.message ?? `OpenAI respondió ${res.status}` };
+
+  const b64 = data?.data?.[0]?.b64_json;
+  if (!b64) return { error: "OpenAI no devolvió la imagen." };
+
+  return { bytes: Buffer.from(b64, "base64"), mime: "image/png" };
+}
+
+// Genera la portada con OpenAI a partir del prompt que la persona revisó/
+// editó (propuesto antes por Claude o escrito a mano) y la deja puesta en
+// el post. Acción separada del guardado del post: se puede disparar sola
+// desde /admin/blog/[id] sin perder cambios del formulario principal.
+export async function generarImagenPost(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
+  const prompt = String(formData.get("prompt") ?? "").trim();
+  if (!prompt) return { error: "Falta describir la imagen que quieres generar." };
+
+  const imagen = await generarImagenConOpenAI(prompt);
+  if ("error" in imagen) return imagen;
+
+  const supabase = await createClient();
+
+  const ruta = `blog/${crypto.randomUUID()}.png`;
+  const { error: errorSubida } = await supabase.storage
+    .from("biblioteca-media")
+    .upload(ruta, imagen.bytes, { contentType: imagen.mime });
+  if (errorSubida) return { error: `No se pudo subir la imagen: ${errorSubida.message}` };
+  const { data } = supabase.storage.from("biblioteca-media").getPublicUrl(ruta);
+
+  const { error } = await supabase
+    .from("blog_posts")
+    .update({ imagen_url: data.publicUrl, imagen_prompt_sugerido: prompt })
+    .eq("id", id);
+  if (error) return { error: error.message };
+
+  redirect(`/admin/blog/${id}`);
+}
+
 // Firma (prevState, formData) a propósito -- sirve directo como action de
 // useActionState. Ver la nota en talleres-actions.ts sobre por qué.
 

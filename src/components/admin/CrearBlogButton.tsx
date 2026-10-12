@@ -7,7 +7,7 @@ export function CrearBlogButton({ tendenciaId }: { tendenciaId: string }) {
   const [state, dispatch, pending] = useActionState(generarBlogDesdeTendencia.bind(null, tendenciaId), undefined);
 
   function generar() {
-    if (!window.confirm("¿Generar un blog con IA a partir de esta tendencia? Usa las APIs de Claude y OpenAI y tarda unos segundos.")) return;
+    if (!window.confirm("¿Generar un blog con IA a partir de esta tendencia? Claude escribe el texto y propone un prompt de portada; la imagen se genera después, desde la edición del post.")) return;
     startTransition(() => dispatch());
   }
 
