@@ -36,6 +36,11 @@ async function subirImagen(
 // Invocar la Server Action fuera de <form action> o de useActionState hace
 // que el redirect() de éxito se filtre como un error "NEXT_REDIRECT" en vez
 // de navegar -- ver AGENTS.md sobre esta versión de Next.
+//
+// Un taller se organiza en dos niveles: Módulo (tabla "modulos", el grupo,
+// ej. "Módulo 1") y Capítulo (tabla heredada "taller_modulos", el video
+// individual dentro de un módulo -- el nombre de tabla quedó de antes de
+// este nivel de agrupación, ver la migración biblioteca_modulos_grupo).
 
 export async function crearTaller(_prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
@@ -102,23 +107,43 @@ export async function crearModulo(tallerId: string, _prevState: Resultado, formD
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
-  const descripcion = String(formData.get("descripcion") ?? "").trim() || null;
-  const youtube_url = String(formData.get("youtube_url") ?? "").trim();
   const orden = Number(formData.get("orden") ?? 0) || 0;
 
-  if (!titulo || !youtube_url) return { error: "Falta título o URL de YouTube." };
-  if (!extraerIdYoutube(youtube_url)) return { error: "Esa URL de YouTube no se reconoce." };
+  if (!titulo) return { error: "Falta el título del módulo." };
 
-  const { error } = await supabase
-    .from("taller_modulos")
-    .insert({ taller_id: tallerId, titulo, descripcion, youtube_url, orden });
-
+  const { error } = await supabase.from("modulos").insert({ taller_id: tallerId, titulo, orden });
   if (error) return { error: error.message };
 
   redirect(`/admin/talleres/${tallerId}`);
 }
 
 export async function actualizarModulo(
+  tallerId: string,
+  moduloId: string,
+  _prevState: Resultado,
+  formData: FormData,
+): Promise<Resultado> {
+  const supabase = await createClient();
+
+  const titulo = String(formData.get("titulo") ?? "").trim();
+  const orden = Number(formData.get("orden") ?? 0) || 0;
+
+  if (!titulo) return { error: "Falta el título del módulo." };
+
+  const { error } = await supabase.from("modulos").update({ titulo, orden }).eq("id", moduloId);
+  if (error) return { error: error.message };
+
+  redirect(`/admin/talleres/${tallerId}`);
+}
+
+export async function eliminarModulo(tallerId: string, moduloId: string, _prevState: Resultado): Promise<Resultado> {
+  const supabase = await createClient();
+  const { error } = await supabase.from("modulos").delete().eq("id", moduloId);
+  if (error) return { error: error.message };
+  redirect(`/admin/talleres/${tallerId}`);
+}
+
+export async function crearCapitulo(
   tallerId: string,
   moduloId: string,
   _prevState: Resultado,
@@ -136,17 +161,42 @@ export async function actualizarModulo(
 
   const { error } = await supabase
     .from("taller_modulos")
-    .update({ titulo, descripcion, youtube_url, orden })
-    .eq("id", moduloId);
+    .insert({ taller_id: tallerId, modulo_id: moduloId, titulo, descripcion, youtube_url, orden });
 
   if (error) return { error: error.message };
 
   redirect(`/admin/talleres/${tallerId}`);
 }
 
-export async function eliminarModulo(tallerId: string, moduloId: string, _prevState: Resultado): Promise<Resultado> {
+export async function actualizarCapitulo(
+  tallerId: string,
+  capituloId: string,
+  _prevState: Resultado,
+  formData: FormData,
+): Promise<Resultado> {
   const supabase = await createClient();
-  const { error } = await supabase.from("taller_modulos").delete().eq("id", moduloId);
+
+  const titulo = String(formData.get("titulo") ?? "").trim();
+  const descripcion = String(formData.get("descripcion") ?? "").trim() || null;
+  const youtube_url = String(formData.get("youtube_url") ?? "").trim();
+  const orden = Number(formData.get("orden") ?? 0) || 0;
+
+  if (!titulo || !youtube_url) return { error: "Falta título o URL de YouTube." };
+  if (!extraerIdYoutube(youtube_url)) return { error: "Esa URL de YouTube no se reconoce." };
+
+  const { error } = await supabase
+    .from("taller_modulos")
+    .update({ titulo, descripcion, youtube_url, orden })
+    .eq("id", capituloId);
+
+  if (error) return { error: error.message };
+
+  redirect(`/admin/talleres/${tallerId}`);
+}
+
+export async function eliminarCapitulo(tallerId: string, capituloId: string, _prevState: Resultado): Promise<Resultado> {
+  const supabase = await createClient();
+  const { error } = await supabase.from("taller_modulos").delete().eq("id", capituloId);
   if (error) return { error: error.message };
   redirect(`/admin/talleres/${tallerId}`);
 }
