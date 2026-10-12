@@ -12,7 +12,7 @@ export default async function EditarPostPage({ params }: { params: Promise<{ id:
 
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("id, titulo, resumen, contenido, publicado, imagen_url")
+    .select("id, slug, titulo, resumen, contenido, publicado, imagen_url")
     .eq("id", id)
     .maybeSingle();
 
@@ -22,11 +22,21 @@ export default async function EditarPostPage({ params }: { params: Promise<{ id:
     <div className="max-w-2xl space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-[var(--color-texto)]">Editar post</h1>
-        <ConfirmDeleteButton
-          accion={eliminarPost.bind(null, id)}
-          confirmar={`¿Eliminar el post "${post.titulo}"?`}
-          etiqueta="Eliminar post"
-        />
+        <div className="flex items-center gap-4">
+          <a
+            href={`/blog/${post.slug}`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm font-medium text-[var(--color-marca)] hover:underline"
+          >
+            Ver {!post.publicado && "(borrador)"}
+          </a>
+          <ConfirmDeleteButton
+            accion={eliminarPost.bind(null, id)}
+            confirmar={`¿Eliminar el post "${post.titulo}"?`}
+            etiqueta="Eliminar post"
+          />
+        </div>
       </div>
 
       <PostForm post={post} accion={actualizarPost.bind(null, id)} />

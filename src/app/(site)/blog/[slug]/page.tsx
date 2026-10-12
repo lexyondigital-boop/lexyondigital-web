@@ -8,11 +8,14 @@ export const dynamic = "force-dynamic";
 
 async function obtenerPost(slug: string) {
   const supabase = await createClient();
+  // Sin el filtro publicado=true explícito -- lo resuelve la RLS
+  // (blog_posts_select: publicado=true OR es_super_admin()), así un
+  // super_admin logueado puede previsualizar un borrador desde "Ver" en
+  // /admin, y un visitante anónimo sigue sin poder verlo.
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("titulo, resumen, contenido, imagen_url, publicado_en")
+    .select("titulo, resumen, contenido, imagen_url, publicado_en, publicado")
     .eq("slug", slug)
-    .eq("publicado", true)
     .maybeSingle();
   return post;
 }
@@ -34,6 +37,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <Link href="/blog" className="text-sm font-medium text-[var(--color-marca)] hover:underline">
         ← Volver al blog
       </Link>
+
+      {!post.publicado && (
+        <span className="mt-4 block w-fit rounded-full bg-[var(--color-aviso)]/15 px-3 py-1 text-xs font-medium text-[var(--color-aviso)]">
+          Borrador — solo visible para administradores
+        </span>
+      )}
 
       <h1 className="mt-4 text-3xl font-bold leading-tight text-[var(--color-texto)] sm:text-4xl">{post.titulo}</h1>
       {post.publicado_en && (
