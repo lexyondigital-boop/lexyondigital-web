@@ -4,6 +4,17 @@ const nextConfig: NextConfig = {
   // Necesario para el build de Docker: genera server.js + solo las
   // dependencias que realmente se usan, en vez de copiar node_modules entero.
   output: "standalone",
+  // Las Server Actions tienen un límite de 1MB por defecto -- muy poco para
+  // subir la portada de un taller/post (ver crearTaller/actualizarTaller en
+  // talleres-actions.ts). Con el límite de 1MB el formulario se quedaba
+  // "Guardando..." indefinidamente: la petición fallaba a nivel de
+  // transporte, antes de que el código de la Server Action corriera, así
+  // que el error nunca llegaba al {error} que maneja el formulario.
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
   images: {
     remotePatterns: [
       // Portadas de talleres/blog subidas al bucket biblioteca-media.

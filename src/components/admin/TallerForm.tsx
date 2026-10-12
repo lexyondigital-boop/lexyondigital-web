@@ -24,12 +24,20 @@ export function TallerForm({
     e.preventDefault();
     setEnviando(true);
     setError(null);
-    const resultado = await accion(new FormData(e.currentTarget));
-    if (resultado?.error) {
+    try {
+      const resultado = await accion(new FormData(e.currentTarget));
+      if (resultado?.error) {
+        setEnviando(false);
+        setError(resultado.error);
+      }
+      // Sin error: la acción ya hizo redirect() -- no hay nada más que hacer aquí.
+    } catch {
+      // Error a nivel de transporte (ej. la imagen supera el límite de
+      // tamaño permitido) -- nunca llega a devolver {error}, así que sin
+      // este catch el botón se quedaba en "Guardando..." para siempre.
       setEnviando(false);
-      setError(resultado.error);
+      setError("No se pudo guardar. Si subiste una imagen, intenta con una más liviana (menos de 10MB).");
     }
-    // Sin error: la acción ya hizo redirect() -- no hay nada más que hacer aquí.
   }
 
   const inputClase =

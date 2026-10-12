@@ -24,10 +24,15 @@ export function PostForm({
     e.preventDefault();
     setEnviando(true);
     setError(null);
-    const resultado = await accion(new FormData(e.currentTarget));
-    if (resultado?.error) {
+    try {
+      const resultado = await accion(new FormData(e.currentTarget));
+      if (resultado?.error) {
+        setEnviando(false);
+        setError(resultado.error);
+      }
+    } catch {
       setEnviando(false);
-      setError(resultado.error);
+      setError("No se pudo guardar. Si subiste una imagen, intenta con una más liviana (menos de 10MB).");
     }
   }
 
