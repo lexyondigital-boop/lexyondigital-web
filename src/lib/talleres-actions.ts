@@ -30,7 +30,14 @@ async function subirImagen(
   return { url: data.publicUrl };
 }
 
-export async function crearTaller(formData: FormData): Promise<Resultado> {
+// Firma (prevState, formData) a propósito: así cada función sirve
+// directamente como action de useActionState (las que llevan un id lo
+// reciben pre-cargado con .bind(null, id), ver TallerForm/ModulosManager).
+// Invocar la Server Action fuera de <form action> o de useActionState hace
+// que el redirect() de éxito se filtre como un error "NEXT_REDIRECT" en vez
+// de navegar -- ver AGENTS.md sobre esta versión de Next.
+
+export async function crearTaller(_prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -59,7 +66,7 @@ export async function crearTaller(formData: FormData): Promise<Resultado> {
   redirect(`/admin/talleres/${data.id}`);
 }
 
-export async function actualizarTaller(id: string, formData: FormData): Promise<Resultado> {
+export async function actualizarTaller(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -84,14 +91,14 @@ export async function actualizarTaller(id: string, formData: FormData): Promise<
   redirect(`/admin/talleres/${id}`);
 }
 
-export async function eliminarTaller(id: string): Promise<Resultado> {
+export async function eliminarTaller(id: string, _prevState: Resultado): Promise<Resultado> {
   const supabase = await createClient();
   const { error } = await supabase.from("talleres").delete().eq("id", id);
   if (error) return { error: error.message };
   redirect("/admin/talleres");
 }
 
-export async function crearModulo(tallerId: string, formData: FormData): Promise<Resultado> {
+export async function crearModulo(tallerId: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -111,7 +118,12 @@ export async function crearModulo(tallerId: string, formData: FormData): Promise
   redirect(`/admin/talleres/${tallerId}`);
 }
 
-export async function actualizarModulo(tallerId: string, moduloId: string, formData: FormData): Promise<Resultado> {
+export async function actualizarModulo(
+  tallerId: string,
+  moduloId: string,
+  _prevState: Resultado,
+  formData: FormData,
+): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -132,7 +144,7 @@ export async function actualizarModulo(tallerId: string, moduloId: string, formD
   redirect(`/admin/talleres/${tallerId}`);
 }
 
-export async function eliminarModulo(tallerId: string, moduloId: string): Promise<Resultado> {
+export async function eliminarModulo(tallerId: string, moduloId: string, _prevState: Resultado): Promise<Resultado> {
   const supabase = await createClient();
   const { error } = await supabase.from("taller_modulos").delete().eq("id", moduloId);
   if (error) return { error: error.message };

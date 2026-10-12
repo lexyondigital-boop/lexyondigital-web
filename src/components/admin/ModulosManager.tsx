@@ -24,7 +24,7 @@ export function ModulosManager({ tallerId, modulos }: { tallerId: string; modulo
           <div key={m.id} className="rounded-xl border border-[var(--color-borde)] bg-[var(--color-bg)] p-4">
             <ModuloForm
               modulo={m}
-              accion={(fd) => actualizarModulo(tallerId, m.id, fd)}
+              accion={actualizarModulo.bind(null, tallerId, m.id)}
               alGuardar={() => setEditando(null)}
             />
             <button
@@ -63,7 +63,7 @@ export function ModulosManager({ tallerId, modulos }: { tallerId: string; modulo
                 Editar
               </button>
               <ConfirmDeleteButton
-                accion={() => eliminarModulo(tallerId, m.id)}
+                accion={eliminarModulo.bind(null, tallerId, m.id)}
                 confirmar={`¿Eliminar el módulo "${m.titulo}"?`}
               />
             </div>
@@ -75,7 +75,7 @@ export function ModulosManager({ tallerId, modulos }: { tallerId: string; modulo
 
       {agregando ? (
         <div className="rounded-xl border border-dashed border-[var(--color-borde)] p-4">
-          <ModuloForm accion={(fd) => crearModulo(tallerId, fd)} alGuardar={() => setAgregando(false)} />
+          <ModuloForm accion={crearModulo.bind(null, tallerId)} alGuardar={() => setAgregando(false)} />
           <button
             type="button"
             onClick={() => setAgregando(false)}

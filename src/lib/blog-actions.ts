@@ -29,7 +29,10 @@ async function subirImagen(
   return { url: data.publicUrl };
 }
 
-export async function crearPost(formData: FormData): Promise<Resultado> {
+// Firma (prevState, formData) a propósito -- sirve directo como action de
+// useActionState. Ver la nota en talleres-actions.ts sobre por qué.
+
+export async function crearPost(_prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -66,7 +69,7 @@ export async function crearPost(formData: FormData): Promise<Resultado> {
   redirect(`/admin/blog/${data.id}`);
 }
 
-export async function actualizarPost(id: string, formData: FormData): Promise<Resultado> {
+export async function actualizarPost(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -100,7 +103,7 @@ export async function actualizarPost(id: string, formData: FormData): Promise<Re
   redirect(`/admin/blog/${id}`);
 }
 
-export async function eliminarPost(id: string): Promise<Resultado> {
+export async function eliminarPost(id: string, _prevState: Resultado): Promise<Resultado> {
   const supabase = await createClient();
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) return { error: error.message };
