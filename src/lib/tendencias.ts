@@ -89,6 +89,40 @@ export async function obtenerTendenciasPorNicho(): Promise<GrupoNicho[]> {
   return NICHOS.map((n) => ({ clave: n.clave, etiqueta: n.etiqueta, tendencias: porNicho.get(n.clave) ?? [] }));
 }
 
+export type ResumenNicho = { clave: string; etiqueta: string; vigentes: number; ultimaActualizacion: string | null };
+
+// Resumen por nicho para el panel de inicio del admin: cuántas siguen
+// vigentes y la fecha de la última captura, sin importar la vigencia --
+// así se nota un nicho que se quedó atrás aunque ya no tenga nada vigente
+// que mostrar, no solo los que sí tienen.
+export async function obtenerResumenTendenciasPorNicho(): Promise<ResumenNicho[]> {
+  const supabase = await createClient();
+  const desde = new Date(Date.now() - DIAS_VIGENCIA * 86_400_000).toISOString().slice(0, 10);
+
+  const { data } = await supabase
+    .from("tendencias")
+    .select("nicho, capturada_en")
+    .in(
+      "nicho",
+      NICHOS.map((n) => n.clave),
+    )
+    .eq("region", REGION)
+    .is("cuenta_id", null);
+
+  const porNicho = new Map<string, { vigentes: number; ultima: string }>();
+  for (const fila of (data as { nicho: string; capturada_en: string }[] | null) ?? []) {
+    const actual = porNicho.get(fila.nicho) ?? { vigentes: 0, ultima: fila.capturada_en };
+    if (fila.capturada_en >= desde) actual.vigentes += 1;
+    if (fila.capturada_en > actual.ultima) actual.ultima = fila.capturada_en;
+    porNicho.set(fila.nicho, actual);
+  }
+
+  return NICHOS.map((n) => {
+    const v = porNicho.get(n.clave);
+    return { clave: n.clave, etiqueta: n.etiqueta, vigentes: v?.vigentes ?? 0, ultimaActualizacion: v?.ultima ?? null };
+  });
+}
+
 export async function obtenerTendencia(id: string): Promise<Tendencia | null> {
   const supabase = await createClient();
   const { data } = await supabase
