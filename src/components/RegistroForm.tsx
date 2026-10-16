@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { CAPTCHA_SITE_KEY, Turnstile, type TurnstileHandle } from "@/components/Turnstile";
 import { PAISES_TELEFONO, CODIGO_PAIS_POR_DEFECTO } from "@/lib/paises-telefono";
+import { NICHOS } from "@/lib/nichos";
 
 // Mismo dominio donde vive la plataforma -- el endpoint público de registro
 // (/api/registro-publico) tiene CORS abierto solo para este origen.
@@ -14,6 +15,8 @@ const inputClase =
 export function RegistroForm() {
   const [nombreCuenta, setNombreCuenta] = useState("");
   const [giro, setGiro] = useState("");
+  const [nicho, setNicho] = useState("");
+  const [nichoOtro, setNichoOtro] = useState("");
   const [nombreAdmin, setNombreAdmin] = useState("");
   const [codigoPais, setCodigoPais] = useState(CODIGO_PAIS_POR_DEFECTO);
   const [telefonoAdmin, setTelefonoAdmin] = useState("");
@@ -31,6 +34,12 @@ export function RegistroForm() {
 
   async function enviar(e: FormEvent) {
     e.preventDefault();
+
+    if (nicho === "otro" && !nichoOtro.trim()) {
+      setError("Cuéntanos cuál es tu nicho.");
+      return;
+    }
+
     setEnviando(true);
     setError(null);
 
@@ -53,6 +62,8 @@ export function RegistroForm() {
       body: JSON.stringify({
         nombre_cuenta: nombreCuenta,
         giro,
+        nicho,
+        nicho_otro: nichoOtro,
         nombre_admin: nombreAdmin,
         telefono_admin: telefonoConCodigo,
         email_admin: emailAdmin,
@@ -121,6 +132,31 @@ export function RegistroForm() {
           <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Giro (opcional)</span>
           <input value={giro} onChange={(e) => setGiro(e.target.value)} className={inputClase} placeholder="Marketing, legal, contable…" />
         </label>
+
+        <label className="block">
+          <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Nicho (opcional)</span>
+          <select value={nicho} onChange={(e) => setNicho(e.target.value)} className={inputClase}>
+            <option value="">Sin definir</option>
+            {NICHOS.map((n) => (
+              <option key={n.clave} value={n.clave}>
+                {n.etiqueta}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {nicho === "otro" && (
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">¿Cuál es tu nicho?</span>
+            <input
+              value={nichoOtro}
+              onChange={(e) => setNichoOtro(e.target.value)}
+              required
+              className={inputClase}
+              placeholder="Ej. Limpieza de albercas"
+            />
+          </label>
+        )}
 
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Tu nombre</span>
