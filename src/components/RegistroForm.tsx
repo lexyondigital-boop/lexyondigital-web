@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { CAPTCHA_SITE_KEY, Turnstile } from "@/components/Turnstile";
+import { PAISES_TELEFONO, CODIGO_PAIS_POR_DEFECTO } from "@/lib/paises-telefono";
 
 // Mismo dominio donde vive la plataforma -- el endpoint público de registro
 // (/api/registro-publico) tiene CORS abierto solo para este origen.
@@ -14,6 +15,7 @@ export function RegistroForm() {
   const [nombreCuenta, setNombreCuenta] = useState("");
   const [giro, setGiro] = useState("");
   const [nombreAdmin, setNombreAdmin] = useState("");
+  const [codigoPais, setCodigoPais] = useState(CODIGO_PAIS_POR_DEFECTO);
   const [telefonoAdmin, setTelefonoAdmin] = useState("");
   const [emailAdmin, setEmailAdmin] = useState("");
   // Oculto por CSS -- un visitante real nunca lo llena, un bot que completa
@@ -30,6 +32,12 @@ export function RegistroForm() {
     setEnviando(true);
     setError(null);
 
+    // Mismo formato que ya espera el resto de la plataforma para teléfonos
+    // (código de país + número, solo dígitos, sin "+") -- ver
+    // normalizarDestinatario en lexyondigital-saas/src/lib/meta.ts.
+    const telefonoLimpio = telefonoAdmin.replace(/\D/g, "");
+    const telefonoConCodigo = telefonoLimpio ? `${codigoPais}${telefonoLimpio}` : "";
+
     const res = await fetch(URL_REGISTRO, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,7 +45,7 @@ export function RegistroForm() {
         nombre_cuenta: nombreCuenta,
         giro,
         nombre_admin: nombreAdmin,
-        telefono_admin: telefonoAdmin,
+        telefono_admin: telefonoConCodigo,
         email_admin: emailAdmin,
         sitio_web: sitioWeb,
         turnstile_token: captchaToken,
@@ -111,13 +119,27 @@ export function RegistroForm() {
 
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Teléfono (opcional)</span>
-          <input
-            value={telefonoAdmin}
-            onChange={(e) => setTelefonoAdmin(e.target.value)}
-            type="tel"
-            className={inputClase}
-            placeholder="10 dígitos"
-          />
+          <div className="flex gap-2">
+            <select
+              value={codigoPais}
+              onChange={(e) => setCodigoPais(e.target.value)}
+              aria-label="Código de país"
+              className={`${inputClase} w-auto shrink-0`}
+            >
+              {PAISES_TELEFONO.map((p) => (
+                <option key={p.codigo} value={p.codigo}>
+                  {p.etiqueta}
+                </option>
+              ))}
+            </select>
+            <input
+              value={telefonoAdmin}
+              onChange={(e) => setTelefonoAdmin(e.target.value)}
+              type="tel"
+              className={inputClase}
+              placeholder="10 dígitos"
+            />
+          </div>
         </label>
 
         <label className="block">
