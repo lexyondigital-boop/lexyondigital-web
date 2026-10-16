@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { CAPTCHA_SITE_KEY, Turnstile } from "@/components/Turnstile";
+import { useRef, useState, type FormEvent } from "react";
+import { CAPTCHA_SITE_KEY, Turnstile, type TurnstileHandle } from "@/components/Turnstile";
 import { PAISES_TELEFONO, CODIGO_PAIS_POR_DEFECTO } from "@/lib/paises-telefono";
 
 // Mismo dominio donde vive la plataforma -- el endpoint público de registro
@@ -24,8 +24,10 @@ export function RegistroForm() {
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [exito, setExito] = useState(false);
+  const [avisoCorreo, setAvisoCorreo] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [aceptaTerminos, setAceptaTerminos] = useState(false);
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   async function enviar(e: FormEvent) {
     e.preventDefault();
@@ -38,6 +40,13 @@ export function RegistroForm() {
     const telefonoLimpio = telefonoAdmin.replace(/\D/g, "");
     const telefonoConCodigo = telefonoLimpio ? `${codigoPais}${telefonoLimpio}` : "";
 
+    // /api/registro-publico necesita DOS tokens de Turnstile: uno para su
+    // propio check anti-bot y otro aparte para el captchaToken que exige
+    // Supabase al mandar el correo de "define tu contraseña" -- un token de
+    // Cloudflare solo es válido la primera vez que se verifica, así que no
+    // puede ser el mismo que ya se usó arriba.
+    const turnstileTokenCorreo = await turnstileRef.current?.obtenerTokenFresco();
+
     const res = await fetch(URL_REGISTRO, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -49,6 +58,7 @@ export function RegistroForm() {
         email_admin: emailAdmin,
         sitio_web: sitioWeb,
         turnstile_token: captchaToken,
+        turnstile_token_correo: turnstileTokenCorreo,
       }),
     }).catch(() => null);
 
@@ -66,6 +76,7 @@ export function RegistroForm() {
       return;
     }
 
+    setAvisoCorreo(data.avisoCorreo ?? null);
     setExito(true);
   }
 
@@ -79,10 +90,15 @@ export function RegistroForm() {
           ✓
         </span>
         <h2 className="text-lg font-semibold text-[var(--color-texto)]">¡Listo, {nombreCuenta}!</h2>
-        <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
-          Te mandamos un correo a <strong className="text-[var(--color-texto)]">{emailAdmin}</strong> para que definas
-          tu contraseña y entres a la plataforma. Tu prueba gratuita de 14 días ya está activa.
-        </p>
+        {avisoCorreo ? (
+          <p className="mt-2 text-sm text-amber-600">{avisoCorreo}</p>
+        ) : (
+          <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
+            Te mandamos un correo a <strong className="text-[var(--color-texto)]">{emailAdmin}</strong> para que
+            definas tu contraseña y entres a la plataforma.
+          </p>
+        )}
+        <p className="mt-2 text-sm text-[var(--color-texto-mute)]">Tu prueba gratuita de 14 días ya está activa.</p>
       </div>
     );
   }
@@ -187,7 +203,7 @@ export function RegistroForm() {
       </label>
 
       <div className="mt-4">
-        <Turnstile onVerify={setCaptchaToken} />
+        <Turnstile ref={turnstileRef} onVerify={setCaptchaToken} />
       </div>
 
       {error && <p className="mt-4 text-sm text-red-500">{error}</p>}
