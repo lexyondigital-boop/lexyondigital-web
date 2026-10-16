@@ -120,11 +120,14 @@ export function RegistroForm() {
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Teléfono (opcional)</span>
           <div className="flex gap-2">
+            {/* inputClase trae w-full -- aquí no sirve, cada campo de esta
+                fila necesita su propio ancho (uno fijo, el otro flexible)
+                para no salirse de la tarjeta. */}
             <select
               value={codigoPais}
               onChange={(e) => setCodigoPais(e.target.value)}
               aria-label="Código de país"
-              className={`${inputClase} w-auto shrink-0`}
+              className="w-28 shrink-0 rounded-lg border border-[var(--color-borde)] bg-[var(--color-bg-elevada)] px-2 py-2.5 text-sm text-[var(--color-texto)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-marca)]"
             >
               {PAISES_TELEFONO.map((p) => (
                 <option key={p.codigo} value={p.codigo}>
@@ -136,7 +139,7 @@ export function RegistroForm() {
               value={telefonoAdmin}
               onChange={(e) => setTelefonoAdmin(e.target.value)}
               type="tel"
-              className={inputClase}
+              className="min-w-0 flex-1 rounded-lg border border-[var(--color-borde)] bg-[var(--color-bg-elevada)] px-3 py-2.5 text-sm text-[var(--color-texto)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-marca)]"
               placeholder="10 dígitos"
             />
           </div>
