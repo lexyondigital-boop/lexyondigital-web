@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function TerminosPage() {
   return (
-    <LegalLayout titulo="Términos y Condiciones" actualizado="11 de octubre de 2026">
+    <LegalLayout titulo="Términos y Condiciones" actualizado="18 de octubre de 2026">
       <h2>1. Quiénes somos y a qué aplican estos términos</h2>
       <p>
         Estos Términos y Condiciones rigen el uso de la plataforma LexyonDigital, operada por{" "}
@@ -65,7 +65,17 @@ export default function TerminosPage() {
       </p>
       <ul>
         <li>No enviar mensajes masivos no solicitados (spam) ni contenido que viole las políticas de Meta.</li>
-        <li>Contar con el consentimiento de las personas a quienes contactas por WhatsApp fuera de una conversación que ellas mismas iniciaron, cuando la plataforma de Meta así lo requiera.</li>
+        <li>
+          Contar con el consentimiento previo de cada persona antes de contactarla por WhatsApp, salvo que
+          ella te haya escrito primero. Ese consentimiento no tiene que mencionar WhatsApp por su nombre ni
+          recabarse dentro de la propia conversación: basta con una autorización general de esa persona para
+          que tu negocio le mande mensajes, obtenida por cualquier medio (tu sitio web, SMS, una llamada
+          telefónica, en persona o en papel), conforme a la Política de Mensajería Comercial de WhatsApp
+          vigente. Debes respetar la solicitud de baja de cualquier persona aunque te llegue por un canal
+          distinto a WhatsApp, y declarar en la plataforma cómo obtuviste ese consentimiento al dar de alta
+          tus contactos -- la plataforma te lo va a pedir antes de dejarte mandar mensajes a un contacto
+          nuevo.
+        </li>
         <li>No usar el servicio para fines ilegales, fraudulentos, difamatorios o que infrinjan derechos de terceros.</li>
         <li>No intentar vulnerar, descompilar o sobrecargar deliberadamente nuestra infraestructura.</li>
       </ul>
