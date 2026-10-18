@@ -76,6 +76,13 @@ export default function TerminosPage() {
           tus contactos -- la plataforma te lo va a pedir antes de dejarte mandar mensajes a un contacto
           nuevo.
         </li>
+        <li>
+          No revender, redistribuir ni cobrar a ningún tercero por el acceso a la Plataforma de WhatsApp
+          Business a través de LexyonDigital, ni permitir que un tercero distinto de ti se integre, acceda o
+          la use por tu cuenta. La suscripción o el saldo que contrates con nosotros es para el uso de tu
+          propio negocio -- esto no te impide cobrar por tus propios productos o servicios, solo revender el
+          acceso a WhatsApp en sí. Tampoco puedes usar el nombre o las marcas de Meta sin su autorización.
+        </li>
         <li>No usar el servicio para fines ilegales, fraudulentos, difamatorios o que infrinjan derechos de terceros.</li>
         <li>No intentar vulnerar, descompilar o sobrecargar deliberadamente nuestra infraestructura.</li>
       </ul>
