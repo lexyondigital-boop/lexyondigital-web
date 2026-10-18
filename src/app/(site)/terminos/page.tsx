@@ -105,7 +105,12 @@ export default function TerminosPage() {
         Puedes cancelar tu cuenta en cualquier momento. Tras la cancelación, tus datos y los de tus contactos
         asociados a la cuenta se eliminan de forma automática a los 30 días, conforme se describe en nuestro{" "}
         <a href="/privacidad">Aviso de Privacidad</a>. Podemos suspender o cancelar tu cuenta si incumples
-        estos términos, incluyendo el uso indebido del canal de WhatsApp descrito en la sección 5.
+        estos términos, incluyendo el uso indebido del canal de WhatsApp descrito en la sección 5. Si quieres
+        conocer más acerca de cómo solicitar la eliminación de tus datos, da clic en el siguiente enlace:{" "}
+        <a href="https://app.lexyondigital.com.mx/eliminacion-de-datos" target="_blank" rel="noreferrer">
+          Instrucciones de eliminación de datos
+        </a>
+        .
       </p>
 
       <h2>10. Ley aplicable y jurisdicción</h2>
