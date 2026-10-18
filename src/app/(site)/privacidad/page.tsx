@@ -122,7 +122,12 @@ export default function PrivacidadPage() {
         contacto se elimina del CRM de un negocio, el contenido de sus conversaciones asociadas también se
         elimina en ese momento. Los respaldos (backups) de la base de datos se conservan por un periodo
         adicional conforme a la política de nuestro proveedor de infraestructura, con el único fin de
-        recuperación ante fallas.
+        recuperación ante fallas. Si quieres conocer más acerca de cómo solicitar la eliminación de tus datos,
+        da clic en el siguiente enlace:{" "}
+        <a href="https://app.lexyondigital.com.mx/eliminacion-de-datos" target="_blank" rel="noreferrer">
+          Instrucciones de eliminación de datos
+        </a>
+        .
       </p>
 
       <h2>8. Derechos ARCO y cómo ejercerlos</h2>
