@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function PrivacidadPage() {
   return (
-    <LegalLayout titulo="Aviso de Privacidad" actualizado="11 de octubre de 2026">
+    <LegalLayout titulo="Aviso de Privacidad" actualizado="18 de octubre de 2026">
       <h2>1. Identidad y domicilio del responsable</h2>
       <p>
         <strong>CONSULTINGOLD S.A.S. DE C.V.</strong>, RFC <strong>CON260325H62</strong>, con domicilio en
@@ -34,6 +34,13 @@ export default function PrivacidadPage() {
         relación directa</strong> (nuestro cliente), quien es el responsable primario de informarte sobre el
         uso de tus datos conforme a su propio aviso de privacidad. LexyonDigital actúa como encargado del
         tratamiento de esos datos en la infraestructura que opera para dicho negocio.
+      </p>
+      <p>
+        Es responsabilidad de ese negocio haber obtenido tu autorización previa para contactarte por
+        WhatsApp antes de agregarte a su plataforma, salvo que tú le hayas escrito primero. Si no diste esa
+        autorización, o ya no quieres recibir mensajes suyos, puedes solicitar la baja directamente con ese
+        negocio o escribiéndonos a <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a>, y lo
+        haremos valer con el negocio correspondiente.
       </p>
       <h3>2.2 Si eres usuario o administrador de la plataforma LexyonDigital</h3>
       <p>
