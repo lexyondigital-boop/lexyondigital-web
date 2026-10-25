@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = await obtenerPost(slug);
   if (!post) return {};
-  return { title: `${post.titulo} — Blog LexyonDigital`, description: post.resumen ?? undefined };
+  return metadataPagina({
+    titulo: `${post.titulo} — Blog LexyonDigital`,
+    descripcion: post.resumen ?? post.titulo,
+    ruta: `/blog/${slug}`,
+    tipo: "article",
+    imagen: post.imagen_url,
+  });
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {

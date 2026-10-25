@@ -1,9 +1,22 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { SERVICIOS } from "@/lib/servicios";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
 export function generateStaticParams() {
   return SERVICIOS.map((s) => ({ slug: s.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const servicio = SERVICIOS.find((s) => s.slug === slug);
+  if (!servicio) return {};
+  return metadataPagina({
+    titulo: `${servicio.nombre} — LexyonDigital`,
+    descripcion: servicio.resumen,
+    ruta: `/servicios/${servicio.slug}`,
+  });
 }
 
 export default async function ServicioPage({ params }: { params: Promise<{ slug: string }> }) {

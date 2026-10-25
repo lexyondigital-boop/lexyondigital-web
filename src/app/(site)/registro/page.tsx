@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { RegistroForm } from "@/components/RegistroForm";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
-export const metadata: Metadata = {
-  title: "Prueba gratis 14 días — LexyonDigital",
-  description: "Registra tu negocio y empieza a usar LexyonDigital gratis durante 14 días, sin tarjeta de crédito.",
-};
+export const metadata: Metadata = metadataPagina({
+  titulo: "Prueba gratis 14 días — LexyonDigital",
+  descripcion: "Registra tu negocio y empieza a usar LexyonDigital gratis durante 14 días, sin tarjeta de crédito.",
+  ruta: "/registro",
+});
 
 export default function RegistroPage() {
   return (

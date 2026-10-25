@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalLayout } from "@/components/LegalLayout";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
-export const metadata: Metadata = {
-  title: "Aviso de Privacidad — LexyonDigital",
-  description: "Aviso de Privacidad Integral de LexyonDigital conforme a la LFPDPPP.",
-};
+export const metadata: Metadata = metadataPagina({
+  titulo: "Aviso de Privacidad — LexyonDigital",
+  descripcion: "Aviso de Privacidad Integral de LexyonDigital conforme a la LFPDPPP.",
+  ruta: "/privacidad",
+});
 
 export default function PrivacidadPage() {
   return (
