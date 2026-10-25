@@ -15,3 +15,11 @@ export const DESCRIPCION_INICIO =
   "Agente de IA para WhatsApp 24/7, CRM y agenda de citas, más capacitación en Meta Ads y asesoría legal y contable para pymes y emprendedores en México.";
 
 export const CORREO_CONTACTO = "info@lexyondigital.com";
+
+// Teléfono de contacto (confirmado por el negocio). Se muestra con el "1"
+// tradicional de celular mexicano; para wa.me, tel: y Schema.org va en
+// formato internacional E.164 (sin el "1", que ya no se usa desde 2019 y
+// WhatsApp no necesita).
+export const TELEFONO_VISIBLE = "+52 1 720 137 7472";
+export const TELEFONO_E164 = "+527201377472";
+export const URL_WHATSAPP = "https://wa.me/527201377472";

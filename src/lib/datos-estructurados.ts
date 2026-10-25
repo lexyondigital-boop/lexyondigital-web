@@ -1,5 +1,5 @@
 import { SERVICIOS } from "@/lib/servicios";
-import { CORREO_CONTACTO, DESCRIPCION_INICIO, NOMBRE_SITIO, URL_SITIO } from "@/lib/sitio";
+import { CORREO_CONTACTO, DESCRIPCION_INICIO, NOMBRE_SITIO, TELEFONO_E164, URL_SITIO } from "@/lib/sitio";
 
 // Schema.org (JSON-LD) del inicio. LexyonDigital es a la vez una empresa de
 // servicios (capacitación, legal, contable) y un software propio (el CRM con
@@ -8,7 +8,7 @@ import { CORREO_CONTACTO, DESCRIPCION_INICIO, NOMBRE_SITIO, URL_SITIO } from "@/
 //   WebSite             -> el sitio y su editor
 //   SoftwareApplication -> la plataforma, con su prueba gratis de 14 días
 // Solo datos que el propio sitio ya muestra -- nada inventado (sin dirección
-// física, teléfono ni calificaciones).
+// física ni calificaciones).
 export function datosEstructuradosInicio() {
   const idOrganizacion = `${URL_SITIO}/#organizacion`;
   return {
@@ -22,6 +22,15 @@ export function datosEstructuradosInicio() {
         logo: { "@type": "ImageObject", url: `${URL_SITIO}/logo.png`, width: 1024, height: 1024 },
         description: DESCRIPCION_INICIO,
         email: CORREO_CONTACTO,
+        telephone: TELEFONO_E164,
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          telephone: TELEFONO_E164,
+          email: CORREO_CONTACTO,
+          areaServed: "MX",
+          availableLanguage: "es",
+        },
         areaServed: { "@type": "Country", name: "México" },
         knowsLanguage: "es-MX",
         hasOfferCatalog: {
