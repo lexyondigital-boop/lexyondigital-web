@@ -14,6 +14,7 @@ export const revalidate = 3600;
 const PAGINAS_FIJAS: { ruta: string; prioridad: number; frecuencia: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { ruta: "/", prioridad: 1, frecuencia: "weekly" },
   { ruta: "/registro", prioridad: 0.9, frecuencia: "monthly" },
+  { ruta: "/precios", prioridad: 0.9, frecuencia: "monthly" },
   { ruta: "/blog", prioridad: 0.7, frecuencia: "weekly" },
   { ruta: "/biblioteca", prioridad: 0.7, frecuencia: "weekly" },
   { ruta: "/privacidad", prioridad: 0.2, frecuencia: "yearly" },
