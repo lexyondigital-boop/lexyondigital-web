@@ -10,6 +10,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 // usuario) -- las rutas siguen existiendo, solo no están enlazadas aquí.
 const ENLACES = [
   { href: "/", label: "Inicio" },
+  { href: "/precios", label: "Precios" },
   { href: "/biblioteca", label: "Biblioteca" },
   { href: "/blog", label: "Blog" },
   { href: "/tienda", label: "Tienda" },
