@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { TELEFONO_E164, TELEFONO_VISIBLE, URL_WHATSAPP } from "@/lib/sitio";
 
 const REDES = [
   { label: "Facebook", href: "https://facebook.com", color: "#1877f2", icon: "f" },
   { label: "Instagram", href: "https://instagram.com", color: "#e1306c", icon: "ig" },
-  { label: "WhatsApp", href: "https://wa.me/525217201377", color: "#25d366", icon: "wa" },
+  { label: "WhatsApp", href: URL_WHATSAPP, color: "#25d366", icon: "wa" },
   { label: "TikTok", href: "https://tiktok.com", color: "#000000", icon: "tt" },
   { label: "YouTube", href: "https://youtube.com", color: "#ff0000", icon: "yt" },
 ];
@@ -25,7 +26,11 @@ export function SiteFooter() {
           <h3 className="text-sm font-semibold text-[var(--color-texto)]">Contacto</h3>
           <ul className="mt-3 space-y-2 text-sm text-[var(--color-texto-mute)]">
             <li>info@lexyondigital.com</li>
-            <li>+52 1 720 137 7472</li>
+            <li>
+              <a href={`tel:${TELEFONO_E164}`} className="hover:text-[var(--color-texto)]">
+                {TELEFONO_VISIBLE}
+              </a>
+            </li>
             <li>www.lexyondigital.com.mx</li>
           </ul>
           <h3 className="mt-6 text-sm font-semibold text-[var(--color-texto)]">Síguenos</h3>
