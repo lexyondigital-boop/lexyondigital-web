@@ -8,6 +8,11 @@ export type Paquete = {
   nombre: string;
   mensual: number;
   anual: number;
+  // Precio de lista: se muestra tachado. +30%, +20% y +10% sobre el precio
+  // de Esencial, Profesional y Empresarial (mismos valores que la tabla
+  // planes de la app).
+  listaMensual: number;
+  listaAnual: number;
   implementacion: number;
   para: string;
   destacado?: boolean;
@@ -20,6 +25,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Esencial",
     mensual: 499,
     anual: 4990,
+    listaMensual: 649,
+    listaAnual: 6490,
     implementacion: 990,
     para: "Para el negocio que atiende y agenda por WhatsApp.",
     resumen: [
@@ -37,6 +44,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Profesional",
     mensual: 799,
     anual: 7990,
+    listaMensual: 959,
+    listaAnual: 9590,
     implementacion: 1990,
     destacado: true,
     para: "Para el negocio con equipo de ventas y agenda compartida.",
@@ -56,6 +65,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Empresarial",
     mensual: 1999,
     anual: 19990,
+    listaMensual: 2199,
+    listaAnual: 21990,
     implementacion: 3990,
     para: "Para la empresa que automatiza, hace campañas y trabaja en campo.",
     resumen: [
@@ -137,9 +148,9 @@ export const COMPARATIVA: Grupo[] = [
       { concepto: "Webhooks hacia otros sistemas", valores: [false, false, true] },
       { concepto: "Campañas por WhatsApp", valores: [false, true, true] },
       { concepto: "Campañas por correo", valores: [false, false, true] },
-      { concepto: "Agentes de voz y campañas de llamadas", valores: [false, false, "Con créditos"] },
-      { concepto: "Contenido, imágenes y video con IA", valores: [false, false, "Con créditos"] },
-      { concepto: "Tendencias del sector", valores: ["Con créditos", "Con créditos", "Con créditos"] },
+      { concepto: "Agentes de voz y campañas de llamadas", valores: [false, false, "Con saldo"] },
+      { concepto: "Contenido, imágenes y video con IA", valores: [false, false, "Con saldo"] },
+      { concepto: "Tendencias del sector", valores: ["Con saldo", "Con saldo", "Con saldo"] },
       { concepto: "Páginas web con IA", valores: ["1", "1", "3 + dominio propio"] },
     ],
   },
@@ -152,21 +163,26 @@ export const EXTRAS: { concepto: string; precio: string }[] = [
   { concepto: "1,000 respuestas adicionales del agente de IA", precio: "$79 al mes" },
 ];
 
-export const CONSUMO_CREDITOS: { concepto: string; creditos: string }[] = [
-  { concepto: "Minuto de llamada con agente de voz", creditos: "6 créditos" },
-  { concepto: "Imagen generada con IA", creditos: "5 créditos" },
-  { concepto: "Video generado con IA", creditos: "25 créditos" },
-  { concepto: "Estrategia de contenido con IA", creditos: "10 créditos" },
-  { concepto: "Tendencias del sector: la semana de tu nicho", creditos: "10 créditos" },
-  { concepto: "Tendencias con recomendaciones para tu negocio", creditos: "20 créditos" },
-  { concepto: "Tendencias: reporte completo del mes", creditos: "30 créditos" },
+// Lo que tiene costo variable se paga con saldo prepago en dólares: el
+// cliente recarga y cada uso se descuenta. Precios en USD + IVA, convertidos
+// de la propuesta en pesos (tipo de cambio ~18.7) y redondeados.
+export const CONSUMO_USD: { concepto: string; precio: string }[] = [
+  { concepto: "Minuto de llamada con agente de voz", precio: "$0.35" },
+  { concepto: "Imagen generada con IA", precio: "$0.25" },
+  { concepto: "Video con IA, clip de 5 segundos", precio: "$1.25" },
+  { concepto: "Video con IA, clip de 10 segundos", precio: "$2.25" },
+  { concepto: "Estrategia de contenido con IA", precio: "$0.50" },
+  { concepto: "Tendencias del sector: la semana de tu nicho", precio: "$0.50" },
+  { concepto: "Tendencias con recomendaciones para tu negocio", precio: "$1.00" },
+  { concepto: "Tendencias: reporte completo del mes", precio: "$1.50" },
 ];
 
-export const PAQUETES_CREDITOS: { creditos: string; precio: string }[] = [
-  { creditos: "300 créditos", precio: "$300" },
-  { creditos: "1,000 créditos + 5% de bono", precio: "$1,000" },
-  { creditos: "3,000 créditos + 10% de bono", precio: "$3,000" },
-];
+// Montos de recarga que ofrece la app (Configuración → saldo), en USD.
+export const RECARGAS_USD = [10, 25, 50, 100];
+
+export function descuento(precio: number, lista: number) {
+  return Math.round((1 - precio / lista) * 100);
+}
 
 export function pesos(monto: number) {
   return `$${monto.toLocaleString("es-MX")}`;

@@ -47,14 +47,18 @@ export default function TerminosPage() {
       <ul>
         {PAQUETES.map((p) => (
           <li key={p.clave}>
-            <strong>{p.nombre}</strong>: {pesos(p.mensual)} MXN al mes + IVA, o {pesos(p.anual)} MXN al año + IVA.
+            <strong>{p.nombre}</strong>: {pesos(p.mensual)} MXN al mes + IVA, o {pesos(p.anual)} MXN al año + IVA
+            (precio de lista: {pesos(p.listaMensual)} MXN al mes y {pesos(p.listaAnual)} MXN al año).
           </li>
         ))}
       </ul>
       <p>
-        Los límites y funciones de cada plan (usuarios, contactos, números de WhatsApp, respuestas del agente
+        Los precios anteriores son los que pagas; el precio de lista se muestra como referencia del
+        descuento vigente y podemos dejar de aplicar ese descuento a nuevas contrataciones con el aviso previsto
+        en esta sección. Los límites y funciones de cada plan (usuarios, contactos, números de WhatsApp, respuestas del agente
         de inteligencia artificial, profesionales con agenda, automatizaciones, páginas web, reportes y
-        módulos incluidos), así como los precios de los extras, la implementación y los créditos, son los
+        módulos incluidos), así como los precios de los extras, la implementación y las tarifas del saldo
+        prepago, son los
         publicados en nuestra <a href="/precios">página de precios</a>, que forma parte de estos términos. Si
         contrataste condiciones especiales por escrito con LexyonDigital, prevalecen esas condiciones.
       </p>
@@ -97,10 +101,13 @@ export default function TerminosPage() {
 
       <h2>6. Saldo prepago, recargas y facturación</h2>
       <p>
-        Las funciones de generación de imágenes, video y voz operan, por defecto, mediante un{" "}
-        <strong>saldo prepago en dólares americanos (USD)</strong> que administras desde la sección de
-        Configuración de tu cuenta. El saldo se consume conforme al costo real de cada generación con el
-        proveedor de inteligencia artificial correspondiente. Puedes recargar tu saldo en cualquier momento
+        Las llamadas con agentes de voz con inteligencia artificial, la generación de imágenes y video, las
+        estrategias de contenido y el acceso a tendencias del sector no están incluidos en ningún plan: se pagan,
+        por defecto, mediante un <strong>saldo prepago en dólares americanos (USD)</strong> que recargas y
+        administras desde la sección de Configuración de tu cuenta. Para usar esas funciones debes tener saldo
+        disponible. Cada uso se descuenta del saldo conforme a las tarifas en USD publicadas en nuestra{" "}
+        <a href="/precios">página de precios</a> vigentes al momento del uso; a las recargas se les agrega el IVA
+        correspondiente. Puedes recargar tu saldo en cualquier momento
         mediante tarjeta a través de Stripe, nuestro procesador de pagos. Te notificaremos dentro de la
         plataforma y por correo cuando tu saldo esté próximo a agotarse; si se agota por completo, esas
         funciones se bloquean hasta que recargues.

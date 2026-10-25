@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { metadataPagina } from "@/lib/metadata-pagina";
 import { URL_WHATSAPP } from "@/lib/sitio";
-import { COMPARATIVA, CONSUMO_CREDITOS, EXTRAS, PAQUETES, PAQUETES_CREDITOS, pesos } from "@/lib/planes";
+import { COMPARATIVA, CONSUMO_USD, EXTRAS, PAQUETES, RECARGAS_USD, descuento, pesos } from "@/lib/planes";
 
 export const metadata: Metadata = metadataPagina({
   titulo: "Precios — LexyonDigital",
@@ -48,12 +48,20 @@ export default function PreciosPage() {
             )}
             <h2 className="text-lg font-semibold text-[var(--color-texto)]">{p.nombre}</h2>
             <p className="mt-1 text-sm text-[var(--color-texto-mute)]">{p.para}</p>
-            <p className="mt-5 flex flex-wrap items-baseline gap-x-2">
+            <p className="mt-5 flex flex-wrap items-center gap-2 text-sm">
+              <s className="text-[var(--color-texto-mute)]" aria-label={`Precio de lista ${pesos(p.listaMensual)}`}>
+                {pesos(p.listaMensual)}
+              </s>
+              <span className="rounded-full px-2 py-0.5 text-xs font-semibold" style={{ background: "var(--color-datos)", color: "#06302b" }}>
+                {descuento(p.mensual, p.listaMensual)}% de descuento
+              </span>
+            </p>
+            <p className="mt-1 flex flex-wrap items-baseline gap-x-2">
               <span className="text-4xl font-bold tracking-tight text-[var(--color-texto)]">{pesos(p.mensual)}</span>
               <span className="text-sm text-[var(--color-texto-mute)]">MXN al mes + IVA</span>
             </p>
             <p className="mt-1 text-sm text-[var(--color-texto-mute)]">
-              Anual: {pesos(p.anual)} + IVA (2 meses gratis)
+              Anual: <s>{pesos(p.listaAnual)}</s> {pesos(p.anual)} + IVA (2 meses gratis)
             </p>
             <ul className="mt-6 flex-1 space-y-2.5 text-sm text-[var(--color-texto)]">
               {p.resumen.map((r) => (
@@ -135,7 +143,7 @@ export default function PreciosPage() {
           <h2 id="t-extras" className="text-2xl font-bold text-[var(--color-texto)]">
             Extras
           </h2>
-          <p className="mt-2 text-sm text-[var(--color-texto-mute)]">Se suman a cualquier plan. Precios + IVA.</p>
+          <p className="mt-2 text-sm text-[var(--color-texto-mute)]">Se suman a cualquier plan. Precios en MXN + IVA.</p>
           <ul className={`${TARJETA} mt-4 divide-y divide-[var(--color-borde)] text-sm`}>
             {EXTRAS.map((e) => (
               <li key={e.concepto} className="flex justify-between gap-4 px-5 py-3">
@@ -159,23 +167,26 @@ export default function PreciosPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold text-[var(--color-texto)]">Créditos</h2>
+          <h2 className="text-2xl font-bold text-[var(--color-texto)]">Saldo prepago en dólares</h2>
           <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
-            Lo que tiene un costo variable se paga con créditos prepago: 1 crédito = $1 MXN + IVA.
+            Las llamadas con IA, las imágenes, los videos, las estrategias de contenido y las tendencias se pagan con
+            saldo prepago: recargas tu cuenta y cada uso se descuenta. Sin saldo, estas funciones se pausan hasta tu
+            siguiente recarga. Precios en dólares (USD) + IVA.
           </p>
           <ul className={`${TARJETA} mt-4 divide-y divide-[var(--color-borde)] text-sm`}>
-            {CONSUMO_CREDITOS.map((c) => (
+            {CONSUMO_USD.map((c) => (
               <li key={c.concepto} className="flex justify-between gap-4 px-5 py-3">
                 <span className="text-[var(--color-texto)]">{c.concepto}</span>
-                <span className="shrink-0 font-semibold tabular-nums text-[var(--color-texto)]">{c.creditos}</span>
+                <span className="shrink-0 font-semibold tabular-nums text-[var(--color-texto)]">{c.precio} USD</span>
               </li>
             ))}
           </ul>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-3">
-            {PAQUETES_CREDITOS.map((c) => (
-              <li key={c.creditos} className={`${TARJETA} p-4 text-center`}>
-                <span className="block text-xl font-bold text-[var(--color-texto)]">{c.precio}</span>
-                <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">{c.creditos}</span>
+          <p className="mt-4 text-sm font-medium text-[var(--color-texto)]">Recargas</p>
+          <ul className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {RECARGAS_USD.map((monto) => (
+              <li key={monto} className={`${TARJETA} p-4 text-center`}>
+                <span className="block text-xl font-bold text-[var(--color-texto)]">${monto}</span>
+                <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">USD + IVA</span>
               </li>
             ))}
           </ul>
@@ -190,7 +201,8 @@ export default function PreciosPage() {
           <div>
             <dt className="font-semibold text-[var(--color-texto)]">¿Los precios incluyen IVA?</dt>
             <dd className="mt-1 text-[var(--color-texto-mute)]">
-              No. Todos los precios están en pesos mexicanos y se les suma el 16% de IVA al cobrar.
+              No. Los planes y extras están en pesos mexicanos y el saldo prepago en dólares; a todo se le suma el
+              16% de IVA al cobrar. El precio tachado es el precio de lista de cada plan.
             </dd>
           </div>
           <div>
