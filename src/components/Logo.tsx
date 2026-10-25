@@ -12,7 +12,7 @@ export function Logo({ tamaño = "md" }: { tamaño?: "sm" | "md" | "lg" }) {
     <div className="flex items-center gap-2.5">
       <Image
         src="/logo.png"
-        alt=""
+        alt="Logotipo de LexyonDigital"
         width={tamañoIcono}
         height={tamañoIcono}
         className="shrink-0 rounded-[22%] object-cover"

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalLayout } from "@/components/LegalLayout";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
-export const metadata: Metadata = {
-  title: "Términos y Condiciones — LexyonDigital",
-  description: "Términos y condiciones de uso de la plataforma LexyonDigital.",
-};
+export const metadata: Metadata = metadataPagina({
+  titulo: "Términos y Condiciones — LexyonDigital",
+  descripcion: "Términos y condiciones de uso de la plataforma LexyonDigital.",
+  ruta: "/terminos",
+});
 
 export default function TerminosPage() {
   return (

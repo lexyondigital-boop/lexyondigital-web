@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { LegalLayout } from "@/components/LegalLayout";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
-export const metadata: Metadata = {
-  title: "Política de Cookies — LexyonDigital",
-  description: "Qué cookies y tecnologías similares usa el sitio lexyondigital.com.mx.",
-};
+export const metadata: Metadata = metadataPagina({
+  titulo: "Política de Cookies — LexyonDigital",
+  descripcion: "Qué cookies y tecnologías similares usa el sitio lexyondigital.com.mx.",
+  ruta: "/cookies",
+});
 
 export default function CookiesPage() {
   return (

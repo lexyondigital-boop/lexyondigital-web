@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
+import { metadataPagina } from "@/lib/metadata-pagina";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Biblioteca de recursos — LexyonDigital",
-  description: "Talleres gratuitos de marketing digital, legal, contable e inteligencia artificial.",
-};
+export const metadata: Metadata = metadataPagina({
+  titulo: "Biblioteca de recursos — LexyonDigital",
+  descripcion: "Talleres gratuitos de marketing digital, legal, contable e inteligencia artificial.",
+  ruta: "/biblioteca",
+});
 
 export default async function BibliotecaPage() {
   const supabase = await createClient();

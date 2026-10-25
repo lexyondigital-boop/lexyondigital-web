@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+import { metadataPagina } from "@/lib/metadata-pagina";
 import { ReproductorTaller } from "@/components/ReproductorTaller";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +40,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const datos = await obtenerTaller(slug);
   if (!datos) return {};
-  return { title: `${datos.taller.titulo} — Biblioteca LexyonDigital`, description: datos.taller.descripcion };
+  return metadataPagina({
+    titulo: `${datos.taller.titulo} — Biblioteca LexyonDigital`,
+    descripcion: datos.taller.descripcion ?? datos.taller.titulo,
+    ruta: `/biblioteca/${slug}`,
+    imagen: datos.taller.imagen_url,
+  });
 }
 
 export default async function TallerPage({ params }: { params: Promise<{ slug: string }> }) {

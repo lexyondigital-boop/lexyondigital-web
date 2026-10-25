@@ -25,8 +25,28 @@ const nextConfig: NextConfig = {
   },
   // Sin Content-Security-Policy a propósito: Turnstile carga su script desde
   // challenges.cloudflare.com y una CSP mal ajustada lo rompe en silencio.
+  // Dominio canónico: www. Traefik sirve ambos hosts (ver docker-compose.yml)
+  // y sin esto Google veía cada página dos veces. 308 conserva el método y
+  // la ruta, así los enlaces viejos (p. ej. las URLs de privacidad/términos
+  // registradas en Meta con el dominio sin www) siguen funcionando.
+  async redirects() {
+    return [
+      {
+        source: "/:ruta*",
+        has: [{ type: "host", value: "lexyondigital.com.mx" }],
+        destination: "https://www.lexyondigital.com.mx/:ruta*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
+      {
+        // Panel interno: fuera de los buscadores aunque alguien lo enlace
+        // (robots.txt solo frena el rastreo, no la indexación).
+        source: "/admin/:ruta*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
       {
         source: "/(.*)",
         headers: [
