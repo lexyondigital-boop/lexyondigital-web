@@ -8,8 +8,9 @@ export type Paquete = {
   nombre: string;
   mensual: number;
   anual: number;
-  // Precio de lista: se muestra tachado. +30%, +20% y +10% sobre el precio
-  // de Esencial, Profesional y Empresarial (mismos valores que la tabla
+  // Precio de lista: se muestra tachado. Calculado para que el precio real
+  // sea un 10%, 20% y 30% de descuento en Esencial, Profesional y
+  // Empresarial; anual = 10 meses de lista (mismos valores que la tabla
   // planes de la app).
   listaMensual: number;
   listaAnual: number;
@@ -25,8 +26,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Esencial",
     mensual: 499,
     anual: 4990,
-    listaMensual: 649,
-    listaAnual: 6490,
+    listaMensual: 555,
+    listaAnual: 5550,
     implementacion: 990,
     para: "Para el negocio que atiende y agenda por WhatsApp.",
     resumen: [
@@ -44,8 +45,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Profesional",
     mensual: 799,
     anual: 7990,
-    listaMensual: 959,
-    listaAnual: 9590,
+    listaMensual: 999,
+    listaAnual: 9990,
     implementacion: 1990,
     destacado: true,
     para: "Para el negocio con equipo de ventas y agenda compartida.",
@@ -65,8 +66,8 @@ export const PAQUETES: Paquete[] = [
     nombre: "Empresarial",
     mensual: 1999,
     anual: 19990,
-    listaMensual: 2199,
-    listaAnual: 21990,
+    listaMensual: 2856,
+    listaAnual: 28560,
     implementacion: 3990,
     para: "Para la empresa que automatiza, hace campañas y trabaja en campo.",
     resumen: [
