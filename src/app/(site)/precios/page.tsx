@@ -74,7 +74,7 @@ export default function PreciosPage() {
               ))}
             </ul>
             <Link
-              href="/registro"
+              href={`/registro?plan=${p.clave}`}
               className="mt-6 rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition-opacity hover:opacity-90"
               style={
                 p.destacado

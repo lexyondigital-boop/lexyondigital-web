@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { CAPTCHA_SITE_KEY, Turnstile, type TurnstileHandle } from "@/components/Turnstile";
 import { PAISES_TELEFONO, CODIGO_PAIS_POR_DEFECTO } from "@/lib/paises-telefono";
 import { NICHOS } from "@/lib/nichos";
+import { PAQUETES, type Paquete } from "@/lib/planes";
 
 // Mismo dominio donde vive la plataforma -- el endpoint público de registro
 // (/api/registro-publico) tiene CORS abierto solo para este origen.
@@ -12,7 +13,15 @@ const URL_REGISTRO = "https://app.lexyondigital.com.mx/api/registro-publico";
 const inputClase =
   "w-full rounded-lg border border-[var(--color-borde)] bg-[var(--color-bg-elevada)] px-3 py-2.5 text-sm text-[var(--color-texto)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-marca)]";
 
-export function RegistroForm() {
+function pesos(monto: number) {
+  return `$${monto.toLocaleString("es-MX")}`;
+}
+
+// planInicial: viene de /registro?plan=… (los botones de /precios). Sin él
+// se preselecciona el paquete destacado.
+export function RegistroForm({ planInicial }: { planInicial?: Paquete["clave"] | null }) {
+  const [plan, setPlan] = useState<Paquete["clave"]>(planInicial ?? PAQUETES.find((p) => p.destacado)?.clave ?? PAQUETES[0].clave);
+  const [periodo, setPeriodo] = useState<"mensual" | "anual">("mensual");
   const [nombreCuenta, setNombreCuenta] = useState("");
   const [giro, setGiro] = useState("");
   const [nicho, setNicho] = useState("");
@@ -70,6 +79,8 @@ export function RegistroForm() {
         sitio_web: sitioWeb,
         turnstile_token: captchaToken,
         turnstile_token_correo: turnstileTokenCorreo,
+        plan_elegido: plan,
+        periodo_elegido: periodo,
       }),
     }).catch(() => null);
 
@@ -110,12 +121,70 @@ export function RegistroForm() {
           </p>
         )}
         <p className="mt-2 text-sm text-[var(--color-texto-mute)]">Tu prueba gratuita de 14 días ya está activa.</p>
+        <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
+          Elegiste el plan <strong className="text-[var(--color-texto)]">{PAQUETES.find((p) => p.clave === plan)?.nombre}</strong> ({periodo}): lo
+          contratas desde Mi plan cuando quieras, antes de que termine la prueba.
+        </p>
       </div>
     );
   }
 
   return (
     <form onSubmit={enviar} className="rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-6 sm:p-8">
+      <fieldset className="mb-6">
+        <legend className="mb-1 text-sm font-medium text-[var(--color-texto)]">¿Qué plan te interesa?</legend>
+        <p className="mb-3 text-xs text-[var(--color-texto-mute)]">
+          La prueba de 14 días es gratis y sin tarjeta. Al terminar contratas este plan (o cambias a otro) desde la plataforma.
+        </p>
+        <div className="mb-3 flex rounded-lg border border-[var(--color-borde)] p-0.5 text-xs" role="group" aria-label="Periodo de pago">
+          {(["mensual", "anual"] as const).map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => setPeriodo(p)}
+              aria-pressed={periodo === p}
+              className={`flex-1 rounded-md px-3 py-1.5 font-medium transition-colors ${
+                periodo === p ? "bg-[var(--color-accion)] text-[var(--color-accion-fg)]" : "bg-transparent text-[var(--color-texto-mute)]"
+              }`}
+            >
+              {p === "anual" ? "Anual (2 meses gratis)" : "Mensual"}
+            </button>
+          ))}
+        </div>
+        <div className="space-y-2">
+          {PAQUETES.map((p) => {
+            const elegido = plan === p.clave;
+            return (
+              <label
+                key={p.clave}
+                // Color de borde en línea: el "* { border-color }" de globals.css
+                // no está en una capa y le gana a las clases de Tailwind.
+                className={`flex cursor-pointer items-start gap-3 rounded-xl p-3 transition-colors ${elegido ? "border-2" : "border"}`}
+                style={{ borderColor: elegido ? "var(--color-accion)" : "var(--color-borde)" }}
+              >
+                <input type="radio" name="plan" value={p.clave} checked={elegido} onChange={() => setPlan(p.clave)} className="mt-1" />
+                <span className="min-w-0 flex-1">
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-2">
+                    <span className="font-semibold text-[var(--color-texto)]">
+                      {p.nombre}
+                      {p.destacado && <span className="ml-2 text-[10px] font-semibold uppercase text-[var(--color-marca)]">Más elegido</span>}
+                    </span>
+                    <span className="text-sm font-semibold text-[var(--color-texto)]">
+                      {pesos(periodo === "anual" ? p.anual : p.mensual)}
+                      <span className="ml-1 text-xs font-normal text-[var(--color-texto-mute)]">{periodo === "anual" ? "/año" : "/mes"} + IVA</span>
+                    </span>
+                  </span>
+                  <span className="mt-0.5 block text-xs text-[var(--color-texto-mute)]">{p.para}</span>
+                </span>
+              </label>
+            );
+          })}
+        </div>
+        <a href="/precios" target="_blank" rel="noreferrer" className="mt-2 inline-block text-xs text-[var(--color-texto-mute)] underline hover:text-[var(--color-texto)]">
+          Comparar planes a detalle
+        </a>
+      </fieldset>
+
       <div className="space-y-4">
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Nombre de tu negocio</span>

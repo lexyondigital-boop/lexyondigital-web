@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { RegistroForm } from "@/components/RegistroForm";
 import { metadataPagina } from "@/lib/metadata-pagina";
+import { PAQUETES } from "@/lib/planes";
 
 export const metadata: Metadata = metadataPagina({
   titulo: "Prueba gratis 14 días — LexyonDigital",
@@ -8,7 +9,10 @@ export const metadata: Metadata = metadataPagina({
   ruta: "/registro",
 });
 
-export default function RegistroPage() {
+export default async function RegistroPage({ searchParams }: { searchParams: Promise<{ plan?: string }> }) {
+  const { plan } = await searchParams;
+  const planInicial = PAQUETES.find((p) => p.clave === plan)?.clave ?? null;
+
   return (
     <section className="mx-auto max-w-md px-5 py-16 sm:px-8 sm:py-24">
       <div className="mb-8 text-center">
@@ -20,7 +24,7 @@ export default function RegistroPage() {
           Marketing, legal, contable y un agente de IA que atiende tu WhatsApp -- todo en un solo lugar.
         </p>
       </div>
-      <RegistroForm />
+      <RegistroForm planInicial={planInicial} />
     </section>
   );
 }
