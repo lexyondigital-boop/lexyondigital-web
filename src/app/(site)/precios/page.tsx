@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BannerPrueba } from "@/components/BannerPrueba";
 import { metadataPagina } from "@/lib/metadata-pagina";
 import { URL_WHATSAPP } from "@/lib/sitio";
 import { COMPARATIVA, CONSUMO_USD, EXTRAS, PAQUETES, RECARGAS_USD, descuento, pesos } from "@/lib/planes";
@@ -33,6 +34,9 @@ export default function PreciosPage() {
           Precio por cuenta, no por usuario. Sin plazo forzoso. Prueba gratis de 14 días con todo lo del plan
           Profesional, sin tarjeta de crédito.
         </p>
+        <div className="mt-6">
+          <BannerPrueba compacto />
+        </div>
       </header>
 
       <section aria-label="Planes" className="mt-12 grid gap-5 lg:grid-cols-3">
