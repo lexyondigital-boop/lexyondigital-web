@@ -213,7 +213,7 @@ export default function TerminosPage() {
 
       <h2>14. Contacto</h2>
       <p>
-        Para cualquier duda sobre estos términos: <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a>.
+        Para cualquier duda sobre estos términos: <a href="mailto:info@lexyondigital.com.mx">info@lexyondigital.com.mx</a>.
       </p>
     </LegalLayout>
   );

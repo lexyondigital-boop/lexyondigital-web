@@ -41,7 +41,7 @@ export default function PrivacidadPage() {
         Es responsabilidad de ese negocio haber obtenido tu autorización previa para contactarte por
         WhatsApp antes de agregarte a su plataforma, salvo que tú le hayas escrito primero. Si no diste esa
         autorización, o ya no quieres recibir mensajes suyos, puedes solicitar la baja directamente con ese
-        negocio o escribiéndonos a <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a>, y lo
+        negocio o escribiéndonos a <a href="mailto:info@lexyondigital.com.mx">info@lexyondigital.com.mx</a>, y lo
         haremos valer con el negocio correspondiente.
       </p>
       <h3>2.2 Si eres usuario o administrador de la plataforma LexyonDigital</h3>
@@ -148,7 +148,7 @@ export default function PrivacidadPage() {
       </p>
       <p>
         Para ejercer cualquiera de estos derechos, contáctanos en{" "}
-        <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a> indicando tu nombre, el medio por
+        <a href="mailto:info@lexyondigital.com.mx">info@lexyondigital.com.mx</a> indicando tu nombre, el medio por
         el que tuviste contacto con nosotros (por ejemplo, el negocio cuyo WhatsApp usaste) y el derecho que
         deseas ejercer. Si tu solicitud corresponde a datos tratados por LexyonDigital por cuenta de un
         negocio cliente, podemos canalizarla a dicho negocio como responsable primario de esos datos.
@@ -169,7 +169,7 @@ export default function PrivacidadPage() {
 
       <h2>11. Contacto</h2>
       <p>
-        Para cualquier duda sobre este aviso: <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a>.
+        Para cualquier duda sobre este aviso: <a href="mailto:info@lexyondigital.com.mx">info@lexyondigital.com.mx</a>.
       </p>
     </LegalLayout>
   );

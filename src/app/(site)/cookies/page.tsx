@@ -62,7 +62,7 @@ export default function CookiesPage() {
 
       <h2>7. Contacto</h2>
       <p>
-        Dudas sobre esta política: <a href="mailto:info@lexyondigital.com">info@lexyondigital.com</a>.
+        Dudas sobre esta política: <a href="mailto:info@lexyondigital.com.mx">info@lexyondigital.com.mx</a>.
       </p>
     </LegalLayout>
   );

@@ -14,7 +14,7 @@ export const TITULO_INICIO = "LexyonDigital — Agente de IA para WhatsApp, CRM,
 export const DESCRIPCION_INICIO =
   "Agente de IA para WhatsApp 24/7, CRM y agenda de citas, más capacitación en Meta Ads y asesoría legal y contable para pymes y emprendedores en México.";
 
-export const CORREO_CONTACTO = "info@lexyondigital.com";
+export const CORREO_CONTACTO = "info@lexyondigital.com.mx";
 
 // Teléfono de contacto (confirmado por el negocio). Se muestra con el "1"
 // tradicional de celular mexicano; para wa.me, tel: y Schema.org va en
