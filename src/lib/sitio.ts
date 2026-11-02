@@ -20,6 +20,6 @@ export const CORREO_CONTACTO = "info@lexyondigital.com.mx";
 // tradicional de celular mexicano; para wa.me, tel: y Schema.org va en
 // formato internacional E.164 (sin el "1", que ya no se usa desde 2019 y
 // WhatsApp no necesita).
-export const TELEFONO_VISIBLE = "+52 1 720 137 7472";
-export const TELEFONO_E164 = "+527201377472";
-export const URL_WHATSAPP = "https://wa.me/527201377472";
+export const TELEFONO_VISIBLE = "+52 1 922 155 9728";
+export const TELEFONO_E164 = "+529221559728";
+export const URL_WHATSAPP = "https://wa.me/529221559728";
