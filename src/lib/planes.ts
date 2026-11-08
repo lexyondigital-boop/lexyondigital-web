@@ -171,6 +171,7 @@ export const EXTRAS: { concepto: string; precio: string }[] = [
 export const CONSUMO_USD: { concepto: string; precio: string }[] = [
   { concepto: "Minuto de llamada con agente de voz", precio: "$0.35" },
   { concepto: "Imagen generada con IA", precio: "$0.25" },
+  { concepto: "Quitar el fondo de una imagen (editor de video)", precio: "$0.05" },
   { concepto: "Video con IA, clip de 5 segundos", precio: "$1.25" },
   { concepto: "Video con IA, clip de 10 segundos", precio: "$2.25" },
   { concepto: "Estrategia de contenido con IA", precio: "$0.50" },
