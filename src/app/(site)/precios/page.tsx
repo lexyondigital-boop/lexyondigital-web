@@ -4,6 +4,7 @@ import { BannerPrueba } from "@/components/BannerPrueba";
 import { metadataPagina } from "@/lib/metadata-pagina";
 import { URL_WHATSAPP } from "@/lib/sitio";
 import { COMPARATIVA, CONSUMO_USD, EXTRAS, PAQUETES, RECARGAS_USD, descuento, pesos } from "@/lib/planes";
+import { ETIQUETA_CALIDAD, ETIQUETA_NIVEL, MODELOS_IA, formatoPrecioModelo } from "@/lib/modelos-ia";
 
 export const metadata: Metadata = metadataPagina({
   titulo: "Precios — LexyonDigital",
@@ -173,15 +174,22 @@ export default function PreciosPage() {
         <div>
           <h2 className="text-2xl font-bold text-[var(--color-texto)]">Saldo prepago en dólares</h2>
           <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
-            Las llamadas con IA, las imágenes, los videos, las estrategias de contenido y las tendencias se pagan con
-            saldo prepago: recargas tu cuenta y cada uso se descuenta. Sin saldo, estas funciones se pausan hasta tu
-            siguiente recarga. Precios en dólares (USD) + IVA.
+            Las llamadas con IA, las imágenes, los videos, las estrategias de contenido, las tendencias y las respuestas
+            del agente fuera de la bolsa de tu plan se pagan con saldo prepago: recargas tu cuenta y cada uso se
+            descuenta. Sin saldo, estas funciones se pausan hasta tu siguiente recarga. Las imágenes, los videos y las
+            respuestas extra del agente cuestan según el modelo que elijas (tabla de abajo). Precios en dólares (USD) + IVA.
           </p>
           <ul className={`${TARJETA} mt-4 divide-y divide-[var(--color-borde)] text-sm`}>
             {CONSUMO_USD.map((c) => (
               <li key={c.concepto} className="flex justify-between gap-4 px-5 py-3">
                 <span className="text-[var(--color-texto)]">{c.concepto}</span>
-                <span className="shrink-0 font-semibold tabular-nums text-[var(--color-texto)]">{c.precio} USD</span>
+                {c.precio.startsWith("$") ? (
+                  <span className="shrink-0 font-semibold tabular-nums text-[var(--color-texto)]">{c.precio} USD</span>
+                ) : (
+                  <a href="#t-modelos" className="shrink-0 font-semibold text-[var(--color-marca)] underline">
+                    {c.precio} ↓
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -195,6 +203,67 @@ export default function PreciosPage() {
             ))}
           </ul>
         </div>
+      </section>
+
+      <section aria-labelledby="t-modelos" className="mt-16">
+        <h2 id="t-modelos" className="text-2xl font-bold text-[var(--color-texto)]">
+          Modelos de IA: precio y calidad
+        </h2>
+        <p className="mt-2 max-w-3xl text-sm text-[var(--color-texto-mute)]">
+          Dentro de la plataforma eliges cómo usar la IA. <strong>Con créditos de LexyonDigital</strong> usamos nuestras
+          llaves y cada uso se descuenta de tu saldo con estos precios (costo del proveedor + 70 %, IVA incluido).{" "}
+          <strong>Con tus propias APIs</strong> conectas tus llaves de cada proveedor y le pagas directo; lo que no
+          conectes se cobra de tu saldo. Cada plan incluye una bolsa mensual de respuestas del agente: un modelo
+          económico gasta 1 respuesta de la bolsa, uno medio 2 y uno alto 5.
+        </p>
+        {(["texto", "imagen", "video"] as const).map((tipo) => (
+          <div key={tipo} className="mt-6">
+            <h3 className="font-semibold text-[var(--color-texto)]">
+              {tipo === "texto" ? "✍️ Texto: agente de WhatsApp y contenido" : tipo === "imagen" ? "🖼️ Imágenes" : "🎬 Video"}
+            </h3>
+            <div className={`${TARJETA} mt-3 overflow-x-auto`}>
+              <table className="w-full min-w-[640px] text-sm">
+                <thead className="text-left text-xs uppercase tracking-wide text-[var(--color-texto-mute)]">
+                  <tr>
+                    <th className="px-4 py-3">Modelo</th>
+                    <th className="px-4 py-3">Para qué sirve</th>
+                    <th className="px-4 py-3">Precio</th>
+                    <th className="px-4 py-3">Calidad</th>
+                    <th className="px-4 py-3 text-right">USD con IVA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {MODELOS_IA.filter((m) => m.tipo === tipo).map((m) => (
+                    <tr key={`${m.tipo}-${m.modelo}-${m.proveedor}`} className="border-t border-[var(--color-borde)] align-top">
+                      <td className="px-4 py-3">
+                        <span className="block font-medium text-[var(--color-texto)]">{m.modelo}</span>
+                        <span className="text-xs text-[var(--color-texto-mute)]">{m.proveedor}</span>
+                      </td>
+                      <td className="px-4 py-3 text-[var(--color-texto-mute)]">{m.uso}</td>
+                      <td className="px-4 py-3 text-[var(--color-texto)]">{ETIQUETA_NIVEL[m.nivel]}</td>
+                      <td className="whitespace-nowrap px-4 py-3 text-[var(--color-texto)]">
+                        {"★".repeat(m.calidad)}
+                        {"☆".repeat(5 - m.calidad)}
+                        <span className="block text-xs text-[var(--color-texto-mute)]">{ETIQUETA_CALIDAD[m.calidad]}</span>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 text-right tabular-nums text-[var(--color-texto)]">
+                        <span className="font-semibold">${formatoPrecioModelo(m.precio)}</span>
+                        <span className="block text-xs text-[var(--color-texto-mute)]">{m.unidad}</span>
+                        {m.precio10s !== null && (
+                          <span className="block text-xs text-[var(--color-texto-mute)]">${formatoPrecioModelo(m.precio10s)} el de 10 s</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+        <p className="mt-3 text-xs text-[var(--color-texto-mute)]">
+          Respuesta típica del agente: unos 3,000 tokens de entrada (instrucciones e historial) y 300 de salida; el cobro
+          real es por los tokens usados. Los precios de los proveedores cambian; aplica el vigente al momento del uso.
+        </p>
       </section>
 
       <section aria-labelledby="t-preguntas" className="mt-16 max-w-3xl">
