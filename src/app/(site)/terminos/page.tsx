@@ -114,11 +114,15 @@ export default function TerminosPage() {
       </p>
       <p>
         Las recargas de saldo <strong>no son reembolsables</strong>, salvo que la ley aplicable disponga lo
-        contrario. Un administrador de tu cuenta puede, en lugar de usar el saldo prepago administrado por
-        LexyonDigital, conectar y usar sus propias credenciales (API keys) de los proveedores de inteligencia
-        artificial, caso en el cual el costo de uso lo paga directamente al proveedor correspondiente y no se
-        descuenta saldo con LexyonDigital. Esta opción, cuando está disponible, puede habilitarse o
-        deshabilitarse por decisión nuestra para cada cuenta.
+        contrario. Un administrador de tu cuenta elige, dentro de la plataforma, cómo usar la inteligencia
+        artificial: <strong>con los créditos de LexyonDigital</strong> (usamos nuestras credenciales y cada uso se
+        descuenta de tu saldo según la tarifa del modelo, publicada en la <a href="/precios">página de precios</a>;
+        al elegir esta opción aceptas estos términos y esas tarifas) o <strong>con sus propias credenciales</strong>{" "}
+        (API keys) de los proveedores de inteligencia artificial, caso en el cual el costo de uso lo paga
+        directamente al proveedor correspondiente y no se descuenta saldo con LexyonDigital. Lo que no se cubra
+        con una credencial propia se descuenta del saldo prepago. Cada plan incluye una bolsa mensual de respuestas
+        del agente de IA con las credenciales de LexyonDigital; al agotarse, cada respuesta adicional se descuenta
+        del saldo o, sin saldo, la conversación pasa a tu equipo.
       </p>
       <p>
         Las cuotas de suscripción de los planes se rigen por la sección 4 de estos términos.
