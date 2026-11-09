@@ -74,7 +74,8 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-[var(--color-borde)] px-5 py-4 text-center text-xs text-[var(--color-texto-mute)] sm:px-8">
-        © {new Date().getFullYear()} LexyonDigital. Todos los derechos reservados.
+        © {new Date().getFullYear()} LexyonDigital es una marca de <strong>CONSULTINGOLD S.A.S. DE C.V.</strong> · RFC CON260325H62. Todos los
+        derechos reservados.
       </div>
     </footer>
   );
