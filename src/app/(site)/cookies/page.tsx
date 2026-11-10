@@ -10,7 +10,7 @@ export const metadata: Metadata = metadataPagina({
 
 export default function CookiesPage() {
   return (
-    <LegalLayout titulo="Política de Cookies" actualizado="11 de octubre de 2026">
+    <LegalLayout titulo="Política de Cookies" actualizado="10 de noviembre de 2026">
       <h2>1. Alcance de este aviso</h2>
       <p>
         Este aviso describe el uso de cookies y tecnologías similares en el sitio{" "}
@@ -20,12 +20,42 @@ export default function CookiesPage() {
         sesión.
       </p>
 
-      <h2>2. Este sitio no usa cookies de rastreo ni de analítica</h2>
+      <h2>2. Cookies de medición y publicidad (solo con tu consentimiento)</h2>
       <p>
-        lexyondigital.com.mx <strong>no coloca cookies propias de analítica web, publicidad o rastreo de
-        comportamiento</strong> (por ejemplo, no usamos Google Analytics, píxeles de redes sociales ni
-        herramientas similares de medición en este sitio). No construimos perfiles de navegación de quienes
-        visitan el sitio ni compartimos datos de navegación con fines publicitarios.
+        Para saber cómo llegan las personas a nuestro sitio y mejorar nuestros anuncios usamos{" "}
+        <strong>Google Analytics 4</strong> y <strong>Google Ads</strong>, de Google LLC. Estas cookies{" "}
+        <strong>solo se activan si pulsas &quot;Aceptar&quot;</strong> en el aviso de cookies que aparece en tu primera visita.
+        Si las rechazas o no eliges, no se guarda ninguna cookie de Google en tu navegador; Google solo recibe señales
+        anónimas sin cookies (por ejemplo, que hubo una visita), que no permiten identificarte.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Cookie</th>
+            <th>De quién</th>
+            <th>Para qué</th>
+            <th>Duración</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>_ga, _ga_*</td>
+            <td>Google Analytics</td>
+            <td>Distinguir visitas y medir qué páginas se ven y qué acciones se hacen (registro, clic en WhatsApp)</td>
+            <td>Hasta 2 años</td>
+          </tr>
+          <tr>
+            <td>_gcl_au, _gcl_aw</td>
+            <td>Google Ads</td>
+            <td>Saber si una visita llegó desde un anuncio y si terminó en registro</td>
+            <td>90 días</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        No vendemos tus datos ni construimos perfiles para terceros. Puedes cambiar tu decisión cuando quieras con el enlace{" "}
+        <strong>&quot;Preferencias de cookies&quot;</strong> al pie de cualquier página. Más información sobre cómo usa Google estos
+        datos: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a>.
       </p>
 
       <h2>3. Elemento de seguridad que sí utilizamos</h2>
@@ -48,16 +78,16 @@ export default function CookiesPage() {
 
       <h2>5. Cómo administrar cookies en tu navegador</h2>
       <p>
-        Aunque este sitio no coloca cookies de rastreo propias, cualquier navegador te permite bloquear o
-        eliminar cookies desde su configuración de privacidad. Ten en cuenta que bloquear el reto de
+        Además del aviso de cookies, cualquier navegador te permite bloquear o eliminar cookies desde su
+        configuración de privacidad. Ten en cuenta que bloquear el reto de
         verificación de Cloudflare Turnstile puede impedir que el formulario de registro funcione
         correctamente.
       </p>
 
       <h2>6. Cambios a esta política</h2>
       <p>
-        Si en el futuro incorporamos herramientas de analítica o publicidad en este sitio, actualizaremos esta
-        política antes de activarlas y, cuando la ley lo requiera, solicitaremos tu consentimiento primero.
+        Si incorporamos otras herramientas de medición o publicidad, actualizaremos esta política antes de activarlas y
+        te pediremos tu consentimiento en el mismo aviso de cookies.
       </p>
 
       <h2>7. Contacto</h2>
