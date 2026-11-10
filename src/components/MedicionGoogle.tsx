@@ -58,30 +58,33 @@ export function MedicionGoogle() {
       {banner && (
         <div
           role="dialog"
-          aria-label="Preferencias de cookies"
-          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-4 shadow-xl sm:p-5"
+          aria-labelledby="aviso-privacidad-titulo"
+          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-5xl rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)]/95 p-5 shadow-2xl backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-7"
         >
-          <p className="text-sm text-[var(--color-texto)]">
-            Usamos cookies y tecnologías similares para entender cómo usas nuestro sitio, mejorar tu experiencia y ofrecerte un mejor servicio. Al
-            pulsar &quot;Aceptar&quot; estás de acuerdo con nuestro{" "}
-            <Link href="/privacidad" className="underline">
-              Aviso de Privacidad
-            </Link>{" "}
-            y nuestra{" "}
-            <Link href="/cookies" className="underline">
-              Política de Cookies
-            </Link>
-            .
+          <p id="aviso-privacidad-titulo" className="text-base font-semibold text-[var(--color-texto)]">
+            Información sobre privacidad
           </p>
-          <div className="mt-3 flex flex-wrap justify-end gap-2">
+          <p className="mt-2 text-sm leading-relaxed text-[var(--color-texto-mute)] sm:text-[15px]">
+            Utilizamos tecnologías como cookies y procesamos datos personales para brindarte nuestros servicios, entender cómo usas el sitio y
+            mejorar tu experiencia.
+          </p>
+          <div className="mt-5 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-texto)]">
+              <Link href="/privacidad" className="hover:underline">
+                Aviso de Privacidad
+              </Link>
+              <Link href="/cookies" className="hover:underline">
+                Más información
+              </Link>
+              <button type="button" onClick={() => elegir("rechazado")} className="text-[var(--color-texto-mute)] hover:underline">
+                Rechazar
+              </button>
+            </div>
             <button
               type="button"
-              onClick={() => elegir("rechazado")}
-              className="rounded-lg border border-[var(--color-borde)] px-4 py-2 text-sm font-medium text-[var(--color-texto)] hover:bg-[var(--color-bg-elevada)]"
+              onClick={() => elegir("aceptado")}
+              className="w-full rounded-full bg-[var(--color-texto)] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-bg)] transition hover:opacity-90 sm:w-1/2"
             >
-              Rechazar
-            </button>
-            <button type="button" onClick={() => elegir("aceptado")} className="rounded-lg bg-[var(--color-accion)] px-4 py-2 text-sm font-semibold text-[var(--color-accion-fg)]">
               Aceptar
             </button>
           </div>
