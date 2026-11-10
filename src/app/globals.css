@@ -215,8 +215,39 @@ body {
 }
 
 /* ============================================================
-   Hero animado de la página de inicio
+   Hero animado de la página de inicio — colores por tema
    ============================================================ */
+:root,
+[data-theme="tornasol-claro"] {
+  --hero-bg: #f7f3f9;
+  --hero-texto: #1c1123;
+  --hero-mute: #6b5b74;
+  --hero-borde: #d3c2dc;
+  --hero-chip: rgb(255 255 255 / 0.75);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="tornasol-claro"]):not([data-theme="tornasol-oscuro"]) {
+    --hero-bg: #000000;
+    --hero-texto: #ffffff;
+    --hero-mute: rgb(255 255 255 / 0.65);
+    --hero-borde: rgb(255 255 255 / 0.16);
+    --hero-chip: rgb(255 255 255 / 0.06);
+  }
+}
+[data-theme="negro"] {
+  --hero-bg: #000000;
+  --hero-texto: #ffffff;
+  --hero-mute: rgb(255 255 255 / 0.65);
+  --hero-borde: rgb(255 255 255 / 0.16);
+  --hero-chip: rgb(255 255 255 / 0.06);
+}
+[data-theme="tornasol-oscuro"] {
+  --hero-bg: #0c0710;
+  --hero-texto: #f6eefa;
+  --hero-mute: #b7a3c2;
+  --hero-borde: rgb(246 238 250 / 0.16);
+  --hero-chip: rgb(246 238 250 / 0.06);
+}
 @keyframes palabra-entrada {
   from { opacity: 0; filter: blur(10px); transform: translateY(0.35em); }
   to { opacity: 1; filter: blur(0); transform: none; }

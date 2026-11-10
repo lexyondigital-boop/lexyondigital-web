@@ -113,11 +113,11 @@ const PRIMERA_LINEA = "Todo lo que tu negocio necesita para".split(" ");
 
 export function Hero() {
   return (
-    <section className="hero-oscuro relative isolate overflow-hidden bg-[#07040b] text-white">
+    <section className="hero-oscuro relative isolate overflow-hidden bg-[var(--hero-bg)] text-[var(--hero-texto)]">
       <FondoPuntos className="absolute inset-0 -z-10 h-full w-full" />
 
       <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 text-center sm:pb-20 sm:px-8 sm:pt-24">
-        <span className="aparecer inline-block rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-white/70 backdrop-blur">
+        <span className="aparecer inline-block rounded-full border border-[var(--hero-borde)] bg-[var(--hero-chip)] px-3 py-1 text-xs font-medium uppercase tracking-wide text-[var(--hero-mute)] backdrop-blur">
           Marketing · Legal · Contable · IA
         </span>
 
@@ -134,10 +134,10 @@ export function Hero() {
           </span>
         </h1>
 
-        <p className="aparecer mx-auto mt-6 max-w-2xl text-base text-white/65 [animation-delay:900ms] sm:text-lg">
-          <strong className="font-semibold text-white">LexyonDigital</strong> une capacitación en marketing, asesoría{" "}
-          <strong className="font-semibold text-white">legal y contable</strong> y un{" "}
-          <strong className="font-semibold text-white">agente de IA</strong> que atiende a tus clientes por WhatsApp — sin que se te
+        <p className="aparecer mx-auto mt-6 max-w-2xl text-base text-[var(--hero-mute)] [animation-delay:900ms] sm:text-lg">
+          <strong className="font-semibold text-[var(--hero-texto)]">LexyonDigital</strong> une capacitación en marketing, asesoría{" "}
+          <strong className="font-semibold text-[var(--hero-texto)]">legal y contable</strong> y un{" "}
+          <strong className="font-semibold text-[var(--hero-texto)]">agente de IA</strong> que atiende a tus clientes por WhatsApp — sin que se te
           escape ni un mensaje.
         </p>
 
@@ -147,7 +147,7 @@ export function Hero() {
           </Link>
           <a
             href="#servicios"
-            className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/85 transition-colors hover:border-white/40 hover:text-white"
+            className="rounded-full border border-[var(--hero-borde)] px-6 py-3 text-sm font-semibold text-[var(--hero-texto)] transition-colors hover:border-[var(--color-marca)]"
           >
             Conoce nuestros servicios
           </a>
@@ -155,8 +155,8 @@ export function Hero() {
 
         <ul className="aparecer mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 [animation-delay:1200ms]">
           {BENEFICIOS.map((b) => (
-            <li key={b} className="flex items-center gap-2 text-sm text-white/60">
-              <span className="text-[#c6ff3d]">✓</span>
+            <li key={b} className="flex items-center gap-2 text-sm text-[var(--hero-mute)]">
+              <span className="text-[var(--color-en-vivo)]">✓</span>
               {b}
             </li>
           ))}
@@ -168,7 +168,7 @@ export function Hero() {
           {NODOS.map((n, k) => (
             <div
               key={n.label}
-              className={`flotar absolute hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-2 text-xs font-medium text-white/85 backdrop-blur-md md:flex ${POSICIONES[k]}`}
+              className={`flotar absolute hidden items-center gap-2 rounded-full border border-[var(--hero-borde)] bg-[var(--hero-chip)] px-3.5 py-2 text-xs font-medium text-[var(--hero-texto)] shadow-sm backdrop-blur-md md:flex ${POSICIONES[k]}`}
               style={{ animationDelay: `${k * -1.3}s` }}
             >
               <span style={{ color: colorDe(n.color) }}>{n.icono}</span>
