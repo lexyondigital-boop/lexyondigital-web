@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Logo } from "@/components/Logo";
+import { FondoPuntos } from "@/components/hero/FondoPuntos";
+import { PalabraRotativa } from "@/components/hero/PalabraRotativa";
+import { ChatAnimado } from "@/components/hero/ChatAnimado";
 
 const BENEFICIOS = [
   "Agente de IA que atiende WhatsApp 24/7",
@@ -93,96 +95,81 @@ const NODOS: Nodo[] = [
   },
 ];
 
-const LINEAS = [
-  "M 50 50 L 14 15",
-  "M 50 50 L 65 8",
-  "M 50 50 L 82 36",
-  "M 50 50 L 11 62",
-  "M 50 50 L 68 67",
-  "M 50 50 L 40 88",
+// Posición de cada etiqueta flotante alrededor del teléfono (escritorio).
+const POSICIONES = [
+  "left-[2%] top-[12%]",
+  "right-[0%] top-[6%]",
+  "right-[4%] top-[46%]",
+  "left-[0%] top-[52%]",
+  "right-[10%] bottom-[6%]",
+  "left-[8%] bottom-[2%]",
 ];
 
 function colorDe(color: Nodo["color"]) {
-  return color === "ia" ? "var(--color-ia)" : color === "datos" ? "var(--color-datos)" : "var(--color-marca)";
+  return color === "ia" ? "#ec4899" : color === "datos" ? "#35d6c4" : "#a855f7";
 }
+
+const PRIMERA_LINEA = "Todo lo que tu negocio necesita para".split(" ");
 
 export function Hero() {
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:px-8 sm:pt-20">
-      <div className="grid items-center gap-12 lg:grid-cols-2">
-        <div>
-          <span className="mb-4 inline-block rounded-full border border-[var(--color-borde)] px-3 py-1 text-xs font-medium uppercase tracking-wide text-[var(--color-texto-mute)]">
-            Marketing · Legal · Contable · IA
-          </span>
-          <h1 className="text-balance text-4xl font-bold leading-[1.1] text-[var(--color-texto)] sm:text-5xl">
-            Todo lo que tu negocio necesita para crecer,{" "}
-            <span
-              style={{
-                backgroundImage: "var(--gradiente-marca)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              en un solo lugar
-            </span>
-          </h1>
-          <p className="mt-5 max-w-md text-base text-[var(--color-texto-mute)] sm:text-lg">
-            Capacitación en marketing digital, asesoría legal y contable, y nuestra propia plataforma con un
-            agente de inteligencia artificial que atiende a tus clientes por WhatsApp — sin que se te escape
-            ni un mensaje.
-          </p>
+    <section className="hero-oscuro relative isolate overflow-hidden bg-[#07040b] text-white">
+      <FondoPuntos className="absolute inset-0 -z-10 h-full w-full" />
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/registro"
-              className="rounded-lg px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)", boxShadow: "var(--halo-accion)" }}
-            >
-              Prueba gratis 14 días
-            </Link>
-            <a
-              href="#servicios"
-              className="rounded-lg border border-[var(--color-borde)] px-5 py-3 text-sm font-semibold text-[var(--color-texto)] transition-colors hover:border-[var(--color-borde-alto)]"
-            >
-              Conoce nuestros servicios
-            </a>
-          </div>
+      <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 text-center sm:pb-20 sm:px-8 sm:pt-24">
+        <span className="aparecer inline-block rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium uppercase tracking-wide text-white/70 backdrop-blur">
+          Marketing · Legal · Contable · IA
+        </span>
 
-          <ul className="mt-9 space-y-2.5">
-            {BENEFICIOS.map((b) => (
-              <li key={b} className="flex items-center gap-2.5 text-sm text-[var(--color-texto-mute)]">
-                <span
-                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px]"
-                  style={{ background: "var(--color-marca)", color: "#fff" }}
-                >
-                  ✓
-                </span>
-                {b}
-              </li>
+        <h1 className="mx-auto mt-6 max-w-4xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">
+          <span className="block">
+            {PRIMERA_LINEA.map((p, n) => (
+              <span key={n} className="palabra-entrada inline-block" style={{ animationDelay: `${120 + n * 90}ms` }}>
+                {p}&nbsp;
+              </span>
             ))}
-          </ul>
+          </span>
+          <span className="palabra-entrada mt-1 block" style={{ animationDelay: `${120 + PRIMERA_LINEA.length * 90}ms` }}>
+            <PalabraRotativa palabras={["crecer", "vender más", "atender 24/7", "estar en orden"]} />
+          </span>
+        </h1>
+
+        <p className="aparecer mx-auto mt-6 max-w-2xl text-base text-white/65 [animation-delay:900ms] sm:text-lg">
+          <strong className="font-semibold text-white">LexyonDigital</strong> une capacitación en marketing, asesoría{" "}
+          <strong className="font-semibold text-white">legal y contable</strong> y un{" "}
+          <strong className="font-semibold text-white">agente de IA</strong> que atiende a tus clientes por WhatsApp — sin que se te
+          escape ni un mensaje.
+        </p>
+
+        <div className="aparecer mt-9 flex flex-wrap justify-center gap-3 [animation-delay:1050ms]">
+          <Link href="/registro" className="boton-brillo rounded-full px-6 py-3 text-sm font-semibold text-white">
+            Prueba gratis 14 días
+          </Link>
+          <a
+            href="#servicios"
+            className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white/85 transition-colors hover:border-white/40 hover:text-white"
+          >
+            Conoce nuestros servicios
+          </a>
         </div>
 
-        <div className="relative mx-auto aspect-square w-full max-w-md lg:max-w-none">
-          <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" preserveAspectRatio="none" aria-hidden="true">
-            {LINEAS.map((d) => (
-              <path key={d} d={d} stroke="var(--color-borde-alto)" strokeWidth="0.4" fill="none" />
-            ))}
-          </svg>
+        <ul className="aparecer mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 [animation-delay:1200ms]">
+          {BENEFICIOS.map((b) => (
+            <li key={b} className="flex items-center gap-2 text-sm text-white/60">
+              <span className="text-[#c6ff3d]">✓</span>
+              {b}
+            </li>
+          ))}
+        </ul>
 
-          <div
-            className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)]"
-            style={{ boxShadow: "0 0 0 6px color-mix(in srgb, var(--color-marca) 8%, transparent)" }}
-          >
-            <Logo tamaño="sm" />
-          </div>
-
-          {NODOS.map((n) => (
+        <div className="aparecer relative mx-auto mt-14 max-w-4xl [animation-delay:1300ms]">
+          <div aria-hidden="true" className="halo-telefono absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full" />
+          <ChatAnimado />
+          {NODOS.map((n, k) => (
             <div
               key={n.label}
-              className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border bg-[var(--color-tarjeta)] px-3 py-2 text-xs font-medium text-[var(--color-texto)] shadow-sm"
-              style={{ top: n.top, left: n.left, borderColor: "var(--color-borde)" }}
+              className={`flotar absolute hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-2 text-xs font-medium text-white/85 backdrop-blur-md md:flex ${POSICIONES[k]}`}
+              style={{ animationDelay: `${k * -1.3}s` }}
             >
               <span style={{ color: colorDe(n.color) }}>{n.icono}</span>
               <span className="whitespace-nowrap">{n.label}</span>
