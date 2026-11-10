@@ -10,8 +10,9 @@
 // consentimiento Google solo recibe señales anónimas sin cookies, que usa
 // para estimar conversiones (modo avanzado de Consent Mode).
 
-export const ID_GA4 = process.env.NEXT_PUBLIC_GA_ID || "";
-export const ID_GOOGLE_ADS = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
+// ID público de medición de GA4 (no es secreto). La variable de entorno, si existe, tiene prioridad.
+export const ID_GA4 = process.env.NEXT_PUBLIC_GA_ID || "G-6VEQWQDM51";
+export const ID_GOOGLE_ADS = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18566298338";
 // Etiqueta de la acción de conversión "Registro" en Google Ads (lo que va
 // después de la diagonal en "AW-123/AbCdEf"). Opcional: sin ella, el
 // registro se importa a Ads desde GA4.
