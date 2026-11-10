@@ -234,3 +234,112 @@ body {
   color: var(--color-marca);
   text-decoration: underline;
 }
+
+/* ============================================================
+   Hero animado de la página de inicio — colores por tema
+   ============================================================ */
+:root,
+[data-theme="tornasol-claro"] {
+  --hero-bg: #f7f3f9;
+  --hero-texto: #1c1123;
+  --hero-mute: #6b5b74;
+  --hero-borde: #d3c2dc;
+  --hero-chip: rgb(255 255 255 / 0.75);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="tornasol-claro"]):not([data-theme="tornasol-oscuro"]) {
+    --hero-bg: #000000;
+    --hero-texto: #ffffff;
+    --hero-mute: rgb(255 255 255 / 0.65);
+    --hero-borde: rgb(255 255 255 / 0.16);
+    --hero-chip: rgb(255 255 255 / 0.06);
+  }
+}
+[data-theme="negro"] {
+  --hero-bg: #000000;
+  --hero-texto: #ffffff;
+  --hero-mute: rgb(255 255 255 / 0.65);
+  --hero-borde: rgb(255 255 255 / 0.16);
+  --hero-chip: rgb(255 255 255 / 0.06);
+}
+[data-theme="tornasol-oscuro"] {
+  --hero-bg: #0c0710;
+  --hero-texto: #f6eefa;
+  --hero-mute: #b7a3c2;
+  --hero-borde: rgb(246 238 250 / 0.16);
+  --hero-chip: rgb(246 238 250 / 0.06);
+}
+@keyframes palabra-entrada {
+  from { opacity: 0; filter: blur(10px); transform: translateY(0.35em); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+.palabra-entrada { animation: palabra-entrada 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.aparecer { animation: aparecer 0.9s ease-out both; }
+
+.palabra-rotativa {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(0.4em) scale(0.98);
+  transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  padding-bottom: 0.08em;
+}
+.palabra-rotativa.palabra-activa { opacity: 1; filter: blur(0); transform: none; }
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.flotar { animation: flotar 6s ease-in-out infinite; }
+
+@keyframes halo-telefono {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.12); }
+}
+.halo-telefono {
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.55), rgba(236, 72, 153, 0.25) 45%, transparent 70%);
+  filter: blur(30px);
+  animation: halo-telefono 7s ease-in-out infinite;
+}
+
+@keyframes burbuja-chat {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.burbuja-chat { animation: burbuja-chat 0.35s ease-out both; }
+
+@keyframes punto-escribiendo {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+.punto-escribiendo {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #fff;
+  animation: punto-escribiendo 1s infinite;
+}
+
+/* Botón con borde degradado que gira */
+@property --giro { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes giro { to { --giro: 360deg; } }
+.boton-brillo {
+  background:
+    linear-gradient(#150b1d, #150b1d) padding-box,
+    conic-gradient(from var(--giro), #a855f7, #ec4899, #ffb020, #35d6c4, #a855f7) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 0 28px -6px rgba(236, 72, 153, 0.6);
+  animation: giro 4s linear infinite;
+  transition: box-shadow 0.2s ease;
+}
+.boton-brillo:hover { box-shadow: 0 0 36px -4px rgba(236, 72, 153, 0.85); }
+
+@media (prefers-reduced-motion: reduce) {
+  .palabra-entrada, .aparecer, .flotar, .halo-telefono, .burbuja-chat, .boton-brillo { animation: none; }
+  .palabra-rotativa { transition: none; }
+}
