@@ -62,8 +62,16 @@ export function MedicionGoogle() {
           className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-4 shadow-xl sm:p-5"
         >
           <p className="text-sm text-[var(--color-texto)]">
-            Usamos cookies de Google Analytics y Google Ads para saber cómo llegas a nuestro sitio y mejorar nuestros anuncios. Solo se activan si las
-            aceptas. <Link href="/cookies" className="underline">Más información</Link>
+            Usamos cookies y tecnologías similares para entender cómo usas nuestro sitio, mejorar tu experiencia y ofrecerte un mejor servicio. Al
+            pulsar &quot;Aceptar&quot; estás de acuerdo con nuestro{" "}
+            <Link href="/privacidad" className="underline">
+              Aviso de Privacidad
+            </Link>{" "}
+            y nuestra{" "}
+            <Link href="/cookies" className="underline">
+              Política de Cookies
+            </Link>
+            .
           </p>
           <div className="mt-3 flex flex-wrap justify-end gap-2">
             <button
