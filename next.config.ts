@@ -37,6 +37,10 @@ const nextConfig: NextConfig = {
         destination: "https://www.lexyondigital.com.mx/:ruta*",
         permanent: true,
       },
+      // URL de una versión anterior del sitio que Google todavía tiene
+      // registrada (Search Console): se manda al servicio equivalente para
+      // no perder ese enlace.
+      { source: "/servicios-legales", destination: "/servicios/asesoria-legal", permanent: true },
     ];
   },
   async headers() {
