@@ -1,5 +1,6 @@
 "use client";
 
+import { ETIQUETA_ADS_REGISTRO, evento } from "@/lib/medicion";
 import { useRef, useState, type FormEvent } from "react";
 import { CAPTCHA_SITE_KEY, Turnstile, type TurnstileHandle } from "@/components/Turnstile";
 import { PAISES_TELEFONO, CODIGO_PAIS_POR_DEFECTO } from "@/lib/paises-telefono";
@@ -100,6 +101,9 @@ export function RegistroForm({ planInicial }: { planInicial?: Paquete["clave"] |
 
     setAvisoCorreo(data.avisoCorreo ?? null);
     setExito(true);
+    // Conversión principal: registro a la prueba gratis (GA4 "sign_up" y,
+    // si está configurada, la conversión de Google Ads).
+    evento("sign_up", { method: "formulario", plan, periodo, giro }, ETIQUETA_ADS_REGISTRO || undefined);
   }
 
   if (exito) {

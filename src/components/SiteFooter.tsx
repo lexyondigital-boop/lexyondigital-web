@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
+import { BotonPreferenciasCookies } from "@/components/MedicionGoogle";
 import { TELEFONO_E164, TELEFONO_VISIBLE, URL_WHATSAPP } from "@/lib/sitio";
 
 const REDES = [
@@ -68,6 +69,9 @@ export function SiteFooter() {
               <Link href="/cookies" className="underline hover:text-[var(--color-texto)]">
                 Política de Cookies
               </Link>
+            </li>
+            <li>
+              <BotonPreferenciasCookies className="underline hover:text-[var(--color-texto)]" />
             </li>
           </ul>
         </div>
