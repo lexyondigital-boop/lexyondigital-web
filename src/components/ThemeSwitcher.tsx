@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTema, type Tema } from "@/context/ThemeContext";
 
 const OPCIONES: { value: Tema; label: string; swatch: string }[] = [
-  { value: "negro", label: "Negro", swatch: "#000000" },
   { value: "tornasol-oscuro", label: "Ciruela tornasol", swatch: "#1c1123" },
+  { value: "negro", label: "Negro", swatch: "#000000" },
   { value: "tornasol-claro", label: "Blanco tornasol", swatch: "#f7f3f9" },
 ];
 

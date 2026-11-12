@@ -23,3 +23,19 @@ export const CORREO_CONTACTO = "info@lexyondigital.com.mx";
 export const TELEFONO_VISIBLE = "+52 1 922 155 9728";
 export const TELEFONO_E164 = "+529221559728";
 export const URL_WHATSAPP = "https://wa.me/529221559728";
+
+// Perfiles oficiales en redes sociales. Se usan en el pie de página y en los
+// datos estructurados (sameAs) para que Google relacione la marca con ellos.
+// Una red sin URL (null) no se muestra.
+export const REDES_SOCIALES: { red: "facebook" | "instagram" | "tiktok" | "youtube"; url: string | null }[] = [
+  { red: "facebook", url: "https://www.facebook.com/profile.php?id=61577898430335" },
+  { red: "instagram", url: "https://www.instagram.com/lexyondigital" },
+  { red: "tiktok", url: "https://www.tiktok.com/@lexyondigital" },
+  { red: "youtube", url: "https://www.youtube.com/@lexyondigital" },
+];
+
+export const RAZON_SOCIAL = "CONSULTINGOLD S.A.S. DE C.V.";
+export const RFC = "CON260325H62";
+
+// Enlace directo para dejar una reseña en el Perfil de Google Business.
+export const URL_RESENA_GOOGLE = "https://g.page/r/CamibwDr777rEAI/review";

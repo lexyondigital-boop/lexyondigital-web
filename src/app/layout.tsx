@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider, SCRIPT_TEMA_INICIAL } from "@/context/ThemeContext";
+import { ThemeProvider, SCRIPT_TEMA_INICIAL, TEMA_DEFECTO } from "@/context/ThemeContext";
 import { DESCRIPCION_INICIO, NOMBRE_SITIO, TITULO_INICIO, URL_SITIO } from "@/lib/sitio";
 
 const geistSans = Geist({
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="es" data-theme={TEMA_DEFECTO} suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA_INICIAL }} />
       </head>
