@@ -5,7 +5,8 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 export type Tema = "negro" | "tornasol-oscuro" | "tornasol-claro";
 
 const STORAGE_KEY = "lexyon-theme";
-const TEMA_DEFECTO: Tema = "tornasol-claro";
+// Ciruela es el tema con el que se abre la web la primera vez (sin elección guardada).
+export const TEMA_DEFECTO: Tema = "tornasol-oscuro";
 
 const TemaContext = createContext<{
   tema: Tema;

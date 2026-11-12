@@ -29,7 +29,7 @@ export const URL_WHATSAPP = "https://wa.me/529221559728";
 // Una red sin URL (null) no se muestra.
 export const REDES_SOCIALES: { red: "facebook" | "instagram" | "tiktok" | "youtube"; url: string | null }[] = [
   { red: "facebook", url: "https://www.facebook.com/profile.php?id=61577898430335" },
-  { red: "instagram", url: null },
+  { red: "instagram", url: "https://www.instagram.com/lexyondigital" },
   { red: "tiktok", url: "https://www.tiktok.com/@lexyondigital" },
   { red: "youtube", url: "https://www.youtube.com/@lexyondigital" },
 ];
