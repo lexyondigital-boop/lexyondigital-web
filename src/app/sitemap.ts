@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 // Solo URLs públicas, canónicas (www) y con contenido. Fuera a propósito:
 // /admin (privado) y las secciones que hoy son "Próximamente" (acerca-de,
-// contacto, tienda, calculadora-ads) -- además llevan noindex hasta que
+// tienda, calculadora-ads) -- además llevan noindex hasta que
 // tengan contenido real.
 const PAGINAS_FIJAS: { ruta: string; prioridad: number; frecuencia: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
   { ruta: "/", prioridad: 1, frecuencia: "weekly" },
@@ -17,6 +17,7 @@ const PAGINAS_FIJAS: { ruta: string; prioridad: number; frecuencia: MetadataRout
   { ruta: "/precios", prioridad: 0.9, frecuencia: "monthly" },
   { ruta: "/blog", prioridad: 0.7, frecuencia: "weekly" },
   { ruta: "/biblioteca", prioridad: 0.7, frecuencia: "weekly" },
+  { ruta: "/contacto", prioridad: 0.6, frecuencia: "monthly" },
   { ruta: "/privacidad", prioridad: 0.2, frecuencia: "yearly" },
   { ruta: "/terminos", prioridad: 0.2, frecuencia: "yearly" },
   { ruta: "/cookies", prioridad: 0.2, frecuencia: "yearly" },
