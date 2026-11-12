@@ -41,6 +41,9 @@ const nextConfig: NextConfig = {
       // registrada (Search Console): se manda al servicio equivalente para
       // no perder ese enlace.
       { source: "/servicios-legales", destination: "/servicios/asesoria-legal", permanent: true },
+      { source: "/politica-de-privacidad", destination: "/privacidad", permanent: true },
+      { source: "/calculadora-facebook-ads", destination: "/calculadora-ads", permanent: true },
+      { source: "/product/:id*", destination: "/tienda", permanent: true },
     ];
   },
   async headers() {
