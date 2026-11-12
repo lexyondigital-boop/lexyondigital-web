@@ -69,7 +69,7 @@ export function PostForm({
           defaultValue={post?.contenido}
           className={`${inputClase} font-mono text-xs`}
         />
-        <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">Texto plano, con saltos de línea para separar párrafos.</span>
+        <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">Deja una línea en blanco entre párrafos. Formato: ## Subtítulo · ### Subtítulo menor · - lista · 1. lista numerada · &gt; cita · **negritas** · *cursivas* · [texto del enlace](/servicios/asesoria-legal)</span>
       </label>
 
       <label className="block">
