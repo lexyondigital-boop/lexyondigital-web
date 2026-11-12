@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { SERVICIOS } from "@/lib/servicios";
+import { SOLUCIONES } from "@/lib/soluciones";
 import { URL_SITIO } from "@/lib/sitio";
 
 // Se regenera cada hora: un post o taller recién publicado entra solo, sin
@@ -58,6 +59,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${URL_SITIO}/servicios/${s.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...SOLUCIONES.map((s) => ({
+      url: `${URL_SITIO}/soluciones/${s.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
     ...posts.map((p) => ({
       url: `${URL_SITIO}/blog/${p.slug}`,

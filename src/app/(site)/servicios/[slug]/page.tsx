@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SERVICIOS, type Servicio } from "@/lib/servicios";
+import { SOLUCIONES } from "@/lib/soluciones";
 import { metadataPagina } from "@/lib/metadata-pagina";
 import { NOMBRE_SITIO, URL_SITIO, URL_WHATSAPP } from "@/lib/sitio";
 
@@ -157,6 +158,20 @@ export default async function ServicioPage({ params }: { params: Promise<{ slug:
           </ul>
         </div>
       </section>
+
+      {s.slug === "automatizacion-agentes-ia" && (
+        <section className="mt-16">
+          <h2 className={TITULO_SECCION}>El agente de IA para tu giro</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {SOLUCIONES.map((g) => (
+              <Link key={g.slug} href={`/soluciones/${g.slug}`} className={`${TARJETA} transition-colors hover:border-[var(--color-marca)]`}>
+                <h3 className="font-semibold text-[var(--color-texto)]">{g.giro}</h3>
+                <p className="mt-1.5 line-clamp-2 text-sm text-[var(--color-texto-mute)]">{g.descripcionSeo}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mt-16">
         <h2 className={TITULO_SECCION}>Cómo funciona</h2>
