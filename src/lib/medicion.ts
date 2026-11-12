@@ -67,6 +67,7 @@ export function evento(nombre: string, parametros: Record<string, unknown> = {},
 export function eventoDeEnlace(href: string): { nombre: string; destino: string } | null {
   if (/(^|\/\/)(api\.whatsapp\.com|wa\.me)\//i.test(href)) return { nombre: "clic_whatsapp", destino: "whatsapp" };
   if (/^tel:/i.test(href)) return { nombre: "clic_telefono", destino: "telefono" };
+  if (/g\.page\/r\/[^/]+\/review/i.test(href)) return { nombre: "clic_resena_google", destino: "google" };
   if (/^mailto:/i.test(href)) return { nombre: "clic_correo", destino: "correo" };
   if (/\/registro(\b|[/?#]|$)/.test(href)) return { nombre: "clic_probar_gratis", destino: "registro" };
   if (/\/precios(\b|[/?#]|$)/.test(href)) return { nombre: "clic_ver_precios", destino: "precios" };

@@ -36,3 +36,6 @@ export const REDES_SOCIALES: { red: "facebook" | "instagram" | "tiktok" | "youtu
 
 export const RAZON_SOCIAL = "CONSULTINGOLD S.A.S. DE C.V.";
 export const RFC = "CON260325H62";
+
+// Enlace directo para dejar una reseña en el Perfil de Google Business.
+export const URL_RESENA_GOOGLE = "https://g.page/r/CamibwDr777rEAI/review";

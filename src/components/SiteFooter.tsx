@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { BotonPreferenciasCookies } from "@/components/MedicionGoogle";
-import { RAZON_SOCIAL, REDES_SOCIALES, RFC, TELEFONO_E164, TELEFONO_VISIBLE, URL_WHATSAPP } from "@/lib/sitio";
+import { RAZON_SOCIAL, REDES_SOCIALES, RFC, TELEFONO_E164, TELEFONO_VISIBLE, URL_RESENA_GOOGLE, URL_WHATSAPP } from "@/lib/sitio";
 
 const ESTILO_RED = {
   facebook: { label: "Facebook", color: "#1877f2", icon: "f" },
@@ -54,6 +54,14 @@ export function SiteFooter() {
               </a>
             ))}
           </div>
+          <a
+            href={URL_RESENA_GOOGLE}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-borde)] px-3.5 py-2 text-sm font-medium text-[var(--color-texto)] transition-colors hover:border-[var(--color-marca)]"
+          >
+            <span aria-hidden="true">⭐</span> Déjanos tu reseña en Google
+          </a>
         </div>
 
         <div>
