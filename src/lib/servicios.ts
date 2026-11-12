@@ -126,7 +126,111 @@ export const SERVICIOS: Servicio[] = [
       boton: "Empezar prueba gratis",
       destino: "registro",
     },
-    relacionados: ["capacitacion-marketing-digital", "asesoria-legal"],
+    relacionados: ["paginas-web-seo", "capacitacion-marketing-digital"],
+  },
+  {
+    slug: "paginas-web-seo",
+    nombre: "Páginas Web y Landing Pages con SEO",
+    resumen:
+      "Diseñamos tu página web o landing page para que Google la encuentre y convierta visitas en clientes: SEO, Search Console, Google Analytics 4 y conversiones de Google Ads configuradas desde el día uno.",
+    descripcion:
+      "Páginas web y landing pages hechas para vender: rápidas, posicionadas en Google y con la medición completa (Search Console, Google Analytics 4 y Google Ads) para saber de dónde llega cada cliente.",
+    color: "datos",
+    palabraClave: "diseño de páginas web con SEO",
+    tituloSeo: "Diseño de páginas web y landing pages SEO | LexyonDigital",
+    descripcionSeo:
+      "Creamos páginas web y landing pages que venden: SEO, Search Console, Google Analytics 4 y conversiones de Google Ads listas para medir cada cliente.",
+    h1: "Páginas web y landing pages con SEO que convierten visitas en clientes",
+    intro:
+      "Una página bonita que nadie encuentra no vende. Diseñamos tu sitio o tu landing page pensando en dos cosas: que aparezca en Google cuando tus clientes buscan lo que ofreces y que cada visita tenga un camino claro para escribirte, registrarse o comprar. Y lo dejamos medido de punta a punta para que sepas qué funciona.",
+    beneficios: [
+      {
+        titulo: "Hecha para aparecer en Google",
+        texto:
+          "Cada página persigue una búsqueda concreta, con títulos, descripciones, encabezados y contenido optimizados, sitemap, robots y datos estructurados para que Google entienda tu negocio.",
+      },
+      {
+        titulo: "Diseñada para vender",
+        texto:
+          "Mensajes claros, llamados a la acción visibles y botones directos a WhatsApp o a tu formulario. Rápida y cómoda en el celular, donde llega la mayoría de tus clientes.",
+      },
+      {
+        titulo: "Medición completa desde el día uno",
+        texto:
+          "Configuramos Google Analytics 4 y las conversiones de Google Ads: sabrás cuántas personas te escriben por WhatsApp, cuántas se registran y de qué anuncio o búsqueda llegaron.",
+      },
+      {
+        titulo: "En regla con la privacidad",
+        texto:
+          "Aviso de cookies con el modo de consentimiento de Google, aviso de privacidad y política de cookies: mides sin poner en riesgo a tu negocio.",
+      },
+    ],
+    incluye: [
+      "Diseño de página web o landing page adaptable a celular",
+      "Investigación de palabras clave y una página por búsqueda importante",
+      "SEO técnico: títulos, descripciones, sitemap, robots, redirecciones y datos estructurados",
+      "Alta y verificación en Google Search Console",
+      "Google Analytics 4 con aviso de cookies y modo de consentimiento",
+      "Eventos de conversión: WhatsApp, llamadas, correo y registros",
+      "Conexión con Google Ads e importación de conversiones",
+      "Configuración del Perfil de Google Business (ficha en Google y Maps)",
+      "Botones de redes sociales y de reseñas en Google",
+    ],
+    pasos: [
+      {
+        titulo: "Estrategia",
+        texto: "Entendemos tu negocio y a tus clientes, e investigamos qué buscan en Google para definir las páginas.",
+      },
+      {
+        titulo: "Diseño y contenido",
+        texto: "Creamos la página con textos que venden, optimizados para cada búsqueda, y la revisas antes de publicar.",
+      },
+      {
+        titulo: "Publicación y medición",
+        texto: "Publicamos, damos de alta en Search Console, conectamos Analytics y Google Ads y comprobamos que todo se mida.",
+      },
+    ],
+    paraQuien: [
+      "Negocios que hoy no aparecen en Google",
+      "Empresas que pagan anuncios sin saber qué les trae clientes",
+      "Emprendedores que lanzan un producto o servicio",
+      "Profesionales que quieren recibir clientes por WhatsApp desde su web",
+    ],
+    preguntas: [
+      {
+        pregunta: "¿Qué diferencia hay entre una página web y una landing page?",
+        respuesta:
+          "Una página web presenta todo tu negocio en varias secciones (inicio, servicios, contacto). Una landing page es una sola página enfocada en una oferta y una acción, por ejemplo escribirte por WhatsApp o registrarse; es ideal para campañas de anuncios.",
+      },
+      {
+        pregunta: "¿Qué es el SEO?",
+        respuesta:
+          "Es el trabajo para que tu sitio aparezca en los resultados gratuitos de Google cuando alguien busca lo que ofreces. Incluye la estructura técnica del sitio, el contenido de cada página y la reputación de tu marca (por ejemplo, reseñas y perfiles en redes).",
+      },
+      {
+        pregunta: "¿En cuánto tiempo aparezco en Google?",
+        respuesta:
+          "Google suele indexar una página nueva en días, pero subir posiciones en búsquedas competidas toma semanas o meses de contenido y reputación. Por eso medimos desde el inicio: para ver el avance real en Search Console y Analytics.",
+      },
+      {
+        pregunta: "¿Para qué sirven Google Analytics y Google Ads si ya tengo página?",
+        respuesta:
+          "Analytics te dice cuántas personas llegan, de dónde y qué hacen en tu sitio. Google Ads te permite anunciarte, y al conectarlo con tus conversiones sabes cuánto te cuesta cada cliente y en qué anuncios conviene invertir.",
+      },
+      {
+        pregunta: "¿Necesito aviso de cookies?",
+        respuesta:
+          "Si mides visitas con herramientas como Google Analytics o Google Ads, sí conviene pedir consentimiento. Lo configuramos con el modo de consentimiento de Google para medir respetando la decisión de cada visitante.",
+      },
+    ],
+    cta: {
+      titulo: "Haz que tu página trabaje por ti",
+      texto: "Cuéntanos de tu negocio y te proponemos la página o landing que necesitas.",
+      boton: "Quiero mi página web",
+      destino: "whatsapp",
+      mensajeWhatsapp: "Hola, quiero una página web o landing page con SEO para mi negocio.",
+    },
+    relacionados: ["capacitacion-marketing-digital", "automatizacion-agentes-ia"],
   },
   {
     slug: "capacitacion-marketing-digital",
@@ -209,7 +313,7 @@ export const SERVICIOS: Servicio[] = [
       destino: "whatsapp",
       mensajeWhatsapp: "Hola, quiero información de la capacitación en Meta Ads.",
     },
-    relacionados: ["automatizacion-agentes-ia", "asesoria-legal"],
+    relacionados: ["paginas-web-seo", "automatizacion-agentes-ia"],
   },
   {
     slug: "asesoria-legal",

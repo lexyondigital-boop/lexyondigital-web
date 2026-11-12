@@ -2,6 +2,14 @@ import Link from "next/link";
 import { SERVICIOS, type Servicio } from "@/lib/servicios";
 
 const ICONOS: Record<string, React.ReactNode> = {
+  "paginas-web-seo": (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="4.5" width="18" height="15" rx="2" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M3 8.5h18" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="11" cy="14" r="2.6" stroke="currentColor" strokeWidth="1.6" />
+      <path d="m13 16 2.2 2.2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  ),
   "capacitacion-marketing-digital": (
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
       <path d="M3 10v4l4 1 12 4V5L7 9l-4 1Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
@@ -50,7 +58,7 @@ export function ServiciosGrid() {
         </p>
       </div>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {SERVICIOS.map((s) => (
           <Link
             key={s.slug}
