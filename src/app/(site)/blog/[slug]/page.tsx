@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { metadataPagina } from "@/lib/metadata-pagina";
+import { ContenidoArticulo } from "@/components/ContenidoArticulo";
+import { servicioRelacionado } from "@/lib/servicio-relacionado";
+import { NOMBRE_SITIO, URL_SITIO } from "@/lib/sitio";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +18,7 @@ async function obtenerPost(slug: string) {
   // /admin, y un visitante anónimo sigue sin poder verlo.
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("titulo, resumen, contenido, imagen_url, publicado_en, publicado")
+    .select("titulo, resumen, contenido, imagen_url, publicado_en, publicado, updated_at")
     .eq("slug", slug)
     .maybeSingle();
   return post;
@@ -39,8 +42,40 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const post = await obtenerPost(slug);
   if (!post) notFound();
 
+  const url = `${URL_SITIO}/blog/${slug}`;
+  const servicio = servicioRelacionado(post.titulo, post.contenido);
+  const datos = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#articulo`,
+        headline: post.titulo,
+        description: post.resumen ?? undefined,
+        image: post.imagen_url ?? undefined,
+        datePublished: post.publicado_en ?? undefined,
+        dateModified: post.updated_at ?? post.publicado_en ?? undefined,
+        mainEntityOfPage: url,
+        inLanguage: "es-MX",
+        author: { "@id": `${URL_SITIO}/#organizacion` },
+        publisher: { "@id": `${URL_SITIO}/#organizacion` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: NOMBRE_SITIO, item: URL_SITIO },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${URL_SITIO}/blog` },
+          { "@type": "ListItem", position: 3, name: post.titulo, item: url },
+        ],
+      },
+    ],
+  };
+
   return (
     <article className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
+      {post.publicado && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datos).replace(/</g, "\\u003c") }} />
+      )}
       <Link href="/blog" className="text-sm font-medium text-[var(--color-marca)] hover:underline">
         ← Volver al blog
       </Link>
@@ -64,7 +99,22 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       )}
 
-      <div className="mt-8 whitespace-pre-wrap text-[var(--color-texto)]">{post.contenido}</div>
+      <div className="mt-8">
+        <ContenidoArticulo contenido={post.contenido} />
+      </div>
+
+      <aside className="mt-12 rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-6">
+        <p className="text-sm font-medium text-[var(--color-marca)]">¿Te ayudamos con esto?</p>
+        <p className="mt-1 text-lg font-semibold text-[var(--color-texto)]">{servicio.nombre}</p>
+        <p className="mt-2 text-sm text-[var(--color-texto-mute)]">{servicio.resumen}</p>
+        <Link
+          href={`/servicios/${servicio.slug}`}
+          className="mt-4 inline-block rounded-full px-5 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
+          style={{ background: "var(--color-accion)", color: "var(--color-accion-fg)" }}
+        >
+          Conocer el servicio
+        </Link>
+      </aside>
     </article>
   );
 }
