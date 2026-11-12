@@ -59,34 +59,34 @@ export function MedicionGoogle() {
         <div
           role="dialog"
           aria-labelledby="aviso-privacidad-titulo"
-          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-5xl rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)]/95 p-5 shadow-2xl backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:p-7"
+          className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)]/95 px-4 py-3 shadow-xl backdrop-blur-md sm:bottom-4"
         >
-          <p id="aviso-privacidad-titulo" className="text-base font-semibold text-[var(--color-texto)]">
-            Información sobre privacidad
-          </p>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--color-texto-mute)] sm:text-[15px]">
-            Utilizamos tecnologías como cookies y procesamos datos personales para brindarte nuestros servicios, entender cómo usas el sitio y
-            mejorar tu experiencia.
-          </p>
-          <div className="mt-5 flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[var(--color-texto)]">
-              <Link href="/privacidad" className="hover:underline">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+            <p className="text-[13px] leading-snug text-[var(--color-texto-mute)]">
+              <strong id="aviso-privacidad-titulo" className="font-semibold text-[var(--color-texto)]">
+                Información sobre privacidad.
+              </strong>{" "}
+              Usamos cookies y tecnologías similares para brindarte nuestros servicios y mejorar tu experiencia.{" "}
+              <Link href="/privacidad" className="underline hover:text-[var(--color-texto)]">
                 Aviso de Privacidad
-              </Link>
-              <Link href="/cookies" className="hover:underline">
+              </Link>{" "}
+              ·{" "}
+              <Link href="/cookies" className="underline hover:text-[var(--color-texto)]">
                 Más información
               </Link>
-              <button type="button" onClick={() => elegir("rechazado")} className="text-[var(--color-texto-mute)] hover:underline">
+            </p>
+            <div className="flex shrink-0 items-center justify-end gap-3">
+              <button type="button" onClick={() => elegir("rechazado")} className="text-[13px] text-[var(--color-texto-mute)] hover:underline">
                 Rechazar
               </button>
+              <button
+                type="button"
+                onClick={() => elegir("aceptado")}
+                className="rounded-full bg-[var(--color-texto)] px-5 py-2 text-[13px] font-semibold uppercase tracking-wide text-[var(--color-bg)] transition hover:opacity-90"
+              >
+                Aceptar
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => elegir("aceptado")}
-              className="w-full rounded-full bg-[var(--color-texto)] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--color-bg)] transition hover:opacity-90 sm:w-1/2"
-            >
-              Aceptar
-            </button>
           </div>
         </div>
       )}
