@@ -1,14 +1,18 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { BotonPreferenciasCookies } from "@/components/MedicionGoogle";
-import { TELEFONO_E164, TELEFONO_VISIBLE, URL_WHATSAPP } from "@/lib/sitio";
+import { RAZON_SOCIAL, REDES_SOCIALES, RFC, TELEFONO_E164, TELEFONO_VISIBLE, URL_WHATSAPP } from "@/lib/sitio";
+
+const ESTILO_RED = {
+  facebook: { label: "Facebook", color: "#1877f2", icon: "f" },
+  instagram: { label: "Instagram", color: "#e1306c", icon: "ig" },
+  tiktok: { label: "TikTok", color: "#000000", icon: "tt" },
+  youtube: { label: "YouTube", color: "#ff0000", icon: "yt" },
+};
 
 const REDES = [
-  { label: "Facebook", href: "https://facebook.com", color: "#1877f2", icon: "f" },
-  { label: "Instagram", href: "https://instagram.com", color: "#e1306c", icon: "ig" },
+  ...REDES_SOCIALES.filter((r) => r.url).map((r) => ({ ...ESTILO_RED[r.red], href: r.url as string })),
   { label: "WhatsApp", href: URL_WHATSAPP, color: "#25d366", icon: "wa" },
-  { label: "TikTok", href: "https://tiktok.com", color: "#000000", icon: "tt" },
-  { label: "YouTube", href: "https://youtube.com", color: "#ff0000", icon: "yt" },
 ];
 
 export function SiteFooter() {
@@ -41,7 +45,7 @@ export function SiteFooter() {
                 key={r.label}
                 href={r.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer me"
                 aria-label={r.label}
                 className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold text-white"
                 style={{ background: r.color }}
@@ -78,7 +82,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-[var(--color-borde)] px-5 py-4 text-center text-xs text-[var(--color-texto-mute)] sm:px-8">
-        © {new Date().getFullYear()} LexyonDigital es una marca de <strong>CONSULTINGOLD S.A.S. DE C.V.</strong> · RFC CON260325H62. Todos los
+        © {new Date().getFullYear()} LexyonDigital es una marca de <strong>{RAZON_SOCIAL}</strong> · RFC {RFC}. Todos los
         derechos reservados.
       </div>
     </footer>
