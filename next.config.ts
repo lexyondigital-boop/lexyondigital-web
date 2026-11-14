@@ -23,8 +23,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
-  // Sin Content-Security-Policy a propósito: Turnstile carga su script desde
-  // challenges.cloudflare.com y una CSP mal ajustada lo rompe en silencio.
+  // CSP completa (con script-src) no, a propósito: Turnstile, GA4/Ads y
+  // YouTube cargan de terceros y una lista mal ajustada los rompe en
+  // silencio. Abajo va solo la parte segura (object-src/base-uri/frame-ancestors).
   // Dominio canónico: www. Traefik sirve ambos hosts (ver docker-compose.yml)
   // y sin esto Google veía cada página dos veces. 308 conserva el método y
   // la ruta, así los enlaces viejos (p. ej. las URLs de privacidad/términos
@@ -62,6 +63,10 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), geolocation=(), microphone=()" },
+          // Auditoría M4: CSP mínima que no restringe scripts (Turnstile,
+          // GA4/Ads y YouTube siguen igual) pero sí corta plugins, un <base>
+          // inyectado y que otro sitio enmarque las páginas.
+          { key: "Content-Security-Policy", value: "object-src 'none'; base-uri 'self'; frame-ancestors 'self'" },
         ],
       },
     ];
