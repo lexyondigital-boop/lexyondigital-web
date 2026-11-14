@@ -5,6 +5,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { obtenerTendencia, etiquetaFuente } from "@/lib/tendencias";
 import { MODELOS_TEXTO, type ModeloTexto } from "@/lib/ia-opciones";
+import { obtenerSesionAdmin } from "@/lib/session";
 
 type Resultado = { error: string } | undefined;
 
@@ -100,6 +101,7 @@ export async function generarBlogDesdeTendencia(
   modeloEntrada: string,
   _prevState: Resultado,
 ): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const tendencia = await obtenerTendencia(tendenciaId);
   if (!tendencia) return { error: "Esa tendencia ya no existe." };
 
