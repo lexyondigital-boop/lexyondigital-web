@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { extraerIdYoutube } from "@/lib/youtube";
+import { obtenerSesionAdmin } from "@/lib/session";
 
 type Resultado = { error: string } | undefined;
 
@@ -43,6 +44,7 @@ async function subirImagen(
 // este nivel de agrupación, ver la migración biblioteca_modulos_grupo).
 
 export async function crearTaller(_prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -72,6 +74,7 @@ export async function crearTaller(_prevState: Resultado, formData: FormData): Pr
 }
 
 export async function actualizarTaller(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -97,6 +100,7 @@ export async function actualizarTaller(id: string, _prevState: Resultado, formDa
 }
 
 export async function eliminarTaller(id: string, _prevState: Resultado): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
   const { error } = await supabase.from("talleres").delete().eq("id", id);
   if (error) return { error: error.message };
@@ -104,6 +108,7 @@ export async function eliminarTaller(id: string, _prevState: Resultado): Promise
 }
 
 export async function crearModulo(tallerId: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -123,6 +128,7 @@ export async function actualizarModulo(
   _prevState: Resultado,
   formData: FormData,
 ): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -137,6 +143,7 @@ export async function actualizarModulo(
 }
 
 export async function eliminarModulo(tallerId: string, moduloId: string, _prevState: Resultado): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
   const { error } = await supabase.from("modulos").delete().eq("id", moduloId);
   if (error) return { error: error.message };
@@ -149,6 +156,7 @@ export async function crearCapitulo(
   _prevState: Resultado,
   formData: FormData,
 ): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -174,6 +182,7 @@ export async function actualizarCapitulo(
   _prevState: Resultado,
   formData: FormData,
 ): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -195,6 +204,7 @@ export async function actualizarCapitulo(
 }
 
 export async function eliminarCapitulo(tallerId: string, capituloId: string, _prevState: Resultado): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
   const { error } = await supabase.from("taller_modulos").delete().eq("id", capituloId);
   if (error) return { error: error.message };

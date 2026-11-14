@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { CALIDADES_IMAGEN, type CalidadImagen } from "@/lib/ia-opciones";
+import { obtenerSesionAdmin } from "@/lib/session";
 
 type Resultado = { error: string } | undefined;
 
@@ -99,6 +100,7 @@ async function generarImagenConOpenAI(
 // el post. Acción separada del guardado del post: se puede disparar sola
 // desde /admin/blog/[id] sin perder cambios del formulario principal.
 export async function generarImagenPost(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const promptEs = String(formData.get("prompt") ?? "").trim();
   if (!promptEs) return { error: "Falta describir la imagen que quieres generar." };
 
@@ -135,6 +137,7 @@ export async function generarImagenPost(id: string, _prevState: Resultado, formD
 // useActionState. Ver la nota en talleres-actions.ts sobre por qué.
 
 export async function crearPost(_prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -172,6 +175,7 @@ export async function crearPost(_prevState: Resultado, formData: FormData): Prom
 }
 
 export async function actualizarPost(id: string, _prevState: Resultado, formData: FormData): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
 
   const titulo = String(formData.get("titulo") ?? "").trim();
@@ -206,6 +210,7 @@ export async function actualizarPost(id: string, _prevState: Resultado, formData
 }
 
 export async function eliminarPost(id: string, _prevState: Resultado): Promise<Resultado> {
+  await obtenerSesionAdmin();
   const supabase = await createClient();
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) return { error: error.message };
