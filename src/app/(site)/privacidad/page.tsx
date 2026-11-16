@@ -10,7 +10,7 @@ export const metadata: Metadata = metadataPagina({
 
 export default function PrivacidadPage() {
   return (
-    <LegalLayout titulo="Aviso de Privacidad" actualizado="18 de octubre de 2026">
+    <LegalLayout titulo="Aviso de Privacidad" actualizado="16 de noviembre de 2026">
       <h2>1. Identidad y domicilio del responsable</h2>
       <p>
         <strong>CONSULTINGOLD S.A.S. DE C.V.</strong>, RFC <strong>CON260325H62</strong>, con domicilio en
@@ -32,6 +32,14 @@ export default function PrivacidadPage() {
         recaba la grabación y transcripción de la llamada.
       </p>
       <p>
+        Si el negocio te envía SMS o te llama desde un número telefónico gestionado en LexyonDigital, recabamos tu
+        número de teléfono, el contenido de los SMS que envías y recibes, la fecha, hora y duración de las
+        llamadas y, cuando el negocio lo tiene activado, la <strong>grabación de la llamada</strong>. Al inicio de
+        cada llamada grabada se reproduce un aviso de grabación; si no deseas que se grabe, puedes colgar y
+        solicitar al negocio otro medio de contacto. Si respondes STOP o BAJA a un SMS, dejas de recibir SMS de
+        ese número.
+      </p>
+      <p>
         Este tratamiento lo realizamos <strong>por cuenta e instrucción del negocio con el que tú tienes la
         relación directa</strong> (nuestro cliente), quien es el responsable primario de informarte sobre el
         uso de tus datos conforme a su propio aviso de privacidad. LexyonDigital actúa como encargado del
@@ -50,7 +58,18 @@ export default function PrivacidadPage() {
         las personas que registres como usuarios adicionales de tu cuenta), así como registros de acceso
         (dirección IP, navegador y fecha/hora de inicio de sesión) con fines de seguridad.
       </p>
-      <h3>2.3 Si visitas este sitio o llenas el formulario de prueba gratuita</h3>
+      <h3>2.3 Si tu negocio solicita un número telefónico a través de LexyonDigital</h3>
+      <p>
+        Para comprar un número telefónico de México a nombre de tu negocio, la regulación de telecomunicaciones
+        exige identificar al titular. Para ello recabamos: razón social o nombre, RFC, nombre del representante
+        legal, domicilio fiscal, correo y teléfono de contacto, y copia de los documentos que el operador
+        solicite (por ejemplo, identificación oficial del representante, comprobante de domicilio, constancia de
+        situación fiscal o acta constitutiva). Estos datos y documentos se usan únicamente para tramitar y
+        mantener el número ante el operador, se guardan en almacenamiento privado al que solo tiene acceso el
+        personal autorizado de LexyonDigital, y se transfieren a Twilio Inc. (sección 4) para su validación
+        regulatoria.
+      </p>
+      <h3>2.4 Si visitas este sitio o llenas el formulario de prueba gratuita</h3>
       <p>
         Al registrarte para la prueba gratuita de 14 días en lexyondigital.com.mx, recabamos el nombre y giro
         de tu negocio, tu nombre, teléfono y correo, y tu dirección IP (esta última únicamente con fines de
@@ -63,7 +82,8 @@ export default function PrivacidadPage() {
         <li>Operar el agente de inteligencia artificial que responde mensajes de WhatsApp, incluyendo generar respuestas automáticas con base en el contenido de la conversación.</li>
         <li>Agendar, reagendar o cancelar citas cuando lo solicites.</li>
         <li>Realizar o recibir llamadas telefónicas, incluyendo llamadas atendidas por un agente de voz con inteligencia artificial.</li>
-        <li>Enviar correos electrónicos o campañas de mensajería autorizadas por el negocio del que eres contacto.</li>
+        <li>Enviar correos electrónicos, SMS o campañas de mensajería autorizadas por el negocio del que eres contacto, y recibir tus respuestas.</li>
+        <li>Tramitar ante el operador telefónico la asignación de números a nombre de los negocios que lo soliciten, incluida su validación regulatoria.</li>
         <li>Administrar tu cuenta de usuario de la plataforma, incluyendo autenticación y control de accesos.</li>
         <li>Procesar pagos y recargas de saldo cuando el servicio lo requiera.</li>
         <li>Dar seguimiento a solicitudes de prueba gratuita y contacto comercial.</li>
@@ -91,6 +111,7 @@ export default function PrivacidadPage() {
         <li><strong>ElevenLabs, Inc.</strong> — como proveedor alternativo de síntesis de voz.</li>
         <li><strong>Retell AI, Inc.</strong> — para operar llamadas atendidas por agentes de voz con IA; recibe el nombre, teléfono y correo del contacto, además de la grabación y transcripción de la llamada.</li>
         <li><strong>Google LLC</strong> — para agendar citas en Google Calendar, enviar correos (si el negocio conecta su Gmail) o respaldar contactos en Google Sheets/Drive, cuando el negocio activa esas integraciones.</li>
+        <li><strong>Twilio Inc.</strong> (Estados Unidos) — para enviar y recibir SMS, realizar, desviar y grabar llamadas telefónicas, y, cuando un negocio solicita un número a su nombre, para la validación regulatoria del número; recibe el número de teléfono del contacto, el contenido de los SMS, los datos y la grabación de las llamadas y, en el caso de los negocios que solicitan un número, sus datos de identificación y documentos.</li>
         <li><strong>Zadarma Ltd.</strong> — como proveedor de telefonía para llamadas de voz.</li>
         <li><strong>Stripe, Inc.</strong> — para procesar pagos y recargas de saldo.</li>
         <li><strong>Supabase, Inc.</strong> — como proveedor de base de datos y almacenamiento donde se guarda la información.</li>
