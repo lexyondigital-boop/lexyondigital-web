@@ -187,6 +187,24 @@ export default function TerminosPage() {
         pongan en riesgo nuestro acceso a la Plataforma de WhatsApp Business.
       </p>
 
+      <h3>7.1 Plantillas legales y asesoría</h3>
+      <p>
+        La plataforma ofrece plantillas de aviso de privacidad y de términos y condiciones que se llenan con los datos de tu
+        negocio y que puedes editar y publicar en una página de LexyonDigital. Estas plantillas son un punto de partida
+        general y <strong>no constituyen asesoría legal</strong>. LexyonDigital no revisa ni valida su contenido, no
+        garantiza que cumplan con la legislación aplicable a tu negocio ni que las acepten terceros (por ejemplo, Google u
+        otros operadores al registrar tu marca RCS), y no es responsable de los daños, sanciones, reclamaciones o pérdidas
+        que se deriven de su uso, de su contenido o de las modificaciones que hagas. Al publicarlas aceptas que eres el
+        único responsable de su contenido y de revisarlo, adaptarlo y, en su caso, validarlo con un especialista.
+      </p>
+      <p>
+        Si contratas la <strong>asesoría legal personalizada</strong> (precio por sesión publicado en la plataforma, con IVA
+        incluido, pagado con tarjeta o con tu saldo prepago), un especialista de LexyonDigital te contactará en un plazo
+        máximo de 24 horas para revisar el documento de que se trate. La asesoría se limita a la sesión contratada y a la
+        información que nos proporciones; no incluye representación legal ni trámites ante autoridades. El pago de la sesión
+        no es reembolsable una vez realizada.
+      </p>
+
       <h2>8. Propiedad intelectual</h2>
       <p>
         LexyonDigital conserva todos los derechos sobre la plataforma, su software y su marca. El contenido
