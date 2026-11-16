@@ -11,7 +11,7 @@ export const metadata: Metadata = metadataPagina({
 
 export default function TerminosPage() {
   return (
-    <LegalLayout titulo="Términos y Condiciones" actualizado="25 de octubre de 2026">
+    <LegalLayout titulo="Términos y Condiciones" actualizado="16 de noviembre de 2026">
       <h2>1. Quiénes somos y a qué aplican estos términos</h2>
       <p>
         Estos Términos y Condiciones rigen el uso de la plataforma LexyonDigital, operada por{" "}
@@ -128,6 +128,30 @@ export default function TerminosPage() {
         Las cuotas de suscripción de los planes se rigen por la sección 4 de estos términos.
       </p>
 
+      <h3>6.1 Telefonía: SMS, llamadas y números</h3>
+      <p>
+        Para enviar SMS y realizar o recibir llamadas desde la plataforma puedes: (a) conectar tu propia cuenta de
+        Twilio, caso en el cual Twilio te cobra directamente; (b) usar un teléfono de LexyonDigital, previa
+        autorización de LexyonDigital; o (c) solicitar un número a tu nombre a través de LexyonDigital. En las
+        opciones (b) y (c), cada SMS, minuto de llamada y, en su caso, la renta mensual del número se descuentan
+        de tu saldo prepago al costo real del operador más un margen de servicio, con el IVA incluido. Cada SMS
+        enviado desde un número de LexyonDigital lleva al inicio el nombre de tu negocio.
+      </p>
+      <p>
+        Al solicitar un número a tu nombre autorizas a LexyonDigital a enviar tus datos y documentos de
+        identificación a Twilio Inc. para su validación regulatoria. La aprobación depende del operador y no está
+        garantizada. Sin costo de alta, la renta del primer mes se cobra al asignarse el número y después cada mes
+        en la misma fecha. Si tu saldo no alcanza para la renta, el número sigue activo durante 7 días mientras te
+        avisamos; si no recargas, se suspenden sus SMS y llamadas y, a los 30 días sin pago, el número se libera
+        ante el operador y no es posible recuperarlo. Al cancelar tu cuenta el número también se libera.
+      </p>
+      <p>
+        Eres responsable de contar con el consentimiento de las personas a las que envías SMS o llamas, de no
+        enviar contenido engañoso ni masivo no solicitado, de respetar las bajas (STOP/BAJA) y el Registro Público
+        para Evitar Publicidad (REPEP), y de informar a tus contactos que las llamadas pueden ser grabadas.
+        LexyonDigital puede suspender el servicio de telefonía ante quejas, uso indebido o requerimiento del operador.
+      </p>
+
       <h2>7. Uso aceptable, en especial respecto a WhatsApp</h2>
       <p>
         El uso del canal de WhatsApp a través de nuestra plataforma está sujeto, además de estos términos, a
@@ -176,7 +200,7 @@ export default function TerminosPage() {
       <p>
         Hacemos un esfuerzo razonable por mantener la plataforma disponible, pero no garantizamos un
         funcionamiento ininterrumpido o libre de errores. El servicio depende de proveedores externos (Meta,
-        OpenAI, Anthropic, Google, Retell, Stripe, entre otros); una interrupción o cambio en esos proveedores
+        OpenAI, Anthropic, Google, Retell, Twilio, Stripe, entre otros); una interrupción o cambio en esos proveedores
         puede afectar la disponibilidad de ciertas funciones y está fuera de nuestro control directo.
       </p>
 
