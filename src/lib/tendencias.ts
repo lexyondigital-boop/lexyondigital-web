@@ -18,6 +18,8 @@ export const NICHOS: { clave: string; etiqueta: string }[] = [
   { clave: "inmobiliaria", etiqueta: "Inmobiliaria y agentes" },
   { clave: "servicios", etiqueta: "Servicios y atención técnica" },
   { clave: "cobranza", etiqueta: "Cobranza y recuperación de cartera" },
+  { clave: "agencia_marketing", etiqueta: "Agencia de marketing / IA" },
+  { clave: "limpieza_tapiceria", etiqueta: "Limpieza de salas, colchones y vestiduras de auto" },
 ];
 const REGION = "MX";
 
