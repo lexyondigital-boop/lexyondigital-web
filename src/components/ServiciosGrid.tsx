@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { SERVICIOS, type Servicio } from "@/lib/servicios";
 
+// A diferencia de los demás, este no tiene página de detalle propia (sin
+// beneficios/pasos/FAQ que mostrar ahí): es una tarjeta que manda directo al
+// sitio externo de nuestro aliado, en pestaña nueva.
+const URL_PPR = "https://elgueydeloseguross.com.mx/ppr";
+
 const ICONOS: Record<string, React.ReactNode> = {
   "paginas-web-seo": (
     <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
@@ -79,6 +84,37 @@ export function ServiciosGrid() {
             </span>
           </Link>
         ))}
+
+        <a
+          href={URL_PPR}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-6 transition-colors hover:border-[var(--color-borde-alto)]"
+        >
+          <span
+            className="flex h-12 w-12 items-center justify-center rounded-xl"
+            style={{ background: "color-mix(in srgb, var(--color-marca) 14%, transparent)", color: "var(--color-marca)" }}
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 3 4 6.5v5c0 5 3.4 8.4 8 9.5 4.6-1.1 8-4.5 8-9.5v-5L12 3Z"
+                stroke="currentColor"
+                strokeWidth="1.7"
+                strokeLinejoin="round"
+              />
+              <path d="m9 12 2 2 4-4.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <h3 className="mt-4 text-lg font-semibold text-[var(--color-texto)]">Seguros</h3>
+          <p className="mt-2 text-sm text-[var(--color-texto-mute)]">
+            El único instrumento en México que hace crecer tu dinero mientras te devuelve impuestos cada año. Empieza
+            con lo que gastas en un fin de semana.
+          </p>
+          <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-[var(--color-marca)]">
+            Saber más
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
+          </span>
+        </a>
       </div>
     </section>
   );

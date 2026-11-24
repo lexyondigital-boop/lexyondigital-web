@@ -14,7 +14,7 @@ const ENLACES = [
   { href: "/biblioteca", label: "Biblioteca" },
   { href: "/blog", label: "Blog" },
   { href: "/tienda", label: "Tienda" },
-  { href: "/acerca-de", label: "Acerca de" },
+  { href: "/acerca-de", label: "Quiénes somos" },
 ];
 
 export function SiteHeader() {

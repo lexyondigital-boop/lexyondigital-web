@@ -30,6 +30,11 @@ export function SiteFooter() {
         <div>
           <h3 className="text-sm font-semibold text-[var(--color-texto)]">Contacto</h3>
           <ul className="mt-3 space-y-2 text-sm text-[var(--color-texto-mute)]">
+            <li>
+              <Link href="/acerca-de" className="hover:text-[var(--color-texto)]">
+                Quiénes somos
+              </Link>
+            </li>
             <li>info@lexyondigital.com.mx</li>
             <li>
               <a href={`tel:${TELEFONO_E164}`} className="hover:text-[var(--color-texto)]">
