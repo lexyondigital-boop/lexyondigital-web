@@ -13,6 +13,7 @@ type Post = {
   contenido: string;
   publicado: boolean;
   imagen_url: string | null;
+  video_url: string | null;
 };
 
 type Resultado = { error: string } | undefined;
@@ -70,6 +71,22 @@ export function PostForm({
           className={`${inputClase} font-mono text-xs`}
         />
         <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">Deja una línea en blanco entre párrafos. Formato: ## Subtítulo · ### Subtítulo menor · - lista · 1. lista numerada · &gt; cita · **negritas** · *cursivas* · [texto del enlace](/servicios/asesoria-legal)</span>
+      </label>
+
+      <label className="block">
+        <span className="mb-1.5 block text-sm font-medium text-[var(--color-texto)]">Video de YouTube (opcional)</span>
+        <input
+          name="video_url"
+          type="url"
+          inputMode="url"
+          disabled={pending}
+          defaultValue={post?.video_url ?? ""}
+          placeholder="https://www.youtube.com/watch?v=… o https://youtu.be/…"
+          className={inputClase}
+        />
+        <span className="mt-1 block text-xs text-[var(--color-texto-mute)]">
+          Si pones un video, se muestra el reproductor arriba del texto en lugar de la imagen de portada, y en la lista del blog sale la miniatura del video. Déjalo vacío para usar la imagen.
+        </span>
       </label>
 
       <label className="block">

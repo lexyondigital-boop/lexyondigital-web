@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { metadataPagina } from "@/lib/metadata-pagina";
+import { extraerIdYoutube, miniaturaYoutube } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,7 @@ export default async function BlogPage() {
   const supabase = await createClient();
   const { data: posts } = await supabase
     .from("blog_posts")
-    .select("id, slug, titulo, resumen, imagen_url, publicado_en")
+    .select("id, slug, titulo, resumen, imagen_url, video_url, publicado_en")
     .eq("publicado", true)
     .order("publicado_en", { ascending: false });
 
@@ -31,15 +32,28 @@ export default async function BlogPage() {
 
       {posts && posts.length > 0 ? (
         <div className="space-y-6">
-          {posts.map((p) => (
+          {posts.map((p) => {
+            const videoId = p.video_url ? extraerIdYoutube(p.video_url) : null;
+            // Con video, la tarjeta muestra su miniatura y el ícono de play.
+            const miniatura = videoId ? miniaturaYoutube(videoId) : p.imagen_url;
+            return (
             <Link
               key={p.id}
               href={`/blog/${p.slug}`}
               className="flex gap-5 overflow-hidden rounded-2xl border border-[var(--color-borde)] bg-[var(--color-tarjeta)] p-5 transition-colors hover:border-[var(--color-borde-alto)]"
             >
-              {p.imagen_url && (
+              {miniatura && (
                 <div className="relative hidden h-28 w-40 shrink-0 overflow-hidden rounded-xl bg-[var(--color-bg-elevada)] sm:block">
-                  <Image src={p.imagen_url} alt={p.titulo} fill className="object-cover" />
+                  <Image src={miniatura} alt={p.titulo} fill className="object-cover" />
+                  {videoId && (
+                    <span className="absolute inset-0 flex items-center justify-center" aria-label="Incluye video">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/70 text-white">
+                        <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4" fill="currentColor" aria-hidden="true">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </span>
+                    </span>
+                  )}
                 </div>
               )}
               <div>
@@ -52,7 +66,8 @@ export default async function BlogPage() {
                 )}
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <p className="text-center text-[var(--color-texto-mute)]">Pronto publicaremos los primeros artículos.</p>

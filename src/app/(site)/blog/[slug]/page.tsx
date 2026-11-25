@@ -7,6 +7,7 @@ import { metadataPagina } from "@/lib/metadata-pagina";
 import { ContenidoArticulo } from "@/components/ContenidoArticulo";
 import { servicioRelacionado } from "@/lib/servicio-relacionado";
 import { NOMBRE_SITIO, URL_SITIO } from "@/lib/sitio";
+import { embedYoutube, extraerIdYoutube, miniaturaYoutube } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
 
@@ -18,10 +19,17 @@ async function obtenerPost(slug: string) {
   // /admin, y un visitante anónimo sigue sin poder verlo.
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("titulo, resumen, contenido, imagen_url, publicado_en, publicado, updated_at")
+    .select("titulo, resumen, contenido, imagen_url, video_url, publicado_en, publicado, updated_at")
     .eq("slug", slug)
     .maybeSingle();
   return post;
+}
+
+// Portada del post: si tiene video de YouTube, manda el video (y su
+// miniatura sirve de imagen para redes y buscadores cuando no hay imagen).
+function portada(post: { imagen_url: string | null; video_url: string | null }) {
+  const videoId = post.video_url ? extraerIdYoutube(post.video_url) : null;
+  return { videoId, imagen: post.imagen_url ?? (videoId ? miniaturaYoutube(videoId) : null) };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -33,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     descripcion: post.resumen ?? post.titulo,
     ruta: `/blog/${slug}`,
     tipo: "article",
-    imagen: post.imagen_url,
+    imagen: portada(post).imagen,
   });
 }
 
@@ -43,6 +51,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   if (!post) notFound();
 
   const url = `${URL_SITIO}/blog/${slug}`;
+  const { videoId, imagen } = portada(post);
   const servicio = servicioRelacionado(post.titulo, post.contenido);
   const datos = {
     "@context": "https://schema.org",
@@ -52,7 +61,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         "@id": `${url}#articulo`,
         headline: post.titulo,
         description: post.resumen ?? undefined,
-        image: post.imagen_url ?? undefined,
+        image: imagen ?? undefined,
         datePublished: post.publicado_en ?? undefined,
         dateModified: post.updated_at ?? post.publicado_en ?? undefined,
         mainEntityOfPage: url,
@@ -93,7 +102,19 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </p>
       )}
 
-      {post.imagen_url && (
+      {videoId ? (
+        <div className="relative mt-6 aspect-video overflow-hidden rounded-2xl border border-[var(--color-borde)] bg-black">
+          <iframe
+            src={embedYoutube(videoId)}
+            title={post.titulo}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full"
+          />
+        </div>
+      ) : post.imagen_url && (
         <div className="relative mt-6 aspect-video overflow-hidden rounded-2xl bg-[var(--color-bg-elevada)]">
           <Image src={post.imagen_url} alt={post.titulo} fill className="object-cover" />
         </div>

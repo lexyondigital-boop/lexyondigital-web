@@ -5,6 +5,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { CALIDADES_IMAGEN, type CalidadImagen } from "@/lib/ia-opciones";
 import { obtenerSesionAdmin } from "@/lib/session";
+import { leerVideoPortada } from "@/lib/youtube";
 
 type Resultado = { error: string } | undefined;
 
@@ -145,8 +146,10 @@ export async function crearPost(_prevState: Resultado, formData: FormData): Prom
   const contenido = String(formData.get("contenido") ?? "").trim();
   const publicado = formData.get("publicado") === "on";
   const archivo = formData.get("imagen") as File | null;
+  const video = leerVideoPortada(formData.get("video_url"));
 
   if (!titulo || !contenido) return { error: "Falta título o contenido." };
+  if ("error" in video) return video;
 
   let imagen_url: string | null = null;
   if (archivo && archivo.size > 0) {
@@ -163,6 +166,7 @@ export async function crearPost(_prevState: Resultado, formData: FormData): Prom
       contenido,
       publicado,
       imagen_url,
+      video_url: video.video_url,
       slug: slugificar(titulo),
       publicado_en: publicado ? new Date().toISOString() : null,
     })
@@ -183,12 +187,14 @@ export async function actualizarPost(id: string, _prevState: Resultado, formData
   const contenido = String(formData.get("contenido") ?? "").trim();
   const publicado = formData.get("publicado") === "on";
   const archivo = formData.get("imagen") as File | null;
+  const video = leerVideoPortada(formData.get("video_url"));
 
   if (!titulo || !contenido) return { error: "Falta título o contenido." };
+  if ("error" in video) return video;
 
   const { data: actual } = await supabase.from("blog_posts").select("publicado, publicado_en").eq("id", id).maybeSingle();
 
-  const patch: Record<string, unknown> = { titulo, resumen, contenido, publicado };
+  const patch: Record<string, unknown> = { titulo, resumen, contenido, publicado, video_url: video.video_url };
 
   // Fija publicado_en la primera vez que se publica; no se vuelve a mover si
   // ya tenía fecha (editar un post publicado no debe brincarlo al tope del

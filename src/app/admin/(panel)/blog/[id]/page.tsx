@@ -20,7 +20,7 @@ export default async function EditarPostPage({
 
   const { data: post } = await supabase
     .from("blog_posts")
-    .select("id, slug, titulo, resumen, contenido, publicado, imagen_url, imagen_prompt_sugerido")
+    .select("id, slug, titulo, resumen, contenido, publicado, imagen_url, video_url, imagen_prompt_sugerido")
     .eq("id", id)
     .maybeSingle();
 
